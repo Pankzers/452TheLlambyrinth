@@ -18,7 +18,6 @@ gEngine.Core.inheritPrototype(MyGame, Scene);
 
 
 MyGame.prototype.loadScene = function () {
-    gEngine.Textures.loadTexture(this.kUIButton);
 };
 
 MyGame.prototype.unloadScene = function () {
