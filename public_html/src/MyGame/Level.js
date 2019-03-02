@@ -14,13 +14,18 @@
 function Level() {  
     this.kMaze_sprite = "assets/maze_sprite.png";
     
-    // The camera to view the scene
+    // The cameras to view the level
     this.mCamera = null;
-
+    this.mMinimap = null;
     
-    this.mLever = null;
-    this.mButton = null;
+    // The Player Character
+    this.mHero = null;
+    // The Objects within the Level.
+    this.mLeverSet = null;
+    this.mButtonSet = null;
+    this.mDoorSet = null;
     this.mSprite = null;
+    this.mExit = null;
     
 }
 gEngine.Core.inheritPrototype(Level, Scene);
@@ -44,25 +49,27 @@ Level.prototype.initialize = function () {
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
     
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
-    this.mLever = new Lever(this.kMaze_sprite);
-    this.mButton = new PushButton(this.kMaze_sprite);
+    this.mLeverSet = new Lever(this.kMaze_sprite);
+    this.mButtonSet = new PushButton(this.kMaze_sprite);
     this.mSprite = new Sprite();
     
 };
 
 Level.prototype.draw = function () {
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
-
-    this.mCamera.setupViewProjection();
-//    this.mLever.draw(this.mCamera);
-//    this.mButton.draw(this.mCamera);
-//    this.mSprite.draw(this.mCamera);
+    this.drawCamera(this.mCamera);
     
 };
+Level.prototype.drawCamera = function(camera) {
+    camera.setupViewProjection();
+//    this.mLeverSet.draw(this.mCamera);
+//    this.mButtonSet.draw(this.mCamera);
+//    this.mSprite.draw(this.mCamera);
+}
 
 Level.prototype.update = function () {
-    this.mLever.update();
-    this.mButton.update(this.mCamera);
+    this.mLeverSet.update();
+    this.mButtonSet.update(this.mCamera);
     this.mSprite.update();
     
 };
