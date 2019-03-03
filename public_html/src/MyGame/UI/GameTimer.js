@@ -15,7 +15,6 @@ function GameTimer(startTime) {
 }
 
 GameTimer.prototype.update = function() {
-    console.log(this);
     var elapsedTime = gEngine.GameLoop.getElapsedTime();
     this.mCurrentTime -= elapsedTime;
     var sec = Math.floor(this.mCurrentTime/1000-Math.floor(this.mCurrentTime/60000)*60);
