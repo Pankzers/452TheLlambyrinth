@@ -112,10 +112,13 @@ gEngine.GameLoop = (function () {
         return kFrameTime;
     };
     
+    var getElapsedTime = function () { return mElapsedTime;};
+    
     var mPublic = {
         start: start,
         stop: stop,
-        getUpdateIntervalInSeconds: getUpdateIntervalInSeconds
+        getUpdateIntervalInSeconds: getUpdateIntervalInSeconds,
+        getElapsedTime: getElapsedTime
     };
     return mPublic;
 }());

@@ -20,6 +20,7 @@ function Level() {
     // The cameras to view the level
     this.mCamera = null;
     this.mMinimap = null;
+    this.mGameTimer = null;
     
     // The Player Character
     this.mHero = null;
@@ -51,19 +52,26 @@ Level.prototype.unloadScene = function () {
 };
 
 Level.prototype.initialize = function () {
+    //Get the Scene Info
     var sceneInfo = gEngine.ResourceMap.retrieveAsset(this.kSceneFile);
+    //Create the cameras
     this.mCamera = new Camera(
     sceneInfo.Camera.Center,
     sceneInfo.Camera.Width,
     sceneInfo.Camera.Viewport
     );
     this.mCamera.setBackgroundColor(sceneInfo.Camera.BgColor);
+    
+    //Create the UI Elements
+    this.mGameTimer = new GameTimer(sceneInfo.GameTimer.time);
+    
+    //Create the walls
     this.mWallSet = new WallSet(this.kWall_Tex,this.kWall_Tex);
     for(var i = 0; i < sceneInfo.Wall.length; i++) {
         this.mWallSet.addWall(sceneInfo.Wall[i].Pos[0],sceneInfo.Wall[i].Pos[1],sceneInfo.Wall[i].Orientation)
     }
-    //this.mWallSet.addWall(50,40,0);
     
+    //Setup the GameObjects
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     this.mLeverSet = new Lever(this.kMaze_sprite);
     this.mButtonSet = new PushButton(this.kMaze_sprite);
@@ -77,15 +85,26 @@ Level.prototype.draw = function () {
     
 };
 Level.prototype.drawCamera = function(camera) {
+    //Setup the camera
     camera.setupViewProjection();
+    
+    //Draw the map
     //this.mFloor.draw(camera);
     this.mWallSet.draw(camera);
+    
+    //Draw the objects
     this.mLeverSet.draw(camera);
     this.mButtonSet.draw(camera);
     this.mSprite.draw(camera);
+    
+    //Draw the UI
+    this.mGameTimer.draw(camera);
 };
 
 Level.prototype.update = function () {
+    //Update the UI
+    this.mGameTimer.update();
+    //Update the objects
     this.mLeverSet.update();
     this.mButtonSet.update(this.mCamera);
     this.mSprite.update();
