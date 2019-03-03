@@ -1,0 +1,128 @@
+
+{
+    "_comment": "reference: http://www.json.org/",
+    "_comment": "example JSON files: http://json.org/example.html",
+    "_comment": "simple parsing example: http://www.w3schools.com/json/json_http.asp",
+    
+    "Camera": {
+        "Center": [50, 40],
+        "Width": 100,
+        "Viewport": [0, 0, 800, 600],
+        "BgColor": [0.8, 0.8, 0.8, 1.0]
+    },
+    "Wall": [
+        {
+            "Pos": [5, 60],
+            "Orientation": 0
+        },
+        {
+            "Pos": [15, 60],
+            "Orientation": 1
+        },
+        {
+            "Pos": [25, 60],
+            "Orientation": 2
+        },
+        {
+            "Pos": [35, 60],
+            "Orientation": 3
+        },
+        {
+            "Pos": [45, 60],
+            "Orientation": 4
+        },
+        {
+            "Pos": [55, 60],
+            "Orientation": 5
+        },
+        {
+            "Pos": [65, 60],
+            "Orientation": 6
+        },
+        {
+            "Pos": [75, 60],
+            "Orientation": 7
+        },
+        {
+            "Pos": [85, 60],
+            "Orientation": 8
+        },
+        {
+            "Pos": [5, 70],
+            "Orientation": 9
+        },
+        {
+            "Pos": [15, 70],
+            "Orientation": 10
+        },
+        {
+            "Pos": [25, 70],
+            "Orientation": 11
+        },
+        {
+            "Pos": [35, 70],
+            "Orientation": 12
+        },
+        {
+            "Pos": [45, 70],
+            "Orientation": 13
+        },
+        {
+            "Pos": [55, 70],
+            "Orientation": 14
+        },
+        {
+            "Pos": [65, 70],
+            "Orientation": 15
+        },
+        {
+            "Pos": [60, 30],
+            "Orientation": 3
+        },
+        {
+            "Pos": [60, 20],
+            "Orientation": 14
+        },
+        {
+            "Pos": [60, 10],
+            "Orientation": 4
+        },
+        {
+            "Pos": [70, 30],
+            "Orientation": 3
+        },
+        {
+            "Pos": [70, 20],
+            "Orientation": 13
+        },
+        {
+            "Pos": [70, 10],
+            "Orientation": 4
+        },
+        {
+            "Pos": [80, 30],
+            "Orientation": 0
+        },
+        {
+            "Pos": [80, 20],
+            "Orientation": 3
+        },
+        {
+            "Pos": [80, 10],
+            "Orientation": 4
+        },
+        {
+            "Pos": [90, 30],
+            "Orientation": 3
+        },
+        {
+            "Pos": [90, 20],
+            "Orientation": 4
+        },
+        {
+            "Pos": [90, 10],
+            "Orientation": 0
+        }
+        
+    ]
+}

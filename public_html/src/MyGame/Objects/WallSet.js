@@ -18,8 +18,8 @@ function WallSet(wallSprite,wallNormal) {
 gEngine.Core.inheritPrototype(WallSet, GameObjectSet);
 
 
-WallSet.prototype.addWall = function (x,y) {
-   var wall = new Wall(x,y,this.mWallSprite,this.mWallNormal);  
+WallSet.prototype.addWall = function (x,y,orientation) {
+   var wall = new Wall(x,y,this.mWallSprite,this.mWallNormal,orientation);  
    this.addToSet(wall);
 };
 

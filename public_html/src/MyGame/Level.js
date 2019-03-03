@@ -15,6 +15,7 @@ function Level() {
     this.kMaze_sprite = "assets/maze_sprite.png";
     this.kWall_Tex = "assets/wall_sprite_sheet.png";
     this.kFloor_Tex = "assets/floor_tex.jpg";
+    this.kSceneFile = "assets/scene.json";
     
     // The cameras to view the level
     this.mCamera = null;
@@ -39,6 +40,7 @@ Level.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kMaze_sprite);
     gEngine.Textures.loadTexture(this.kWall_Tex);
     gEngine.Textures.loadTexture(this.kFloor_Tex);
+    gEngine.TextFileLoader.loadTextFile(this.kSceneFile, gEngine.TextFileLoader.eTextFileType.eJSONFile);
 };
 
 Level.prototype.unloadScene = function () {
@@ -49,14 +51,18 @@ Level.prototype.unloadScene = function () {
 };
 
 Level.prototype.initialize = function () {
+    var sceneInfo = gEngine.ResourceMap.retrieveAsset(this.kSceneFile);
     this.mCamera = new Camera(
-        vec2.fromValues(50, 40), // position of the camera
-        100,                     // width of camera
-        [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
+    sceneInfo.Camera.Center,
+    sceneInfo.Camera.Width,
+    sceneInfo.Camera.Viewport
     );
-    this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+    this.mCamera.setBackgroundColor(sceneInfo.Camera.BgColor);
     this.mWallSet = new WallSet(this.kWall_Tex,this.kWall_Tex);
-    this.mWallSet.addWall(50,40);
+    for(var i = 0; i < sceneInfo.Wall.length; i++) {
+        this.mWallSet.addWall(sceneInfo.Wall[i].Pos[0],sceneInfo.Wall[i].Pos[1],sceneInfo.Wall[i].Orientation)
+    }
+    //this.mWallSet.addWall(50,40,0);
     
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     this.mLeverSet = new Lever(this.kMaze_sprite);
