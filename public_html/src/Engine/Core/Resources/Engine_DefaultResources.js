@@ -92,7 +92,7 @@ gEngine.DefaultResources = (function () {
     var fireParticleTexture = "assets/ParticleSystem/flameparticle.png";
     var smokeParticleTexture = "assets/ParticleSystem/smokeparticle.png";
     var snowParticleTexture = "assets/ParticleSystem/snowparticle.png";
-    
+       
     // UI
     var UIRadarButtonTexture = "assets/UI/radarbutton.png";
     var UIDropDownArrow = "assets/UI/ddarrow.png";

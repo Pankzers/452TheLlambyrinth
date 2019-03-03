@@ -5,12 +5,12 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 //+128 px
-function PushButton(spriteTexture) {
+function PushButton(spriteTexture, x, y, w, h) {
     
-    this.mButton = new SpriteAnimateRenderable(spriteTexture);
+    this.mButton = new SpriteAnimateRenderable(spriteTexture, x, y, w,h);
     this.mButton.setColor([1, 1, 1, 0]);
-    this.mButton.getXform().setPosition(70, 45);
-    this.mButton.getXform().setSize(8, 8);
+    this.mButton.getXform().setPosition(x, y);
+    this.mButton.getXform().setSize(w, h);
     this.mButton.setElementPixelPositions(0, 128, 384, 512);  
     this.posNoPush = [0, 128, 384, 512];
     this.posPush = [128, 256, 384, 512];
@@ -33,11 +33,11 @@ PushButton.prototype.resetButton = function() {
 
 //test pushing button when clicking 2 or 3 
 PushButton.prototype.update = function() {
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Two)) {
-        this.pushButtom()();
-    } 
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Three)) {
-        this.resetButton()();
+        this.pushButtom();
+    } 
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Four)) {
+        this.resetButton();
     } 
  
 };
@@ -46,4 +46,20 @@ PushButton.prototype.draw = function(aCamera) {
     this.mButton.draw(aCamera);
 };
 
+//set lever to rotate 0 degrees 
+PushButton.prototype.set0 = function() {
+    this.mButton.getXform().incRotationByDegree(0);
+};
+//set lever to rotate 90 degrees 
+PushButton.prototype.set90 = function() {
+    this.mButton.getXform().incRotationByDegree(90);
+};
+//set lever to rotate 180 degrees 
+PushButton.prototype.set180 = function() {
+    this.mButton.getXform().incRotationByDegree(180);
+};
+//set lever to rotate 270 degrees 
+PushButton.prototype.set270 = function() {
+    this.mButton.getXform().incRotationByDegree(270);
+};
 

@@ -13,14 +13,15 @@
 
 function Level() {  
     this.kMaze_sprite = "assets/maze_sprite.png";
+    this.kWall = "assets/RigidShape/wall.png";
     
     // The camera to view the scene
     this.mCamera = null;
 
-    
-    this.mLever = null;
-    this.mButton = null;
+    this.mDoorsContrapsion = null;
+    this.mLeverSet = null;
     this.mSprite = null;
+    this.mExit = null;
     
 }
 gEngine.Core.inheritPrototype(Level, Scene);
@@ -28,10 +29,12 @@ gEngine.Core.inheritPrototype(Level, Scene);
 
 Level.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kMaze_sprite);
+    gEngine.Textures.loadTexture(this.kWall);
 };
 
 Level.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kMaze_sprite);
+    gEngine.Textures.unloadTexture(this.kWall);
     
 };
 
@@ -44,9 +47,10 @@ Level.prototype.initialize = function () {
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
     
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
-    this.mLever = new Lever(this.kMaze_sprite);
-    this.mButton = new PushButton(this.kMaze_sprite);
+    this.mLeverSet = new LeverSet(this.kMaze_sprite);
     this.mSprite = new Sprite();
+    this.mExit = new Exit(this.kMaze_sprite);
+    this.mDoorsContrapsion = new DoorsContrapsion(this.kMaze_sprite, this.kWall);
     
 };
 
@@ -54,15 +58,19 @@ Level.prototype.draw = function () {
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
 
     this.mCamera.setupViewProjection();
-//    this.mLever.draw(this.mCamera);
-//    this.mButton.draw(this.mCamera);
-//    this.mSprite.draw(this.mCamera);
+    this.mLeverSet.draw(this.mCamera);
+    this.mSprite.draw(this.mCamera);
+    this.mExit.draw(this.mCamera);
+    this.mDoorsContrapsion.draw(this.mCamera);
     
 };
 
 Level.prototype.update = function () {
-    this.mLever.update();
-    this.mButton.update(this.mCamera);
-    this.mSprite.update();
-    
+    var keys = [false, false, false, false];    //user moves up, down, left, right comes from hero
+    var hero = null;
+    this.mLeverSet.update();
+    this.mSprite.update(hero, keys);
+    this.mExit.update();
+    this.mDoorsContrapsion.update(hero);
+  
 };

@@ -47,6 +47,15 @@ function ParticleSystem(texture, xPos, yPos, width, yAcceleration, life, xVeloci
 }
 
 /**
+ * return particle objects
+ * @memberOf ParticleSystem
+ */
+ParticleSystem.prototype.getParticles = function(){
+    return this.mAllParticles;
+};
+
+
+/**
  * Increase the width of the ParticleSystem object
  * @param {float} inc how much to increment by
  * @memberOf ParticleSystem
@@ -54,6 +63,7 @@ function ParticleSystem(texture, xPos, yPos, width, yAcceleration, life, xVeloci
 ParticleSystem.prototype.incWidth = function(inc){
     this.width+=inc;
 };
+
 
 /**
  * Increase the yOffset of the particles
@@ -487,5 +497,6 @@ ParticleSystem.prototype.createParticle = function(atX,atY) {
     // size delta
     p.setSizeDelta(1-(this.flicker*.005));
     p.getParticle().setAcceleration([this.xAcceleration*5, this.yMultiplier*this.yAcceleration*5]);
+   // p.getParticle((0.05);
     return p;
 };
