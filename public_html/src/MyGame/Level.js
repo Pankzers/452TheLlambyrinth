@@ -106,10 +106,6 @@ Level.prototype.initialize = function () {
 
 Level.prototype.draw = function () {
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
-
-
-
-
     this.drawCamera(this.mCamera);
     
 };
@@ -137,10 +133,10 @@ Level.prototype.update = function () {
     //Update the UI
     this.mGameTimer.update();
     //Update the objects
-        var keys = [false, false, false, false];    //user moves up, down, left, right comes from hero
+    var keys = [false, false, false, false];    //user moves up, down, left, right comes from hero
     var hero = null;
     this.mLeverSet.update();
-    this.mSprite.update(hero, keys);
+    this.mSprite.update(this.mHero, keys);
     this.mExit.update();
     this.mDoorsContrapsion.update(hero);
 };

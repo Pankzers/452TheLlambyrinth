@@ -28,6 +28,7 @@ DoorsContrapsion.prototype.update = function(hero) {
 //        var button = this.mButtons.getObjectAt(i);
 //        if (hero.pixelTouches(button, []) && gEngine.Input.isKeyClicked(gEngine.Input.keys.Space))  
 //        {
+//            button.pushButton();
 //            door.setVisibility(false);  //remove door 
 //        }
 //    }

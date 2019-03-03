@@ -45,7 +45,7 @@ gEngine.Core.inheritPrototype(Sprite,ParticleGameObject);
 
 Sprite.prototype.update = function(hero, keys) {
 
-//    var pos = hero.getXform().getPosition();   //position of object
+    var pos = hero.getXform().getPosition();   //position of object
 //    //up down left right 
 //    if (keys[0] === true)
 //        this.setParticleBelow(pos);
@@ -59,28 +59,29 @@ Sprite.prototype.update = function(hero, keys) {
 //        this.setPosition(pos[0]+1, pos[1]);
     
     //calculate distance from object and hero
-//    var Xdistance = Math.abs(pos[0]- this.getPosition()[0]);
-//    var Ydistance = Math.abs(pos[1]- this.getPosition()[1]);
-//   if (Xdistance < 10 || Ydistance < 10)
-//   {
-//       this.mSprite.setFinalColor([1,0,0,1]);       //change color when close to object
-//       this.mSprite.setStartColor([3.5,.4,.3,.6]);
-//       //Collision slows down the game too much
-////         for (var i = 0; i < this.mSprite.getParticles().size(); i++)
-////       {
-////           var particle = this.mSprite.getParticles().getObjectAt(i);
-////           var h = [];
-////           if (lever.pixelTouches(particle, h))
-////           {
-////               console.log("Game Over");
-////           }
-////       }
-//   }
-//   else
-//   {
-//       this.mSprite.setFinalColor([.4,3.5,.3,.6]);
-//       this.mSprite.setStartColor([0,0,3,0]);
-//   }
+    var Xdistance = Math.abs(pos[0]- this.getPosition()[0]);
+    var Ydistance = Math.abs(pos[1]- this.getPosition()[1]);
+   if (Xdistance < 10 || Ydistance < 10)
+   {
+       this.mSprite.setFinalColor([1,0,0,1]);       //change color when close to object
+       this.mSprite.setStartColor([3.5,.4,.3,.6]);
+       //Collision slows down the game too much
+//         for (var i = 0; i < this.mSprite.getParticles().size(); i++)
+//       {
+//           var particle = this.mSprite.getParticles().getObjectAt(i);
+//           var h = [];
+//           if (lever.pixelTouches(particle, h))
+//           {
+//               console.log("Game Over");
+//           }
+//       }
+   }
+   else
+   {
+       this.mSprite.setFinalColor([.4,3.5,.3,.6]);
+       this.mSprite.setStartColor([0,0,3,0]);
+   }
+   this.setPosition(pos[0], pos[1]);
    this.mCenter.updateInterpolation();
    this.mSprite.update();
 };
