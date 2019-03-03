@@ -13,6 +13,8 @@
 
 function Level() {  
     this.kMaze_sprite = "assets/maze_sprite.png";
+    this.kWall_Tex = "assets/wall_sprite_sheet.png";
+    this.kFloor_Tex = "assets/floor_tex.jpg";
     
     // The cameras to view the level
     this.mCamera = null;
@@ -26,6 +28,8 @@ function Level() {
     this.mDoorSet = null;
     this.mSprite = null;
     this.mExit = null;
+    this.mWallSet = null;
+    this.mFloor = null;
     
 }
 gEngine.Core.inheritPrototype(Level, Scene);
@@ -33,10 +37,14 @@ gEngine.Core.inheritPrototype(Level, Scene);
 
 Level.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kMaze_sprite);
+    gEngine.Textures.loadTexture(this.kWall_Tex);
+    gEngine.Textures.loadTexture(this.kFloor_Tex);
 };
 
 Level.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kMaze_sprite);
+    gEngine.Textures.unloadTexture(this.kWall_Tex);
+    gEngine.Textures.unloadTexture(this.kFloor_Tex);
     
 };
 
@@ -47,6 +55,8 @@ Level.prototype.initialize = function () {
         [0, 0, 800, 600]         // viewport (orgX, orgY, width, height)
     );
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+    this.mWallSet = new WallSet(this.kWall_Tex,this.kWall_Tex);
+    this.mWallSet.addWall(50,40);
     
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     this.mLeverSet = new Lever(this.kMaze_sprite);
@@ -62,10 +72,12 @@ Level.prototype.draw = function () {
 };
 Level.prototype.drawCamera = function(camera) {
     camera.setupViewProjection();
-//    this.mLeverSet.draw(this.mCamera);
-//    this.mButtonSet.draw(this.mCamera);
-//    this.mSprite.draw(this.mCamera);
-}
+    //this.mFloor.draw(camera);
+    this.mWallSet.draw(camera);
+    this.mLeverSet.draw(camera);
+    this.mButtonSet.draw(camera);
+    this.mSprite.draw(camera);
+};
 
 Level.prototype.update = function () {
     this.mLeverSet.update();
