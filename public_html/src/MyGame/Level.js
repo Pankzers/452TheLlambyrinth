@@ -80,10 +80,11 @@ Level.prototype.initialize = function () {
     this.mButtonSet = new PushButton(this.kMaze_sprite);
     this.mSprite = new Sprite();
       //this.mHero = new Hero(this.hero_Tex);
-    this.mHero = new TextureRenderable(this.hero_Tex);
-    //this.mHero.setColor([1, 1, 1, 0]);
+    this.mHero = new IllumRenderable(this.hero_Tex,this.hero_Tex);
+    this.mHero.setColor([1, 1, 1, 0]);
     this.mHero.getXform().setPosition(40, 40);
     this.mHero.getXform().setSize(9, 12);
+    this.mHero.setElementPixelPositions(0,2049,0,2400);
 };
 
 Level.prototype.draw = function () {
