@@ -16,6 +16,7 @@ function Level() {
     this.kWall_Tex = "assets/wall_sprite_sheet.png";
     this.kFloor_Tex = "assets/floor_tex.jpg";
     this.kSceneFile = "assets/scene.json";
+    this.hero_Tex = "assets/llama.png";
     
     // The cameras to view the level
     this.mCamera = null;
@@ -42,12 +43,14 @@ Level.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kWall_Tex);
     gEngine.Textures.loadTexture(this.kFloor_Tex);
     gEngine.TextFileLoader.loadTextFile(this.kSceneFile, gEngine.TextFileLoader.eTextFileType.eJSONFile);
+    gEngine.Textures.loadTexture(this.hero_Tex);
 };
 
 Level.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kMaze_sprite);
     gEngine.Textures.unloadTexture(this.kWall_Tex);
     gEngine.Textures.unloadTexture(this.kFloor_Tex);
+    gEngine.Textures.unloadTexture(this.hero_Tex);
     
 };
 
@@ -76,7 +79,11 @@ Level.prototype.initialize = function () {
     this.mLeverSet = new Lever(this.kMaze_sprite);
     this.mButtonSet = new PushButton(this.kMaze_sprite);
     this.mSprite = new Sprite();
-    
+      //this.mHero = new Hero(this.hero_Tex);
+    this.mHero = new TextureRenderable(this.hero_Tex);
+    //this.mHero.setColor([1, 1, 1, 0]);
+    this.mHero.getXform().setPosition(40, 40);
+    this.mHero.getXform().setSize(9, 12);
 };
 
 Level.prototype.draw = function () {
@@ -99,6 +106,7 @@ Level.prototype.drawCamera = function(camera) {
     
     //Draw the UI
     this.mGameTimer.draw(camera);
+    this.mHero.draw(camera);
 };
 
 Level.prototype.update = function () {
