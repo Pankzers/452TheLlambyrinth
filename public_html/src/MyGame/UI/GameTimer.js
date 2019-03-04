@@ -26,3 +26,6 @@ GameTimer.prototype.update = function() {
 GameTimer.prototype.draw = function(aCamera) {
     this.mUIText.draw(aCamera);
 };
+GameTimer.prototype.getTime = function() {
+    return this.mCurrentTime;
+};

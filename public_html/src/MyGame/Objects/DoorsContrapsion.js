@@ -34,7 +34,6 @@ DoorsContrapsion.prototype.update = function(hero) {
     this.mButtons.update();  
 };
 
-
 DoorsContrapsion.prototype.draw = function(aCamera) {
     this.mDoors.draw(aCamera);
     this.mButtons.draw(aCamera);
