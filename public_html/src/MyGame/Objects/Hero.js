@@ -27,7 +27,7 @@ Hero.prototype.update = function (wallSet) {
         var bb = wallSet.mSet[k].getBBox();            
         var hero = this.getBBox();
         if (hero.intersectsBound(bb)) {   
-            console.log("hi");
+            //console.log("hi");
         }
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)) {
