@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-function Hero(image,mapW,mapH) {  
+function Hero(image,mapW,mapH,x,y) {  
     this.image = image;
     this.mMapH = mapH;
     this.mMapW = mapW;
     this.mHero = new IllumRenderable(this.image,this.image);
     this.mHero.setColor([1, 1, 1, 0]);
-    this.mHero.getXform().setPosition(10, 10);
+    this.mHero.getXform().setPosition(x, y);
     this.mHero.getXform().setSize(4, 4);
     this.mHero.setElementPixelPositions(0,2049,0,2400);  
     GameObject.call(this, this.mHero);  

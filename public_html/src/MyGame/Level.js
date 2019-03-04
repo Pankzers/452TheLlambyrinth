@@ -97,6 +97,7 @@ Level.prototype.initialize = function () {
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     
     this.mLeverSet = new LeverSet(this.kMaze_sprite);
+    //Create the lever
     for(var i =0; i < sceneInfo.Lever.length; i++) {
         this.mLeverSet.createLever(
         sceneInfo.Lever[i].LeverX,
@@ -107,7 +108,7 @@ Level.prototype.initialize = function () {
         );
     }
     this.mSprite = new Sprite();
-    this.mExit = new Exit(this.kMaze_sprite);
+    this.mExit = new Exit(this.kMaze_sprite,sceneInfo.Exit.exitx,sceneInfo.Exit.exity);
     this.mDoorsContrapsion = new DoorsContrapsion(this.kMaze_sprite, this.kWall);
     
     //Create the Door Pairs
@@ -125,7 +126,12 @@ Level.prototype.initialize = function () {
         sceneInfo.DoorPair[i].ButtonRot
         );
     }
-    this.mHero = new Hero(this.hero_Tex,sceneInfo.MapInfo.width,sceneInfo.MapInfo.height);
+    this.mHero = new Hero(this.hero_Tex,
+    sceneInfo.MapInfo.width,
+    sceneInfo.MapInfo.height,
+    sceneInfo.Hero.herox,
+    sceneInfo.Hero.heroy
+    );
     this.mMinimap = new Minimap();
     this.mSmallCam = this.mMinimap.getMinimap();
     //rigid Objs

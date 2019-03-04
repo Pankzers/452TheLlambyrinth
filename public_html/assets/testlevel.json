@@ -20,6 +20,14 @@
         "wally":12,
         "wallgrid":false
     },
+    "Hero": {
+        "herox": 60,
+        "heroy": 40
+    },
+    "Exit": {
+        "exitx": 95,
+        "exity": 70
+    },
     "Wall": [
         {
             "Pos": [0, 60],
