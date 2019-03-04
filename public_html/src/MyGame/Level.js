@@ -24,7 +24,7 @@ function Level() {
     
     // The cameras to view the level
     this.mCamera = null;
-
+    this.mSmallCam = null; 
 
     this.mDoorsContrapsion = null;
     this.mLeverSet = null;
@@ -97,16 +97,14 @@ Level.prototype.initialize = function () {
     
 
     this.mHero = new Hero(this.hero_Tex);
-//    this.mHero = new IllumRenderable(this.hero_Tex,this.hero_Tex);
-//    this.mHero.setColor([1, 1, 1, 0]);
-//    this.mHero.getXform().setPosition(40, 40);
-//    this.mHero.getXform().setSize(9, 12);
-//    this.mHero.setElementPixelPositions(0,2049,0,2400);
+    this.mMinimap = new Minimap();
+    this.mSmallCam = this.mMinimap.getMinimap();
 };
 
 Level.prototype.draw = function () {
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
     this.drawCamera(this.mCamera);
+    this.drawCamera(this.mSmallCam);                //set up minimap view
     
 };
 Level.prototype.drawCamera = function(camera) {
