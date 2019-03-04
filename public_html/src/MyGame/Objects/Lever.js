@@ -1,5 +1,5 @@
 /* File: Lever.js 
- *
+ * 
  * 
  */
 
@@ -34,7 +34,6 @@ Lever.prototype.resetLever = function() {
 
 
 Lever.prototype.update = function() {
-    
 };
 
 

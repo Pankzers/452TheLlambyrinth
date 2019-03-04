@@ -11,7 +11,7 @@
 
 function LeverSet(spriteTexture) {
     this.mSet = [];
-    this.kSprite = spriteTexture;
+    this.kSprite = spriteTexture; 
     this.createLever(0, 2, 5, 8, 0);
     this.createLever(72, 20, 5, 8, 270);
     this.createLever(12, 70, 5, 8, 270);
