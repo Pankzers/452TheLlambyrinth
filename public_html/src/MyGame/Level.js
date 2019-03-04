@@ -95,8 +95,17 @@ Level.prototype.initialize = function () {
     
     //Setup the GameObjects
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
-
+    
     this.mLeverSet = new LeverSet(this.kMaze_sprite);
+    for(var i =0; i < sceneInfo.Lever.length; i++) {
+        this.mLeverSet.createLever(
+        sceneInfo.Lever[i].LeverX,
+        sceneInfo.Lever[i].LeverY,
+        sceneInfo.Lever[i].LeverW,
+        sceneInfo.Lever[i].LeverH,
+        sceneInfo.Lever[i].LeverRot
+        );
+    }
     this.mSprite = new Sprite();
     this.mExit = new Exit(this.kMaze_sprite);
     this.mDoorsContrapsion = new DoorsContrapsion(this.kMaze_sprite, this.kWall);

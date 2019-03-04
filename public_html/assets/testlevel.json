@@ -176,5 +176,28 @@
             "ButtonH": 5,
             "ButtonRot": 0
         }
+    ],
+    "Lever": [
+        {
+            "LeverX": 0,
+            "LeverY": 2,
+            "LeverW": 5,
+            "LeverH": 8,
+            "LeverRot": 0
+        },
+        {
+            "LeverX": 72,
+            "LeverY": 20,
+            "LeverW": 5,
+            "LeverH": 8,
+            "LeverRot": 270
+        },
+        {
+            "LeverX": 12,
+            "LeverY": 70,
+            "LeverW": 5,
+            "LeverH": 8,
+            "LeverRot": 270
+        }
     ]
 }
