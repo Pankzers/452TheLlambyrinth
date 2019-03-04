@@ -11,14 +11,14 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Level() {  
+function Level(levelName) {  
     this.kMaze_sprite = "assets/maze_sprite.png";
 
     this.kWall = "assets/RigidShape/wall.png";
 
     this.kWall_Tex = "assets/wall_sprite_sheet.png";
     this.kFloor_Tex = "assets/floor_tex.jpg";
-    this.kSceneFile = "assets/scene.json";
+    this.kSceneFile = "assets/"+levelName+".json";
     this.hero_Tex = "assets/llama.png";
 
     
@@ -100,7 +100,22 @@ Level.prototype.initialize = function () {
     this.mSprite = new Sprite();
     this.mExit = new Exit(this.kMaze_sprite);
     this.mDoorsContrapsion = new DoorsContrapsion(this.kMaze_sprite, this.kWall);
-
+    
+    //Create the Door Pairs
+    for(var i =0; i < sceneInfo.DoorPair.length; i++) {
+        this.mDoorsContrapsion.addPair(
+        sceneInfo.DoorPair[i].DoorX,
+        sceneInfo.DoorPair[i].DoorY,
+        sceneInfo.DoorPair[i].DoorW,
+        sceneInfo.DoorPair[i].DoorH,
+        sceneInfo.DoorPair[i].DoorRot,
+        sceneInfo.DoorPair[i].ButtonX,
+        sceneInfo.DoorPair[i].ButtonY,
+        sceneInfo.DoorPair[i].ButtonW,
+        sceneInfo.DoorPair[i].ButtonH,
+        sceneInfo.DoorPair[i].ButtonRot
+        );
+    }
     this.mHero = new Hero(this.hero_Tex,sceneInfo.MapInfo.width,sceneInfo.MapInfo.height);
     this.mMinimap = new Minimap();
     this.mSmallCam = this.mMinimap.getMinimap();

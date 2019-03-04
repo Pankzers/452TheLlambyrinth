@@ -138,5 +138,43 @@
             "Orientation": 0
         }
         
+    ],
+    "DoorPair": [
+        {
+            "DoorX": 75,
+            "DoorY": 65,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 90,
+            "ButtonX": 70,
+            "ButtonY": 55.5,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 180
+        },
+        {
+            "DoorX": 35,
+            "DoorY": 60,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 90,
+            "ButtonX": 40,
+            "ButtonY": 55.5,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 180
+        },
+        {
+            "DoorX": 75,
+            "DoorY": 30,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 90,
+            "ButtonX": 70,
+            "ButtonY": 34.5,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 0
+        }
     ]
 }

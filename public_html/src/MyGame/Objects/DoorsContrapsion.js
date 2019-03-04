@@ -15,9 +15,9 @@ function DoorsContrapsion(buttonTexture, doorTexture, obj) {
     this.mDoors = new DoorSet(doorTexture);
     this.mButtons = new PushButtonSet(buttonTexture);
     //door x, y, w, h, r button x, y, w, h, r
-    this.addPair(75, 65, 1, 6, 90, 70, 55.5, 5, 5, 180, obj);
-    this.addPair(35, 60, 1, 6, 90, 40, 55.5, 5, 5, 180, obj);
-    this.addPair(75, 30, 1, 6, 90, 70, 34.5, 5, 5, 0, obj);
+    //this.addPair(75, 65, 1, 6, 90, 70, 55.5, 5, 5, 180, obj);
+    //this.addPair(35, 60, 1, 6, 90, 40, 55.5, 5, 5, 180, obj);
+    //this.addPair(75, 30, 1, 6, 90, 70, 34.5, 5, 5, 0, obj);
     
 }
 
