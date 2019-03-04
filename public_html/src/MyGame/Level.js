@@ -107,7 +107,7 @@ Level.prototype.initialize = function () {
         sceneInfo.Lever[i].LeverRot
         );
     }
-    this.mSprite = new Sprite();
+    this.mSprite = new Sprite(sceneInfo.Sprite.spritex,sceneInfo.Sprite.spritey);
     this.mExit = new Exit(this.kMaze_sprite,sceneInfo.Exit.exitx,sceneInfo.Exit.exity);
     this.mDoorsContrapsion = new DoorsContrapsion(this.kMaze_sprite, this.kWall);
     

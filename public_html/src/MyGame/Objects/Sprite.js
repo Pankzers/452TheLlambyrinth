@@ -6,13 +6,13 @@
 
 
 //STILL TESTING 
-function Sprite() {   
+function Sprite(x,y) {   
     //xPos, yPos, width, yAcceleration, life, xVelocity, yVelocity, flicker, intensity, xAcceleration, size, yOffset
     this.kCycles = 300;
     this.kRate = 0.01;
     this.dis =10;   //starting distance 
-    var xpos = 35;
-    var ypos = 13;
+    var xpos = x;
+    var ypos = y;
     var width = 0.5;
     var yAcceleration = -2;
     var life = 8;

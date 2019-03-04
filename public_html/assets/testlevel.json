@@ -24,6 +24,10 @@
         "herox": 60,
         "heroy": 40
     },
+    "Sprite": {
+        "spritex": 35,
+        "spritey": 13
+    },
     "Exit": {
         "exitx": 95,
         "exity": 70
