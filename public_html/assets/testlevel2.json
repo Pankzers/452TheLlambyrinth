@@ -1,0 +1,49 @@
+{
+    "_comment": "reference: http://www.json.org/",
+    "_comment": "example JSON files: http://json.org/example.html",
+    "_comment": "simple parsing example: http://www.w3schools.com/json/json_http.asp",
+    
+    "Camera": {
+        "Center": [5, 5],
+        "Width": 50,
+        "Viewport": [0, 0, 800, 600],
+        "BgColor": [0.40, 0.26, 0.13, 1.0]
+    },
+    "GameTimer": {
+        "time":300000 
+    },
+    "MapInfo": {
+        "width":50,
+        "height":50,
+        "wallx":6,
+        "wally":6,
+        "wallgrid":true
+    },
+    "Hero": {
+        "herox": 5,
+        "heroy": 5
+    },
+    "Sprite": {
+        "spritex": 25,
+        "spritey": 25
+    },
+    "Exit": {
+        "exitx": 45,
+        "exity": 45
+    },
+    "Wall": [
+        {
+            "Pos": [0, 0],
+            "Orientation": 8
+        }
+        
+    ],
+    "DoorPair": [
+        {
+        }
+    ],
+    "Lever": [
+        {
+        }
+    ]
+}

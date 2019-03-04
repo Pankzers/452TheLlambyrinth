@@ -5,11 +5,11 @@
  */
 
 
-function Minimap() { 
+function Minimap(mapwidth,mapheight) { 
     this.smallCam = new Camera(
-        vec2.fromValues(50, 40),            
-        100,                                 
-        [0,0,200,150]);                                    //[0, 0, 800, 600]
+        vec2.fromValues(mapwidth/2, mapheight/2),            
+        mapwidth,                                 
+        [0,0,200,200]);                                    //[0, 0, 800, 600]
     this.smallCam.setBackgroundColor([0.5, 0.26, 0.23, 1.0]);
 };
 

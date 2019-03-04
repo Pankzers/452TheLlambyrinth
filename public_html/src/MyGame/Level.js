@@ -44,6 +44,7 @@ function Level(levelName) {
     this.mFloor = null;
 
     this.GameOver = false;
+    this.mNextLoad = null;
     
 }
 gEngine.Core.inheritPrototype(Level, Scene);
@@ -69,8 +70,16 @@ Level.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.hero_Tex);
     
     //Game Over
-    var nextLevel = new GameOver();  // next level to be loaded
-    gEngine.Core.startScene(nextLevel);
+    var nextlevel = null
+    nextlevel = new GameOver();
+    if(this.mNextLoad == "lose"){
+        
+    } else if (this.mNextLoad == "win"){
+        nextlevel = new GameOver();
+    } else {
+        nextlevel = new Level(this.mNextLoad);
+    }
+    gEngine.Core.startScene(nextlevel);
 };
 
 Level.prototype.initialize = function () {
@@ -132,7 +141,7 @@ Level.prototype.initialize = function () {
     sceneInfo.Hero.herox,
     sceneInfo.Hero.heroy
     );
-    this.mMinimap = new Minimap();
+    this.mMinimap = new Minimap(sceneInfo.MapInfo.width,sceneInfo.MapInfo.height);
     this.mSmallCam = this.mMinimap.getMinimap();
     //rigid Objs
     this.addRigidObjs();
@@ -179,13 +188,21 @@ Level.prototype.update = function () {
     this.GameOver = this.mExit.update();
     this.mDoorsContrapsion.update(this.mHero);
     
-    if (this.mExit.pixelTouches(this.mHero, [])) 
+    if (this.mExit.pixelTouches(this.mHero, [])){
+        this.mNextLoad = "lose";
         gEngine.GameLoop.stop();
-    if (this.mGameTimer.getTime() <= 0)
+    }
+    if (this.mGameTimer.getTime() <= 0){
+        this.mNextLoad = "lose";
         gEngine.GameLoop.stop();
+    }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) {
         console.log(this.mWallSet);
-    } 
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.N)) {
+        this.mNextLoad = "testlevel2";
+        gEngine.GameLoop.stop();
+    }
 
     //gEngine.Physics.processCollision(this.mCollObjs, []);
 };
