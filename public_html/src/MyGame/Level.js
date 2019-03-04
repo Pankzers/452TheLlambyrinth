@@ -96,12 +96,12 @@ Level.prototype.initialize = function () {
     this.mDoorsContrapsion = new DoorsContrapsion(this.kMaze_sprite, this.kWall);
     
 
-      //this.mHero = new Hero(this.hero_Tex);
-    this.mHero = new IllumRenderable(this.hero_Tex,this.hero_Tex);
-    this.mHero.setColor([1, 1, 1, 0]);
-    this.mHero.getXform().setPosition(40, 40);
-    this.mHero.getXform().setSize(9, 12);
-    this.mHero.setElementPixelPositions(0,2049,0,2400);
+    this.mHero = new Hero(this.hero_Tex);
+//    this.mHero = new IllumRenderable(this.hero_Tex,this.hero_Tex);
+//    this.mHero.setColor([1, 1, 1, 0]);
+//    this.mHero.getXform().setPosition(40, 40);
+//    this.mHero.getXform().setSize(9, 12);
+//    this.mHero.setElementPixelPositions(0,2049,0,2400);
 };
 
 Level.prototype.draw = function () {
@@ -139,4 +139,5 @@ Level.prototype.update = function () {
     this.mSprite.update(this.mHero, keys);
     this.mExit.update();
     this.mDoorsContrapsion.update(hero);
+    this.mHero.update();
 };
