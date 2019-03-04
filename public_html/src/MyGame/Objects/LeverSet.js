@@ -28,7 +28,7 @@ LeverSet.prototype.update = function (cam, hero) {
         if (lever.pixelTouches(hero, []) && gEngine.Input.isKeyClicked(gEngine.Input.keys.Space))  
         {
             lever.pullLever();
-            cam.shake(-10, -10, 10, 100);        
+            cam.shake(-5, -5, 5, 50);        
         }
     }
 
@@ -36,9 +36,10 @@ LeverSet.prototype.update = function (cam, hero) {
 
 //draw set
 LeverSet.prototype.draw = function (aCamera) {
-    for (var i = 0; i < this.size(); i++)
-        this.getObjectAt(i).draw(aCamera);
-
+    var i;
+    for (i = 0; i < this.mSet.length; i++) {
+        this.mSet[i].draw(aCamera);
+    }
 };
 
 //draw set

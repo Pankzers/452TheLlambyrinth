@@ -124,10 +124,10 @@ Level.prototype.drawCamera = function(camera) {
     this.mWallSet.draw(camera);
     
     //Draw the objects
-    this.mLeverSet.draw(this.mCamera);
-    this.mSprite.draw(this.mCamera);
-    this.mExit.draw(this.mCamera);
-    this.mDoorsContrapsion.draw(this.mCamera);
+    this.mLeverSet.draw(camera);
+    this.mSprite.draw(camera);
+    this.mExit.draw(camera);
+    this.mDoorsContrapsion.draw(camera);
     
     //Draw the UI
     this.mGameTimer.draw(camera);
@@ -142,6 +142,7 @@ Level.prototype.update = function () {
     var heroPos = this.mHero.getXform().getPosition();
     this.mCamera.setWCCenter(heroPos[0],heroPos[1]);
     this.mCamera.update();
+    this.mSmallCam.update();
     this.mHero.update(this.mWallSet);
     this.mLeverSet.update(this.mCamera, this.mHero);
     this.mSprite.update(this.mHero);
