@@ -41,19 +41,8 @@ PushButton.prototype.draw = function(aCamera) {
 };
 
 //set lever to rotate 0 degrees 
-PushButton.prototype.set0 = function() {
-    this.mButton.getXform().incRotationByDegree(0);
+PushButton.prototype.setRot = function(rot) {
+    this.mButton.getXform().incRotationByDegree(rot);
 };
-//set lever to rotate 90 degrees 
-PushButton.prototype.set90 = function() {
-    this.mButton.getXform().incRotationByDegree(90);
-};
-//set lever to rotate 180 degrees 
-PushButton.prototype.set180 = function() {
-    this.mButton.getXform().incRotationByDegree(180);
-};
-//set lever to rotate 270 degrees 
-PushButton.prototype.set270 = function() {
-    this.mButton.getXform().incRotationByDegree(270);
-};
+
 

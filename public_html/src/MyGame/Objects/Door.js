@@ -11,19 +11,15 @@ function Door(spriteTexture, x, y, w, h) {
     xf.setPosition(x, y);
     var tempObject = new GameObject(tempDoor);
     var rigid = new RigidRectangle(xf, w, h);
-    //g.toggleDrawRigidShape();
-    //r.toggleDrawBound();
-    rigid.setRestitution(47*.75);
-    rigid.setFriction(0.01);
-    rigid.setMass(0);
     tempObject.setRigidBody(rigid);
-    xf.setSize(w, h);
-    xf.setPosition(x, y);
+    //tempObject.toggleDrawRigidShape();
+    //r.toggleDrawBound();
+    rigid.setMass(0);
     xf.setRotationInDegree(0);
     this.mDoor = tempObject;
     this.visable = true; 
-   
-    GameObject.call(this, this.door);  
+      
+    GameObject.call(this, this.mDoor);  
 }
 gEngine.Core.inheritPrototype(Door, GameObject);
 
@@ -33,6 +29,7 @@ Door.prototype.update = function() {
     if (!this.visable) {
         this.mDoor.setVisibility(false);
     }  
+    
     this.mDoor.update();
 };
  Door.prototype.setVisable = function(vis) {
@@ -41,6 +38,9 @@ Door.prototype.update = function() {
 
 Door.prototype.draw = function(aCamera) {
     this.mDoor.draw(aCamera);
+};
+Door.prototype.setRot = function(rot) {
+    this.mDoor.getXform().setRotationInDegree(rot);
 };
 
 

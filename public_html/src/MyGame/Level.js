@@ -27,6 +27,7 @@ function Level() {
     this.mSmallCam = null; 
 
     this.mDoorsContrapsion = null;
+    this.mCollObjs = new GameObjectSet();
     this.mLeverSet = null;
     this.mSprite = null;
     this.mExit = null;
@@ -103,6 +104,9 @@ Level.prototype.initialize = function () {
     this.mHero = new Hero(this.hero_Tex,sceneInfo.MapInfo.width,sceneInfo.MapInfo.height);
     this.mMinimap = new Minimap();
     this.mSmallCam = this.mMinimap.getMinimap();
+    //rigid Objs
+    this.addRigidObjs();
+    
 };
 
 Level.prototype.draw = function () {
@@ -151,4 +155,18 @@ Level.prototype.update = function () {
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) {
         console.log(this.mWallSet);
     } 
+
+    //gEngine.Physics.processCollision(this.mCollObjs, []);
+};
+//add hero and doors to set to be able to do physics 
+Level.prototype.addRigidObjs = function () {
+    if (this.mHero.setRigidBody() !== null)
+        this.mCollObjs.addToSet(this.mHero);
+    for (var i =0; i < this.mDoorsContrapsion.getDoors().size(); i++)
+    {
+        var door = this.mDoorsContrapsion.getDoors().getObjectAt(i);
+        if (door.setRigidBody() !== null)
+            this.mCollObjs.addToSet(door);
+    }
+    
 };

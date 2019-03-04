@@ -14,6 +14,11 @@ function Hero(image,mapW,mapH) {
     this.mHero.getXform().setSize(4, 4);
     this.mHero.setElementPixelPositions(0,2049,0,2400);  
     GameObject.call(this, this.mHero);  
+    //rigib body for physics 
+    var r = new RigidRectangle(this.getXform(), 4, 4);
+    this.setRigidBody(r);
+    this.toggleDrawRigidShape();
+  
 };
 gEngine.Core.inheritPrototype(Hero, GameObject);
 
@@ -62,4 +67,5 @@ Hero.prototype.update = function (wallSet) {
             }
         }
     }  
+    this.mHero.update();
 };

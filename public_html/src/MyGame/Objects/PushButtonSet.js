@@ -32,7 +32,8 @@ PushButtonSet.prototype.draw = function (aCamera) {
 };
 
 //draw set
-PushButtonSet.prototype.createButton = function ( x,y,w,h) {
+PushButtonSet.prototype.createButton = function ( x,y,w,h, r) {
     var tempButton = new PushButton(this.kSprite, x, y, w, h);
+    tempButton.setRot(r);
     this.addToSet(tempButton);
 };

@@ -43,18 +43,6 @@ Lever.prototype.draw = function(aCamera) {
 };
 
 //set lever to rotate 0 degrees 
-Lever.prototype.set0 = function() {
-    this.mLever.getXform().incRotationByDegree(0);
-};
-//set lever to rotate 90 degrees 
-Lever.prototype.set90 = function() {
-    this.mLever.getXform().incRotationByDegree(90);
-};
-//set lever to rotate 180 degrees 
-Lever.prototype.set180 = function() {
-    this.mLever.getXform().incRotationByDegree(180);
-};
-//set lever to rotate 270 degrees 
-Lever.prototype.set270 = function() {
-    this.mLever.getXform().incRotationByDegree(270);
+Lever.prototype.setRot = function(num) {
+    this.mLever.getXform().incRotationByDegree(num);
 };

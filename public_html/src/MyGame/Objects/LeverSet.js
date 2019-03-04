@@ -12,11 +12,12 @@
 function LeverSet(spriteTexture) {
     this.mSet = [];
     this.kSprite = spriteTexture;
-    this.createLever(50, 40, 5, 8);
+    this.createLever(0, 2, 5, 8, 0);
+    this.createLever(72, 20, 5, 8, 270);
+    this.createLever(12, 70, 5, 8, 270);
    GameObject.call(this, this.mSet);
 }
 gEngine.Core.inheritPrototype(LeverSet, GameObjectSet);
-
 //update set
 LeverSet.prototype.update = function (cam, hero) {
     for (var i = 0; i < this.size(); i++)
@@ -41,8 +42,9 @@ LeverSet.prototype.draw = function (aCamera) {
 };
 
 //draw set
-LeverSet.prototype.createLever = function ( x,y,w,h) {
+LeverSet.prototype.createLever = function ( x,y,w,h, r) {
     var tempLever = new Lever(this.kSprite, x, y, w, h);
+    tempLever.setRot(r);
     this.addToSet(tempLever);
 };
 

@@ -11,10 +11,13 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 //+128 px
-function DoorsContrapsion(buttonTexture, doorTexture) {
+function DoorsContrapsion(buttonTexture, doorTexture, obj) {
     this.mDoors = new DoorSet(doorTexture);
     this.mButtons = new PushButtonSet(buttonTexture);
-    this.addPair(30, 20, 1, 5, 70, 45, 5, 5);
+    //door x, y, w, h, r button x, y, w, h, r
+    this.addPair(75, 65, 1, 6, 90, 70, 55.5, 5, 5, 180, obj);
+    this.addPair(35, 60, 1, 6, 90, 40, 55.5, 5, 5, 180, obj);
+    this.addPair(75, 30, 1, 6, 90, 70, 34.5, 5, 5, 0, obj);
     
 }
 
@@ -30,7 +33,7 @@ DoorsContrapsion.prototype.update = function(hero) {
             this.mDoors.getObjectAt(i).setVisable(false);  //remove door            
         }
     }
-    this.mDoors.update();
+    this.mDoors.update(hero);
     this.mButtons.update();  
 };
 
@@ -39,8 +42,11 @@ DoorsContrapsion.prototype.draw = function(aCamera) {
     this.mButtons.draw(aCamera);
 };
 
-DoorsContrapsion.prototype.addPair = function(dX, dY, dW, dH, bX, bY, bW, bH) {
-    this.mDoors.createDoor(dX, dY, dW, dH);
-    this.mButtons.createButton(bX, bY, bW, bH);
+DoorsContrapsion.prototype.addPair = function(dX, dY, dW, dH, dR, bX, bY, bW, bH, bR, obj) {
+    this.mDoors.createDoor(dX, dY, dW, dH, dR, obj);
+    this.mButtons.createButton(bX, bY, bW, bH, bR);
 };
 
+DoorsContrapsion.prototype.getDoors = function() {
+    return this.mDoors;
+};
