@@ -42,5 +42,15 @@ Door.prototype.draw = function(aCamera) {
 Door.prototype.setRot = function(rot) {
     this.mDoor.getXform().setRotationInDegree(rot);
 };
+Door.prototype.getBBox = function() {
+    var b = null;
+    var xform = this.getXform();
+    if (xform.getRotationInDegree() / 90 === 1 || xform.getRotationInDegree() / 90 === -1) {
+        b = new BoundingBox(xform.getPosition(), xform.getHeight(), xform.getWidth());
+    } else {
+        b = new BoundingBox(xform.getPosition(), xform.getWidth(), xform.getHeight());
+    }
+    return b;
+}
 
 

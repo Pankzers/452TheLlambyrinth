@@ -88,7 +88,7 @@ Level.prototype.initialize = function () {
     this.mGameTimer = new GameTimer(sceneInfo.GameTimer.time);
     
     //Create the walls
-    this.mWallSet = new WallSet(this.kWall_Tex,this.kWall_Tex);
+    this.mWallSet = new WallSet(this.kWall_Tex,this.kWall_Tex,sceneInfo.MapInfo.wallx,sceneInfo.MapInfo.wally,sceneInfo.MapInfo.wallgrid);
     for(var i = 0; i < sceneInfo.Wall.length; i++) {
         this.mWallSet.addWall(sceneInfo.Wall[i].Pos[0],sceneInfo.Wall[i].Pos[1],sceneInfo.Wall[i].Orientation);
     }
@@ -143,7 +143,7 @@ Level.prototype.update = function () {
     this.mCamera.setWCCenter(heroPos[0],heroPos[1]);
     this.mCamera.update();
     this.mSmallCam.update();
-    this.mHero.update(this.mWallSet);
+    this.mHero.update(this.mWallSet,this.mDoorsContrapsion);
     this.mLeverSet.update(this.mCamera, this.mHero);
     this.mSprite.update(this.mHero);
     this.GameOver = this.mExit.update();
