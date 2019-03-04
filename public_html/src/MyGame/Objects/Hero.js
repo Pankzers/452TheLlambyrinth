@@ -8,8 +8,8 @@ function Hero(image) {
     this.image = image;
     this.mHero = new IllumRenderable(this.image,this.image);
     this.mHero.setColor([1, 1, 1, 0]);
-    this.mHero.getXform().setPosition(40, 40);
-    this.mHero.getXform().setSize(9, 12);
+    this.mHero.getXform().setPosition(0, 0);
+    this.mHero.getXform().setSize(6, 6);
     this.mHero.setElementPixelPositions(0,2049,0,2400);  
     GameObject.call(this, this.mHero);  
 };
@@ -30,24 +30,24 @@ Hero.prototype.update = function (wallSet) {
             //console.log("hi");
         }
     }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)) {
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {
         if(this.mHero.getXform().getYPos() <70){
-            this.mHero.getXform().incYPosBy(5);
+            this.mHero.getXform().incYPosBy(0.4);
         }
     } 
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Down)) {
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
          if(this.mHero.getXform().getYPos() >10){
-            this.mHero.getXform().incYPosBy(-5);
+            this.mHero.getXform().incYPosBy(-0.4);
         }
     } 
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Right)) {
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
         if(this.mHero.getXform().getXPos() <90){
-            this.mHero.getXform().incXPosBy(5);
+            this.mHero.getXform().incXPosBy(0.4);
         }
     } 
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Left)) {
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {
          if(this.mHero.getXform().getXPos() >10){
-            this.mHero.getXform().incXPosBy(-5);
+            this.mHero.getXform().incXPosBy(-0.4);
         }
     }  
 };

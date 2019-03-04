@@ -136,6 +136,8 @@ Level.prototype.update = function () {
     //Update the UI
     this.mGameTimer.update();
     //Update the objects
+    var heroPos = this.mHero.getXform().getPosition();
+    this.mCamera.setWCCenter(heroPos[0],heroPos[1]);
     this.mCamera.update();
     this.mHero.update(this.mWallSet);
     this.mLeverSet.update(this.mCamera, this.mHero);
