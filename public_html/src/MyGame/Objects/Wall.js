@@ -7,7 +7,7 @@
 
 function Wall(x,y,wallSprite,wallNormal,orientation) {
     
-    this.mWall = new SpriteAnimateRenderable(wallSprite,wallNormal);
+    this.mWall = new IllumRenderable(wallSprite,wallNormal);
     this.mWall.setColor([1, 1, 1, 0]);
     this.mWall.getXform().setPosition(x, y);
     this.mWall.getXform().setSize(10, 10);
