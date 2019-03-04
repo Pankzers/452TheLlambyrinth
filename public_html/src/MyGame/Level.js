@@ -198,7 +198,7 @@ Level.prototype.update = function () {
         this.mNextLoad = "lose";
         gEngine.GameLoop.stop();
     }
-    if (this.mSprite.update(this.mHero))    //would get error if put collision in Level 
+    if (this.mSprite.update(this.mHero))    //returns true of pixel pixelTouches with last particle in system
     {
         this.mNextLoad = "lose";
         gEngine.GameLoop.stop(); 

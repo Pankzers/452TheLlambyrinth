@@ -88,23 +88,7 @@ Sprite.prototype.setPosition = function (aX, aY) {
     var c = this.mCenter.getValue();
     this.mSprite.setPos(c[0], c[1]);
     };
-    
-//move particle below hero
-Sprite.prototype.setParticleBelow = function(pos) {
-    this.setPosition(pos[0], pos[1]-this.dis);
-};
-//move particle above hero
-Sprite.prototype.setParticleAbove = function(pos) {
-    this.setPosition(pos[0], pos[1]+this.dis);
-};
-//move particle to the left of hero
-Sprite.prototype.setParticleLeft = function(pos) {
-    this.setPosition(pos[0]-this.dis, pos[1]);
-};
-//move particle to the right of hero
-Sprite.prototype.setParticleRight = function(pos) {
-    this.setPosition(pos[0]+this.dis, pos[1]);
-};
+
 
 Sprite.prototype.draw = function(aCamera) {
     this.mSprite.draw(aCamera);
