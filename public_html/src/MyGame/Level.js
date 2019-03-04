@@ -85,6 +85,8 @@ Level.prototype.unloadScene = function () {
 Level.prototype.initialize = function () {
     //Get the Scene Info
     var sceneInfo = gEngine.ResourceMap.retrieveAsset(this.kSceneFile);
+    //console.log(sceneInfo);
+    //console.log(Object.keys(sceneInfo.DoorPair[0]).length)
     //Create the cameras
     this.mCamera = new Camera(
     sceneInfo.Camera.Center,
@@ -99,7 +101,11 @@ Level.prototype.initialize = function () {
     //Create the walls
     this.mWallSet = new WallSet(this.kWall_Tex,this.kWall_Tex,sceneInfo.MapInfo.wallx,sceneInfo.MapInfo.wally,sceneInfo.MapInfo.wallgrid);
     for(var i = 0; i < sceneInfo.Wall.length; i++) {
-        this.mWallSet.addWall(sceneInfo.Wall[i].Pos[0],sceneInfo.Wall[i].Pos[1],sceneInfo.Wall[i].Orientation);
+        if(Object.keys(sceneInfo.Wall[i]).length !== 0) {
+            this.mWallSet.addWall(sceneInfo.Wall[i].Pos[0],sceneInfo.Wall[i].Pos[1],sceneInfo.Wall[i].Orientation);
+        } else {
+            this.mWallSet.addSpace();
+        }
     }
     
     //Setup the GameObjects

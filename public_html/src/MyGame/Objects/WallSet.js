@@ -28,9 +28,16 @@ WallSet.prototype.addWall = function (x,y,orientation) {
    this.addToSet(wall);
 };
 
+WallSet.prototype.addSpace = function () {
+    var wall = null;
+    this.addToSet(wall);
+};
+
 WallSet.prototype.draw = function (referencedCam) {
     for(var i = 0; i<this.mSet.length; i++){
-        this.mSet[i].draw(referencedCam);
+        if(this.mSet[i] !== null) {
+            this.mSet[i].draw(referencedCam);
+        }
     }
 };
 
