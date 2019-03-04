@@ -43,7 +43,7 @@ function Sprite(x,y) {
 gEngine.Core.inheritPrototype(Sprite,ParticleGameObject);
 
 
-Sprite.prototype.update = function(hero) {
+Sprite.prototype.update = function(hero,spriteEnd) {
     var pos = hero.getXform().getPosition();   //position of object
     
     //calculate distance from object and hero
@@ -53,13 +53,14 @@ Sprite.prototype.update = function(hero) {
    {
        this.mSprite.setFinalColor([1,0,0,1]);       //change color when close to object
        this.mSprite.setStartColor([3.5,.4,.3,.6]);
-
-       //Collision slows down the game too much
-       var lastPar = this.mSprite.getParticles().getLastObj();
-       if (lastPar.pixelTouches(hero, []))
-       {
-           return true;    //game over 
-       }
+       if(spriteEnd) {
+            //Collision slows down the game too much
+            var lastPar = this.mSprite.getParticles().getLastObj();
+            if (lastPar.pixelTouches(hero, []))
+            {
+                return true;    //game over 
+            }
+        }
    }
    else
    {

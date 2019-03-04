@@ -45,6 +45,7 @@ function Level(levelName) {
 
     this.GameOver = false;
     this.mNextLoad = null;
+    this.mSpriteEnd = false;
     
 }
 gEngine.Core.inheritPrototype(Level, Scene);
@@ -198,17 +199,19 @@ Level.prototype.update = function () {
         this.mNextLoad = "lose";
         gEngine.GameLoop.stop();
     }
-    if (this.mSprite.update(this.mHero))    //returns true of pixel pixelTouches with last particle in system
+    if (this.mSprite.update(this.mHero,this.mSpriteEnd))    //returns true of pixel pixelTouches with last particle in system
     {
-        this.mNextLoad = "lose";
-        gEngine.GameLoop.stop(); 
+        if(this.mSpriteEnd) {
+            this.mNextLoad = "lose";
+            gEngine.GameLoop.stop(); 
+        }
     }
     if (this.mGameTimer.getTime() <= 0){
         this.mNextLoad = "lose";
         gEngine.GameLoop.stop();
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) {
-        console.log(this.mWallSet);
+        this.mSpriteEnd = !this.mSpriteEnd;
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.N)) {
         this.mNextLoad = "testlevel2";
