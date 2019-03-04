@@ -23,10 +23,10 @@ Hero.prototype.draw = function (referencedCam) {
 Hero.prototype.update = function (wallSet) {
         
     //Collisions
-    for(var k = 0; k<wallSet.length; k++){
-        var bb = wallSet[k].getBBox();            //Patrol boundingbox
+    for(var k = 0; k<wallSet.mSet.length; k++){
+        var bb = wallSet.mSet[k].getBBox();            
         var hero = this.getBBox();
-        if (hero.intersectsBound(bb)) {    //check if bounds collide 
+        if (hero.intersectsBound(bb)) {   
             console.log("hi");
         }
     }
