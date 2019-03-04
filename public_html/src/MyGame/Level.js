@@ -137,7 +137,7 @@ Level.prototype.update = function () {
     this.mGameTimer.update();
     //Update the objects
     this.mCamera.update();
-    this.mHero.update();
+    this.mHero.update(this.mWallSet);
     this.mLeverSet.update(this.mCamera, this.mHero);
     this.mSprite.update(this.mHero);
     this.GameOver = this.mExit.update();

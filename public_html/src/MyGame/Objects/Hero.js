@@ -20,7 +20,16 @@ Hero.prototype.draw = function (referencedCam) {
     this.mHero.draw(referencedCam);
 };
 
-Hero.prototype.update = function () {
+Hero.prototype.update = function (wallSet) {
+        
+    //Collisions
+    for(var k = 0; k<wallSet.length; k++){
+        var bb = wallSet[k].getBBox();            //Patrol boundingbox
+        var hero = this.getBBox();
+        if (hero.intersectsBound(bb)) {    //check if bounds collide 
+            console.log("hi");
+        }
+    }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)) {
         if(this.mHero.getXform().getYPos() <70){
             this.mHero.getXform().incYPosBy(5);
@@ -40,5 +49,5 @@ Hero.prototype.update = function () {
          if(this.mHero.getXform().getXPos() >10){
             this.mHero.getXform().incXPosBy(-5);
         }
-    } 
+    }  
 };
