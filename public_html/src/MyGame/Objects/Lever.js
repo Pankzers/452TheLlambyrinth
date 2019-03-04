@@ -32,35 +32,9 @@ Lever.prototype.resetLever = function() {
     this.mLever.setElementPixelPositions(256, 384, 256, 512); 
 };
 
-//test lever when pressing 0 and 1
-Lever.prototype.update = function(cam) {  
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.One)) {
-        this.pullLever();
-        cam.shake(-2, -2, 20, 30);
-    } 
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Two)) {
-        this.resetLever();
-    } 
-    //used to test interpolation
-//    var key = [false, false, false, false];
-//    var t= this.mLever.getXform().getPosition();
-//        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {
-//        this.mLever.getXform().setPosition(t[0], t[1]+1);
-//        key[0] =true;
-//    } 
-//    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
-//        this.mLever.getXform().setPosition(t[0], t[1]-1);
-//        key[1] =true;
-//    } 
-//    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {
-//        this.mLever.getXform().setPosition(t[0]-1, t[1]);
-//        key[2] =true;
-//    } 
-//    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
-//        this.mLever.getXform().setPosition(t[0]+1, t[1]);
-//        key[3] =true;
-//    } 
-//    return key;
+
+Lever.prototype.update = function() {
+    
 };
 
 

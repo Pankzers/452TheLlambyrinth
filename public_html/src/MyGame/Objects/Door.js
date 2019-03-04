@@ -21,23 +21,23 @@ function Door(spriteTexture, x, y, w, h) {
     xf.setPosition(x, y);
     xf.setRotationInDegree(0);
     this.mDoor = tempObject;
+    this.visable = true; 
    
     GameObject.call(this, this.door);  
 }
 gEngine.Core.inheritPrototype(Door, GameObject);
 
 //test pushing button when clicking 2 or 3 
-Door.prototype.update = function(hero) {
+Door.prototype.update = function() {
     //gEngine.Physics.processCollision(temp,h);
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.L)) {
+    if (!this.visable) {
         this.mDoor.setVisibility(false);
-    }     
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.K)) {
-        this.mDoor.setVisibility(true);
-    } 
+    }  
     this.mDoor.update();
 };
- 
+ Door.prototype.setVisable = function(vis) {
+    this.visable = vis;
+};
 
 Door.prototype.draw = function(aCamera) {
     this.mDoor.draw(aCamera);

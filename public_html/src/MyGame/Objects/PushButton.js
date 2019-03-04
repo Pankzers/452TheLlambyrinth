@@ -14,7 +14,7 @@ function PushButton(spriteTexture, x, y, w, h) {
     this.mButton.setElementPixelPositions(0, 128, 384, 512);  
     this.posNoPush = [0, 128, 384, 512];
     this.posPush = [128, 256, 384, 512];
-  
+    
     GameObject.call(this, this.mButton);
     
 }
@@ -33,12 +33,6 @@ PushButton.prototype.resetButton = function() {
 
 //test pushing button when clicking 2 or 3 
 PushButton.prototype.update = function() {
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Three)) {
-        this.pushButtom();
-    } 
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Four)) {
-        this.resetButton();
-    } 
  
 };
 

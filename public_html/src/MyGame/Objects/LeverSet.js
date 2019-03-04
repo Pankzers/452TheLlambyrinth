@@ -18,9 +18,18 @@ function LeverSet(spriteTexture) {
 gEngine.Core.inheritPrototype(LeverSet, GameObjectSet);
 
 //update set
-LeverSet.prototype.update = function (hero) {
+LeverSet.prototype.update = function (cam, hero) {
     for (var i = 0; i < this.size(); i++)
-        this.getObjectAt(i).update(hero);
+        this.getObjectAt(i).update(cam);
+    for (var i = 0; i < this.size(); i++)
+    {
+        var lever = this.getObjectAt(i);
+        if (lever.pixelTouches(hero, []) && gEngine.Input.isKeyClicked(gEngine.Input.keys.Space))  
+        {
+            lever.pullLever();
+            cam.shake(-10, -10, 10, 100);        
+        }
+    }
 
 };
 

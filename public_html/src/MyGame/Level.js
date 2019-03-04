@@ -84,7 +84,7 @@ Level.prototype.initialize = function () {
     //Create the walls
     this.mWallSet = new WallSet(this.kWall_Tex,this.kWall_Tex);
     for(var i = 0; i < sceneInfo.Wall.length; i++) {
-        this.mWallSet.addWall(sceneInfo.Wall[i].Pos[0],sceneInfo.Wall[i].Pos[1],sceneInfo.Wall[i].Orientation)
+        this.mWallSet.addWall(sceneInfo.Wall[i].Pos[0],sceneInfo.Wall[i].Pos[1],sceneInfo.Wall[i].Orientation);
     }
     
     //Setup the GameObjects
@@ -131,11 +131,10 @@ Level.prototype.update = function () {
     //Update the UI
     this.mGameTimer.update();
     //Update the objects
-    var keys = [false, false, false, false];    //user moves up, down, left, right comes from hero
-    var hero = null;
-    this.mLeverSet.update();
-    this.mSprite.update(this.mHero, keys);
-    this.mExit.update();
-    this.mDoorsContrapsion.update(hero);
+    this.mCamera.update();
     this.mHero.update();
+    this.mLeverSet.update(this.mCamera, this.mHero);
+    this.mSprite.update(this.mHero);
+    this.mExit.update();
+    this.mDoorsContrapsion.update(this.mHero);
 };

@@ -19,19 +19,19 @@ function DoorsContrapsion(buttonTexture, doorTexture) {
 }
 
 DoorsContrapsion.prototype.update = function(hero) {
-    this.mDoors.update(hero);
-    this.mButtons.update(hero);  
-    //verify with hero
-//    for (var i = 0; i < this.mDoors.size(); i++)
-//    {
-//        var door = this.mDoors.getObjectAt(i);
-//        var button = this.mButtons.getObjectAt(i);
-//        if (hero.pixelTouches(button, []) && gEngine.Input.isKeyClicked(gEngine.Input.keys.Space))  
-//        {
-//            button.pushButton();
-//            door.setVisibility(false);  //remove door 
-//        }
-//    }
+
+    //check if button to pushed to open door 
+    for (var i = 0; i < this.mDoors.size(); i++)
+    {
+        var button = this.mButtons.getObjectAt(i);
+        if (button.pixelTouches(hero, []) && gEngine.Input.isKeyClicked(gEngine.Input.keys.Space))  
+        {
+            this.mButtons.getObjectAt(i).pushButtom();      //show button as down 
+            this.mDoors.getObjectAt(i).setVisable(false);  //remove door            
+        }
+    }
+    this.mDoors.update();
+    this.mButtons.update();  
 };
 
 
