@@ -42,6 +42,7 @@ function Level() {
     this.mWallSet = null;
     this.mFloor = null;
 
+    this.GameOver = false;
     
 }
 gEngine.Core.inheritPrototype(Level, Scene);
@@ -65,6 +66,10 @@ Level.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kWall_Tex);
     gEngine.Textures.unloadTexture(this.kFloor_Tex);
     gEngine.Textures.unloadTexture(this.hero_Tex);
+    
+    //Game Over
+    var nextLevel = new GameOver();  // next level to be loaded
+    gEngine.Core.startScene(nextLevel);
 };
 
 Level.prototype.initialize = function () {
@@ -135,6 +140,11 @@ Level.prototype.update = function () {
     this.mHero.update();
     this.mLeverSet.update(this.mCamera, this.mHero);
     this.mSprite.update(this.mHero);
-    this.mExit.update();
+    this.GameOver = this.mExit.update();
     this.mDoorsContrapsion.update(this.mHero);
+    
+    if (this.mExit.pixelTouches(this.mHero, [])) 
+        gEngine.GameLoop.stop();
+    if (this.mGameTimer.getTime() <= 0)
+        gEngine.GameLoop.stop();
 };

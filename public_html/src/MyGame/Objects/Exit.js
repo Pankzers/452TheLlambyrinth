@@ -15,11 +15,9 @@ function Exit(spriteTexture) {
     
     this.mExit = new SpriteAnimateRenderable(spriteTexture);
     this.mExit.setColor([1, 1, 1, 0]);
-    this.mExit.getXform().setPosition(10, 70);
+    this.mExit.getXform().setPosition(95, 70);
     this.mExit.getXform().setSize(10, 10);
     this.mExit.setElementPixelPositions(0, 256, 128, 380);   //move to  (384, 512, 256, 512)
-    this.posNoPull = [256, 384, 256, 512];
-    this.posPull = [384, 512, 256, 512];
   
     GameObject.call(this, this.mExit);   
 }
@@ -28,7 +26,7 @@ gEngine.Core.inheritPrototype(Exit, GameObject);
 
 Exit.prototype.update = function() {
     //check collision with hero, if collide end game 
- 
+
 };
 
 
