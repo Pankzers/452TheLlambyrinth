@@ -13,49 +13,56 @@
     "GameTimer": {
         "time":300000 
     },
+    "MapInfo": {
+        "width":110,
+        "height":110,
+        "wallx":12,
+        "wally":12,
+        "wallgrid":false
+    },
     "Wall": [
         {
-            "Pos": [5, 60],
+            "Pos": [0, 60],
             "Orientation": 0
         },
         {
-            "Pos": [15, 60],
+            "Pos": [10, 60],
             "Orientation": 1
         },
         {
-            "Pos": [25, 60],
+            "Pos": [20, 60],
             "Orientation": 2
         },
         {
-            "Pos": [35, 60],
+            "Pos": [30, 60],
             "Orientation": 3
         },
         {
-            "Pos": [45, 60],
+            "Pos": [40, 60],
             "Orientation": 4
         },
         {
-            "Pos": [55, 60],
+            "Pos": [50, 60],
             "Orientation": 5
         },
         {
-            "Pos": [65, 60],
+            "Pos": [60, 60],
             "Orientation": 6
         },
         {
-            "Pos": [75, 60],
+            "Pos": [70, 60],
             "Orientation": 7
         },
         {
-            "Pos": [85, 60],
+            "Pos": [80, 60],
             "Orientation": 8
         },
         {
-            "Pos": [5, 70],
+            "Pos": [0, 70],
             "Orientation": 9
         },
         {
-            "Pos": [15, 70],
+            "Pos": [10, 70],
             "Orientation": 10
         },
         {

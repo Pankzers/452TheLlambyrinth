@@ -99,9 +99,8 @@ Level.prototype.initialize = function () {
     this.mSprite = new Sprite();
     this.mExit = new Exit(this.kMaze_sprite);
     this.mDoorsContrapsion = new DoorsContrapsion(this.kMaze_sprite, this.kWall);
-    
 
-    this.mHero = new Hero(this.hero_Tex);
+    this.mHero = new Hero(this.hero_Tex,sceneInfo.MapInfo.width,sceneInfo.MapInfo.height);
     this.mMinimap = new Minimap();
     this.mSmallCam = this.mMinimap.getMinimap();
 };
@@ -149,4 +148,7 @@ Level.prototype.update = function () {
         gEngine.GameLoop.stop();
     if (this.mGameTimer.getTime() <= 0)
         gEngine.GameLoop.stop();
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) {
+        console.log(this.mWallSet);
+    } 
 };

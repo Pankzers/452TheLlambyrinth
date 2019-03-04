@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 
-function Hero(image) {  
+function Hero(image,mapW,mapH) {  
     this.image = image;
+    this.mMapH = mapH;
+    this.mMapW = mapW;
     this.mHero = new IllumRenderable(this.image,this.image);
     this.mHero.setColor([1, 1, 1, 0]);
-    this.mHero.getXform().setPosition(0, 0);
-    this.mHero.getXform().setSize(6, 6);
+    this.mHero.getXform().setPosition(10, 10);
+    this.mHero.getXform().setSize(4, 4);
     this.mHero.setElementPixelPositions(0,2049,0,2400);  
     GameObject.call(this, this.mHero);  
 };
@@ -23,31 +25,41 @@ Hero.prototype.draw = function (referencedCam) {
 Hero.prototype.update = function (wallSet) {
         
     //Collisions
-    for(var k = 0; k<wallSet.mSet.length; k++){
-        var bb = wallSet.mSet[k].getBBox();            
-        var hero = this.getBBox();
-        if (hero.intersectsBound(bb)) {   
-            //console.log("hi");
-        }
-    }
+    
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {
-        if(this.mHero.getXform().getYPos() <70){
+        if(this.mHero.getXform().getYPos() <this.mMapH-4){
             this.mHero.getXform().incYPosBy(0.4);
+            var bb = this.getBBox();
+            if(wallSet.checkLocalBounds(bb,0)) {
+                this.mHero.getXform().incYPosBy(-0.4);
+            }
         }
     } 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
-         if(this.mHero.getXform().getYPos() >10){
+         if(this.mHero.getXform().getYPos() >4){
             this.mHero.getXform().incYPosBy(-0.4);
+            var bb = this.getBBox();
+            if(wallSet.checkLocalBounds(bb,2)) {
+                this.mHero.getXform().incYPosBy(0.4);
+            }
         }
     } 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
-        if(this.mHero.getXform().getXPos() <90){
+        if(this.mHero.getXform().getXPos() <this.mMapW-4){
             this.mHero.getXform().incXPosBy(0.4);
+            var bb = this.getBBox();
+            if(wallSet.checkLocalBounds(bb,1)) {
+                this.mHero.getXform().incXPosBy(-0.4);
+            }
         }
     } 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {
-         if(this.mHero.getXform().getXPos() >10){
+         if(this.mHero.getXform().getXPos() >4){
             this.mHero.getXform().incXPosBy(-0.4);
+            var bb = this.getBBox();
+            if(wallSet.checkLocalBounds(bb,4)) {
+                this.mHero.getXform().incXPosBy(0.4);
+            }
         }
     }  
 };

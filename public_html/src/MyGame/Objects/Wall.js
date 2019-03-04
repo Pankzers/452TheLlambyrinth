@@ -21,57 +21,57 @@ function Wall(x,y,wallSprite,wallNormal,orientation) {
             this.mBBoxes.push(new BoundingBox(xform.getPosition(),4,4));
             break;
         case 1:
-            var pos = (xform.getXPos(),xform.getYPos());
+            var pos = [xform.getXPos(),xform.getYPos()];
             pos[0]-=1.5;
             this.mBBoxes.push(new BoundingBox(pos,7,4));
             break;
         case 2:
-            var pos = (xform.getXPos(),xform.getYPos());
+            var pos = [xform.getXPos(),xform.getYPos()];
             pos[0]+=1.5;
             this.mBBoxes.push(new BoundingBox(pos,7,4));
             break;
         case 3:
-            var pos = (xform.getXPos(),xform.getYPos());
-            pos[1]+=1.5;
+            var pos = [xform.getXPos(),xform.getYPos()];
+            pos[1]-=1.5;
             this.mBBoxes.push(new BoundingBox(pos,4,7));
             break;
         case 4:
-            var pos = (xform.getXPos(),xform.getYPos());
-            pos[1]-=1.5;
+            var pos = [xform.getXPos(),xform.getYPos()];
+            pos[1]+=1.5;
             this.mBBoxes.push(new BoundingBox(pos,4,7));
             break;
         case 5:
             this.mBBoxes.push(new BoundingBox(xform.getPosition(),10,4));
             break;
         case 6:
-            var pos = (xform.getXPos(),xform.getYPos());
-            pos[1]+=1.5;
+            var pos = [xform.getXPos(),xform.getYPos()];
+            pos[1]-=1.5;
             this.mBBoxes.push(new BoundingBox(pos,4,7));
-            var pos = (xform.getXPos(),xform.getYPos());
+            var pos = [xform.getXPos(),xform.getYPos()];
             pos[0]-=1.5;
             this.mBBoxes.push(new BoundingBox(pos,7,4));
             break;
         case 7:
-            var pos = (xform.getXPos(),xform.getYPos());
-            pos[1]-=1.5;
+            var pos = [xform.getXPos(),xform.getYPos()];
+            pos[1]+=1.5;
             this.mBBoxes.push(new BoundingBox(pos,4,7));
-            var pos = (xform.getXPos(),xform.getYPos());
+            var pos = [xform.getXPos(),xform.getYPos()];
             pos[0]-=1.5;
             this.mBBoxes.push(new BoundingBox(pos,7,4));
             break;
         case 8:
-            var pos = (xform.getXPos(),xform.getYPos());
-            pos[1]-=1.5;
+            var pos = [xform.getXPos(),xform.getYPos()];
+            pos[1]+=1.5;
             this.mBBoxes.push(new BoundingBox(pos,4,7));
-            var pos = (xform.getXPos(),xform.getYPos());
+            var pos = [xform.getXPos(),xform.getYPos()];
             pos[0]+=1.5;
             this.mBBoxes.push(new BoundingBox(pos,7,4));
             break;
         case 9:
-            var pos = (xform.getXPos(),xform.getYPos());
-            pos[1]+=1.5;
+            var pos = [xform.getXPos(),xform.getYPos()];
+            pos[1]-=1.5;
             this.mBBoxes.push(new BoundingBox(pos,4,7));
-            var pos = (xform.getXPos(),xform.getYPos());
+            var pos = [xform.getXPos(),xform.getYPos()];
             pos[0]+=1.5;
             this.mBBoxes.push(new BoundingBox(pos,7,4));
             break;
@@ -80,25 +80,25 @@ function Wall(x,y,wallSprite,wallNormal,orientation) {
             break;
         case 11:
             this.mBBoxes.push(new BoundingBox(xform.getPosition(),10,4));
-            var pos = (xform.getXPos(),xform.getYPos());
-            pos[1]+=1.5;
+            var pos = [xform.getXPos(),xform.getYPos()];
+            pos[1]-=1.5;
             this.mBBoxes.push(new BoundingBox(pos,4,7));
             break;
         case 12:
             this.mBBoxes.push(new BoundingBox(xform.getPosition(),10,4));
-            var pos = (xform.getXPos(),xform.getYPos());
-            pos[1]-=1.5;
+            var pos = [xform.getXPos(),xform.getYPos()];
+            pos[1]+=1.5;
             this.mBBoxes.push(new BoundingBox(pos,4,7));
             break;
         case 13:
             this.mBBoxes.push(new BoundingBox(xform.getPosition(),4,10));
-            var pos = (xform.getXPos(),xform.getYPos());
+            var pos = [xform.getXPos(),xform.getYPos()];
             pos[0]-=1.5;
             this.mBBoxes.push(new BoundingBox(pos,7,4));
             break;
         case 14:
             this.mBBoxes.push(new BoundingBox(xform.getPosition(),4,10));
-            var pos = (xform.getXPos(),xform.getYPos());
+            var pos = [xform.getXPos(),xform.getYPos()];
             pos[0]+=1.5;
             this.mBBoxes.push(new BoundingBox(pos,7,4));
             break;
