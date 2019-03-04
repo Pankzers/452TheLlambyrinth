@@ -10,7 +10,7 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 function Lever(spriteTexture, x, y, w, h) {
     
-    this.mLever = new SpriteAnimateRenderable(spriteTexture);
+    this.mLever = new IllumRenderable(spriteTexture,spriteTexture);
     this.mLever.setColor([1, 1, 1, 0]);
     this.mLever.getXform().setPosition(x,y);
     this.mLever.getXform().setSize(w, h);

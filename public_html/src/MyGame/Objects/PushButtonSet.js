@@ -13,7 +13,7 @@ function PushButtonSet(spriteTexture) {
     this.mSet = [];
     this.kSprite = spriteTexture;
    // this.createButton(70, 45, 8,8);
-   GameObject.call(this, this.mSet);
+   //GameObject.call(this, this.mSet);
 }
 gEngine.Core.inheritPrototype(PushButtonSet, GameObjectSet);
 
