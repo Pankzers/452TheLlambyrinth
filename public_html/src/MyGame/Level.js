@@ -184,13 +184,18 @@ Level.prototype.update = function () {
     this.mSmallCam.update();
     this.mHero.update(this.mWallSet,this.mDoorsContrapsion);
     this.mLeverSet.update(this.mCamera, this.mHero);
-    this.mSprite.update(this.mHero);
-    this.GameOver = this.mExit.update();
+    
+    this.mExit.update();
     this.mDoorsContrapsion.update(this.mHero);
     
     if (this.mExit.pixelTouches(this.mHero, [])){
         this.mNextLoad = "lose";
         gEngine.GameLoop.stop();
+    }
+    if (this.mSprite.update(this.mHero))    //would get error if put collision in Level 
+    {
+        this.mNextLoad = "lose";
+        gEngine.GameLoop.stop(); 
     }
     if (this.mGameTimer.getTime() <= 0){
         this.mNextLoad = "lose";

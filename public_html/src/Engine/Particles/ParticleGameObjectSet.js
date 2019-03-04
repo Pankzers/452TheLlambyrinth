@@ -73,3 +73,7 @@ ParticleGameObjectSet.prototype.update = function () {
         }
     }
 };
+
+ParticleGameObjectSet.prototype.getLastObj = function () {
+    return this.getObjectAt(this.size()-1);
+    };

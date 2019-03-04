@@ -44,39 +44,32 @@ gEngine.Core.inheritPrototype(Sprite,ParticleGameObject);
 
 
 Sprite.prototype.update = function(hero) {
-
     var pos = hero.getXform().getPosition();   //position of object
     
     //calculate distance from object and hero
     var Xdistance = Math.abs(pos[0]- this.getPosition()[0]);
     var Ydistance = Math.abs(pos[1]- this.getPosition()[1]);
-//   if (Xdistance < 10 || Ydistance < 10)
-//   {
-//       this.mSprite.setFinalColor([1,0,0,1]);       //change color when close to object
-//       this.mSprite.setStartColor([3.5,.4,.3,.6]);
-//       console.log();
-//       var temp = new GameObjectSet();
-//       temp.addToSet(hero);
-//       this.mSprite.processCollision(temp);
-//       //Collision slows down the game too much
-////         for (var i = 0; i < this.mSprite.getParticles().size(); i++)
-////       {
-////           var particle = this.mSprite.getParticles().getObjectAt(i);
-////           var h = [];
-////           if (hero.pixelTouches(particle, h))
-////           {
-////               console.log("Game Over");
-////           }
-////       }
-//   }
-//   else
-//   {
-//       this.mSprite.setFinalColor([.4,3.5,.3,.6]);
-//       this.mSprite.setStartColor([0,0,3,0]);
-//   }
+   if (Xdistance < 5 || Ydistance < 5)
+   {
+       this.mSprite.setFinalColor([1,0,0,1]);       //change color when close to object
+       this.mSprite.setStartColor([3.5,.4,.3,.6]);
+
+       //Collision slows down the game too much
+       var lastPar = this.mSprite.getParticles().getLastObj();
+       if (lastPar.pixelTouches(hero, []))
+       {
+           return true;    //game over 
+       }
+   }
+   else
+   {
+       this.mSprite.setFinalColor([.4,3.5,.3,.6]);
+       this.mSprite.setStartColor([0,0,3,0]);
+   }
    this.setPosition(pos[0], pos[1]);
    this.mCenter.updateInterpolation();
    this.mSprite.update();
+   return false;        //not game over
 };
 //get the interpolation value 
 Sprite.prototype.getParticle = function () {
