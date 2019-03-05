@@ -10,7 +10,7 @@ function GameTimer(startTime) {
     var sec = Math.floor(this.mCurrentTime/1000-Math.floor(this.mCurrentTime/60000)*60);
     var min = Math.floor(sec/60);
     var string = min+":"+sec;
-    this.mUIText = new UIText(string,[700,400],3,0,0,[0,0,0,1]);
+    this.mUIText = new UIText(string,[700,400],1.5,0,0,[0,0,0,1]);
     
 }
 
