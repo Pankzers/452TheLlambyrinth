@@ -36,7 +36,7 @@ Hero.prototype.update = function (wallSet,doorPairs) {
             var flag = false;
             this.mHero.getXform().incYPosBy(0.4);
             var bb = this.getBBox();
-            if(wallSet.checkLocalBounds(bb,0)) {
+            if(wallSet.checkLocalBounds(this,bb,0)) {
                 flag = true;
             }
             for(var i = 0; i < doors.mSet.length; i++) {
@@ -57,7 +57,7 @@ Hero.prototype.update = function (wallSet,doorPairs) {
             var flag = false;
             this.mHero.getXform().incYPosBy(-0.4);
             var bb = this.getBBox();
-            if(wallSet.checkLocalBounds(bb,2)) {
+            if(wallSet.checkLocalBounds(this,bb,2)) {
                 flag = true;
             }
             for(var i = 0; i < doors.mSet.length; i++) {
@@ -78,7 +78,7 @@ Hero.prototype.update = function (wallSet,doorPairs) {
             var flag = false;
             this.mHero.getXform().incXPosBy(0.4);
             var bb = this.getBBox();
-            if(wallSet.checkLocalBounds(bb,1)) {
+            if(wallSet.checkLocalBounds(this,bb,1)) {
                 flag = true;
             }
             for(var i = 0; i < doors.mSet.length; i++) {
@@ -99,7 +99,7 @@ Hero.prototype.update = function (wallSet,doorPairs) {
             var flag = false;
             this.mHero.getXform().incXPosBy(-0.4);
             var bb = this.getBBox();
-            if(wallSet.checkLocalBounds(bb,4)) {
+            if(wallSet.checkLocalBounds(this,bb,3)) {
                 flag = true;
             }
             for(var i = 0; i < doors.mSet.length; i++) {

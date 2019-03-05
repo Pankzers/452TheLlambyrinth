@@ -217,6 +217,9 @@ Level.prototype.update = function () {
         this.mNextLoad = "testlevel2";
         gEngine.GameLoop.stop();
     }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.L)) {
+        console.log(this.mWallSet);
+    }
 
     //gEngine.Physics.processCollision(this.mCollObjs, []);
 };
