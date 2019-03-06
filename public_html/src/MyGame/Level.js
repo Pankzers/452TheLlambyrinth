@@ -13,13 +13,15 @@
 
 function Level(levelName) {  
     this.kMaze_sprite = "assets/maze_sprite.png";
-
     this.kWall = "assets/RigidShape/wall.png";
 
     this.kWall_Tex = "assets/wall_sprite_sheet.png";
+    this.kWall_Tex_Normal = "assets/wall_sprite_sheet_normal.png";
     this.kFloor_Tex = "assets/floor_tex.jpg";
+    this.kFloor_Tex_Normal = "assets/floor_tex_normal.png";
     this.kSceneFile = "assets/"+levelName+".json";
     this.hero_Tex = "assets/llama.png";
+    this.hero_Tex_Normal = "assets/llama_normal.png";
 
     
     // The cameras to view the level
@@ -59,6 +61,10 @@ Level.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kFloor_Tex);
     gEngine.TextFileLoader.loadTextFile(this.kSceneFile, gEngine.TextFileLoader.eTextFileType.eJSONFile);
     gEngine.Textures.loadTexture(this.hero_Tex);
+    //Normal Maps
+    gEngine.Textures.loadTexture(this.kWall_Tex_Normal);
+    gEngine.Textures.loadTexture(this.kFloor_Tex_Normal);
+    gEngine.Textures.loadTexture(this.hero_Tex_Normal);
 };
 
 Level.prototype.unloadScene = function () {
@@ -69,13 +75,17 @@ Level.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kWall_Tex);
     gEngine.Textures.unloadTexture(this.kFloor_Tex);
     gEngine.Textures.unloadTexture(this.hero_Tex);
+    //Normal Maps
+    gEngine.Textures.unloadTexture(this.kWall_Tex_Normal);
+    gEngine.Textures.unloadTexture(this.kFloor_Tex_Normal);
+    gEngine.Textures.unloadTexture(this.hero_Tex_Normal);
     
     //Game Over
-    var nextlevel = null
+    var nextlevel = null;
     nextlevel = new GameOver();
-    if(this.mNextLoad == "lose"){
+    if(this.mNextLoad === "lose"){
         
-    } else if (this.mNextLoad == "win"){
+    } else if (this.mNextLoad === "win"){
         nextlevel = new GameOver();
     } else {
         nextlevel = new Level(this.mNextLoad);
@@ -98,9 +108,9 @@ Level.prototype.initialize = function () {
     
     //Create the UI Elements
     this.mGameTimer = new GameTimer(sceneInfo.GameTimer.time);
-    
+       
     //Create the walls
-    this.mWallSet = new WallSet(this.kWall_Tex,this.kWall_Tex,sceneInfo.MapInfo.wallx,sceneInfo.MapInfo.wally,sceneInfo.MapInfo.wallgrid);
+    this.mWallSet = new WallSet(this.kWall_Tex,this.kFloor_Tex_Normal,sceneInfo.MapInfo.wallx,sceneInfo.MapInfo.wally,sceneInfo.MapInfo.wallgrid);
     for(var i = 0; i < sceneInfo.Wall.length; i++) {
         if(Object.keys(sceneInfo.Wall[i]).length !== 0) {
             this.mWallSet.addWall(sceneInfo.Wall[i].Pos[0],sceneInfo.Wall[i].Pos[1],sceneInfo.Wall[i].Orientation);
@@ -110,7 +120,7 @@ Level.prototype.initialize = function () {
     }
     
     //Setup the GameObjects
-    gEngine.DefaultResources.setGlobalAmbientIntensity(3);
+    gEngine.DefaultResources.setGlobalAmbientIntensity(3);  
     
     this.mLeverSet = new LeverSet(this.kMaze_sprite);
     //Create the lever
@@ -142,7 +152,7 @@ Level.prototype.initialize = function () {
         sceneInfo.DoorPair[i].ButtonRot
         );
     }
-    this.mHero = new Hero(this.hero_Tex,
+    this.mHero = new Hero(this.hero_Tex,this.hero_Tex_Normal,
     sceneInfo.MapInfo.width,
     sceneInfo.MapInfo.height,
     sceneInfo.Hero.herox,

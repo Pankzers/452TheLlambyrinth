@@ -49,7 +49,7 @@ Sprite.prototype.update = function(hero,spriteEnd) {
     //calculate distance from object and hero
     var Xdistance = Math.abs(pos[0]- this.getPosition()[0]);
     var Ydistance = Math.abs(pos[1]- this.getPosition()[1]);
-   if (Xdistance < 5 || Ydistance < 5)
+   if (Xdistance < 2 || Ydistance < 2)
    {
        this.mSprite.setFinalColor([1,0,0,1]);       //change color when close to object
        this.mSprite.setStartColor([3.5,.4,.3,.6]);

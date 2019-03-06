@@ -19,3 +19,5 @@ Ball: https://opengameart.org/content/soccer-ball
 Bouncy: https://opengameart.org/content/ball-png
 BowlingBall: Created by Akilas Mebrahtom
 WoodBall: Altered sticker from Paint 3D
+
+Normal Maps generated from: http://cpetry.github.io/NormalMap-Online/

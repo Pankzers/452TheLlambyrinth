@@ -4,15 +4,16 @@
  * and open the template in the editor.
  */
 
-function Hero(image,mapW,mapH,x,y) {  
+function Hero(image, normalMap ,mapW,mapH,x,y) {  
     this.image = image;
+    this.normal = normalMap;
     this.mMapH = mapH;
     this.mMapW = mapW;
-    this.mHero = new IllumRenderable(this.image,this.image);
+    this.mHero = new IllumRenderable(this.image,this.normal);
     this.mHero.setColor([1, 1, 1, 0]);
     this.mHero.getXform().setPosition(x, y);
     this.mHero.getXform().setSize(4, 4);
-    this.mHero.setElementPixelPositions(0,2049,0,2400);  
+    this.mHero.setElementPixelPositions(0,260,0,300);  
     GameObject.call(this, this.mHero);  
     //rigib body for physics 
     var r = new RigidRectangle(this.getXform(), 4, 4);
