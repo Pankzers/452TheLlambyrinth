@@ -28,14 +28,15 @@ Hero.prototype.draw = function (referencedCam) {
     this.mHero.draw(referencedCam);
 };
 
-Hero.prototype.update = function (wallSet,doorPairs) {
-        
+Hero.prototype.update = function (wallSet,doorPairs,heroLight) {
+    var lightPos = heroLight.getPosition();
     //Collisions
     var doors = doorPairs.getDoors();
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {
         if(this.mHero.getXform().getYPos() <this.mMapH-4){
             var flag = false;
             this.mHero.getXform().incYPosBy(0.4);
+            heroLight.setYPos(lightPos[1] + 0.4);
             var bb = this.getBBox();
             if(wallSet.checkLocalBounds(this,bb,0)) {
                 flag = true;
@@ -50,6 +51,7 @@ Hero.prototype.update = function (wallSet,doorPairs) {
             }
             if(flag === true) {
                 this.mHero.getXform().incYPosBy(-0.4);
+                heroLight.setYPos(lightPos[1] - 0.4);
             }
         }
     } 
@@ -57,6 +59,7 @@ Hero.prototype.update = function (wallSet,doorPairs) {
          if(this.mHero.getXform().getYPos() >4){
             var flag = false;
             this.mHero.getXform().incYPosBy(-0.4);
+            heroLight.setYPos(lightPos[1] - 0.4);
             var bb = this.getBBox();
             if(wallSet.checkLocalBounds(this,bb,2)) {
                 flag = true;
@@ -71,6 +74,7 @@ Hero.prototype.update = function (wallSet,doorPairs) {
             }
             if(flag === true) {
                 this.mHero.getXform().incYPosBy(0.4);
+                heroLight.setYPos(lightPos[1] + 0.4);
             }
         }
     } 
@@ -78,6 +82,7 @@ Hero.prototype.update = function (wallSet,doorPairs) {
         if(this.mHero.getXform().getXPos() <this.mMapW-4){
             var flag = false;
             this.mHero.getXform().incXPosBy(0.4);
+            heroLight.setXPos(lightPos[0] + 0.4);
             var bb = this.getBBox();
             if(wallSet.checkLocalBounds(this,bb,1)) {
                 flag = true;
@@ -92,6 +97,7 @@ Hero.prototype.update = function (wallSet,doorPairs) {
             }
             if(flag === true) {
                 this.mHero.getXform().incXPosBy(-0.4);
+                heroLight.setXPos(lightPos[0] - 0.4);
             }
         }
     } 
@@ -99,6 +105,7 @@ Hero.prototype.update = function (wallSet,doorPairs) {
          if(this.mHero.getXform().getXPos() >4){
             var flag = false;
             this.mHero.getXform().incXPosBy(-0.4);
+            heroLight.setXPos(lightPos[0] - 0.4);
             var bb = this.getBBox();
             if(wallSet.checkLocalBounds(this,bb,3)) {
                 flag = true;
@@ -113,6 +120,7 @@ Hero.prototype.update = function (wallSet,doorPairs) {
             }
             if(flag === true) {
                 this.mHero.getXform().incXPosBy(0.4);
+                heroLight.setXPos(lightPos[0] + 0.4);
             }
         }
     }  
