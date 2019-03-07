@@ -11,9 +11,9 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 //+128 px
-function Exit(spriteTexture,x,y) {
+function Exit(spriteTexture,normalTexture, x,y) {
     
-    this.mExit = new SpriteAnimateRenderable(spriteTexture);
+    this.mExit = new IllumRenderable(spriteTexture, normalTexture);
     this.mExit.setColor([1, 1, 1, 0]);
     this.mExit.getXform().setPosition(x, y);
     this.mExit.getXform().setSize(10, 10);

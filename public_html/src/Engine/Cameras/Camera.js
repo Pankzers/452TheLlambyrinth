@@ -216,6 +216,8 @@ Camera.prototype.setupViewProjection = function () {
     // Step A3: set the color to be clear
     gl.clearColor(this.mBgColor[0], this.mBgColor[1], this.mBgColor[2], this.mBgColor[3]);  // set the color to be cleared
     // Step A4: enable the scissor area, clear, and then disable the scissor area
+    
+    //if should clear true do:
     gl.enable(gl.SCISSOR_TEST);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.disable(gl.SCISSOR_TEST);

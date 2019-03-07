@@ -13,6 +13,7 @@
 
 function Level(levelName) {  
     this.kMaze_sprite = "assets/maze_sprite.png";
+    this.kMaze_sprite_Normal = "assets/maze_sprite_normal.png";
     this.kWall = "assets/RigidShape/wall.png";
 
     this.kWall_Tex = "assets/wall_sprite_sheet.png";
@@ -49,6 +50,8 @@ function Level(levelName) {
     this.mNextLoad = null;
     this.mSpriteEnd = false;
     
+    this.mGlobalLightSet = null;
+    
 }
 gEngine.Core.inheritPrototype(Level, Scene);
 
@@ -65,6 +68,7 @@ Level.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kWall_Tex_Normal);
     gEngine.Textures.loadTexture(this.kFloor_Tex_Normal);
     gEngine.Textures.loadTexture(this.hero_Tex_Normal);
+    gEngine.Textures.loadTexture(this.kMaze_sprite_Normal);
 };
 
 Level.prototype.unloadScene = function () {
@@ -79,6 +83,7 @@ Level.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kWall_Tex_Normal);
     gEngine.Textures.unloadTexture(this.kFloor_Tex_Normal);
     gEngine.Textures.unloadTexture(this.hero_Tex_Normal);
+    gEngine.Textures.unloadTexture(this.kMaze_sprite_Normal);
     
     //Game Over
     var nextlevel = null;
@@ -108,9 +113,17 @@ Level.prototype.initialize = function () {
     
     //Create the UI Elements
     this.mGameTimer = new GameTimer(sceneInfo.GameTimer.time);
-       
+    
+    
+    //Added Floor to reflect light 
+    this.mFloor = new IllumRenderable(this.kFloor_Tex, this.kFloor_Tex_Normal);
+    this.mFloor.setElementPixelPositions(0, 512, 0, 512);
+    this.mFloor.getXform().setSize(512, 512);
+    this.mFloor.getXform().setPosition(50, 35);
+    this.mFloor.getMaterial().setSpecular([1, 0, 0, 1]);
+
     //Create the walls
-    this.mWallSet = new WallSet(this.kWall_Tex,this.kFloor_Tex_Normal,sceneInfo.MapInfo.wallx,sceneInfo.MapInfo.wally,sceneInfo.MapInfo.wallgrid);
+    this.mWallSet = new WallSet(this.kWall_Tex,this.kWall_Tex_Normal,sceneInfo.MapInfo.wallx,sceneInfo.MapInfo.wally,sceneInfo.MapInfo.wallgrid);
     for(var i = 0; i < sceneInfo.Wall.length; i++) {
         if(Object.keys(sceneInfo.Wall[i]).length !== 0) {
             this.mWallSet.addWall(sceneInfo.Wall[i].Pos[0],sceneInfo.Wall[i].Pos[1],sceneInfo.Wall[i].Orientation);
@@ -120,8 +133,6 @@ Level.prototype.initialize = function () {
     }
     
     //Setup the GameObjects
-    gEngine.DefaultResources.setGlobalAmbientIntensity(3);  
-    
     this.mLeverSet = new LeverSet(this.kMaze_sprite);
     //Create the lever
     for(var i =0; i < sceneInfo.Lever.length; i++) {
@@ -134,7 +145,7 @@ Level.prototype.initialize = function () {
         );
     }
     this.mSprite = new Sprite(sceneInfo.Sprite.spritex,sceneInfo.Sprite.spritey);
-    this.mExit = new Exit(this.kMaze_sprite,sceneInfo.Exit.exitx,sceneInfo.Exit.exity);
+    this.mExit = new Exit(this.kMaze_sprite,this.kMaze_sprite_Normal, sceneInfo.Exit.exitx,sceneInfo.Exit.exity);
     this.mDoorsContrapsion = new DoorsContrapsion(this.kMaze_sprite, this.kWall);
     
     //Create the Door Pairs
@@ -158,10 +169,18 @@ Level.prototype.initialize = function () {
     sceneInfo.Hero.herox,
     sceneInfo.Hero.heroy
     );
+      
     this.mMinimap = new Minimap(sceneInfo.MapInfo.width,sceneInfo.MapInfo.height);
     this.mSmallCam = this.mMinimap.getMinimap();
-    //rigid Objs
-    this.addRigidObjs();
+    
+    //Lights 
+    this.createLights(this.mHero.getXform().getPosition(), this.mExit.getXform().getPosition()); //new Lights();
+    for (i = 0; i < 3; i++) {
+        this.mFloor.addLight(this.mGlobalLightSet.getLightAt(i));   // all the lights
+    }
+    this.mHero.getRenderable().addLight(this.mGlobalLightSet.getLightAt(0));
+    this.mHero.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1));
+    this.mExit.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1));
     
 };
 
@@ -176,7 +195,7 @@ Level.prototype.drawCamera = function(camera) {
     camera.setupViewProjection();
     
     //Draw the map
-    //this.mFloor.draw(camera);
+    this.mFloor.draw(camera);
     this.mWallSet.draw(camera);
     
     //Draw the objects
@@ -199,7 +218,7 @@ Level.prototype.update = function () {
     this.mCamera.setWCCenter(heroPos[0],heroPos[1]);
     this.mCamera.update();
     this.mSmallCam.update();
-    this.mHero.update(this.mWallSet,this.mDoorsContrapsion);
+    this.mHero.update(this.mWallSet,this.mDoorsContrapsion, this.mGlobalLightSet.getLightAt(1));
     this.mLeverSet.update(this.mCamera, this.mHero);
     
     this.mExit.update();
@@ -230,18 +249,4 @@ Level.prototype.update = function () {
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.L)) {
         console.log(this.mWallSet);
     }
-
-    //gEngine.Physics.processCollision(this.mCollObjs, []);
-};
-//add hero and doors to set to be able to do physics 
-Level.prototype.addRigidObjs = function () {
-    if (this.mHero.setRigidBody() !== null)
-        this.mCollObjs.addToSet(this.mHero);
-    for (var i =0; i < this.mDoorsContrapsion.getDoors().size(); i++)
-    {
-        var door = this.mDoorsContrapsion.getDoors().getObjectAt(i);
-        if (door.setRigidBody() !== null)
-            this.mCollObjs.addToSet(door);
-    }
-    
 };
