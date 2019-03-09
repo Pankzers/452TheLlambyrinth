@@ -27,6 +27,7 @@ GameOver.prototype.initialize = function () {
         [0, 0, 800, 600]           // viewport (orgX, orgY, width, height)
     );
     this.mCamera.setBackgroundColor([0.40, 0.26, 0.13, 1.0]);
+    gEngine.DefaultResources.setGlobalAmbientIntensity(3);
 
     // this.mText = new FontRenderable("This is green text");
     this.mMsg = new FontRenderable("Game Over!");

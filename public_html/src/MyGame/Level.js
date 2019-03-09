@@ -214,7 +214,7 @@ Level.prototype.update = function () {
     this.mCamera.setWCCenter(heroPos[0],heroPos[1]);
     this.mCamera.update();
     this.mSmallCam.update();
-    this.mHero.update(this.mWallSet,this.mDoorsContrapsion, this.mGlobalLightSet.getLightAt(1));
+    this.mHero.update(this.mWallSet,this.mDoorsContrapsion, this.mGlobalLightSet);
     this.mLeverSet.update(this.mCamera, this.mHero);
     
     this.mExit.update();
@@ -247,7 +247,7 @@ Level.prototype.update = function () {
     }
     //test lights
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Five)) {
-        for (var i = 0; i < 3; i++)
+        for (var i = 0; i < 4; i++)
         {
             if (this.mGlobalLightSet.getLightAt(i).isLightOn()){
                 this.mGlobalLightSet.getLightAt(i).setLightTo(false);
@@ -261,7 +261,7 @@ Level.prototype.update = function () {
     }
     //pitch black
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Six)) {
-        for (var i = 0; i < 3; i++)
+        for (var i = 0; i < 4; i++)
             this.mGlobalLightSet.getLightAt(i).setLightTo(true);
         gEngine.DefaultResources.setGlobalAmbientIntensity(0);
     }
