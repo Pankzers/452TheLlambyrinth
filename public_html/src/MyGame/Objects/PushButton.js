@@ -5,9 +5,9 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 //+128 px
-function PushButton(spriteTexture, x, y, w, h) {
+function PushButton(spriteTexture,normalTexture, x, y, w, h) {
     
-    this.mButton = new SpriteAnimateRenderable(spriteTexture, x, y, w,h);
+    this.mButton = new IllumRenderable(spriteTexture, normalTexture);
     this.mButton.setColor([1, 1, 1, 0]);
     this.mButton.getXform().setPosition(x, y);
     this.mButton.getXform().setSize(w, h);

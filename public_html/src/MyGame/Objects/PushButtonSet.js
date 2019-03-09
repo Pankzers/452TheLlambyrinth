@@ -9,9 +9,10 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function PushButtonSet(spriteTexture) {
+function PushButtonSet(spriteTexture, normalTexture) {
     this.mSet = [];
     this.kSprite = spriteTexture;
+    this.kNormal = normalTexture;
    // this.createButton(70, 45, 8,8);
    //GameObject.call(this, this.mSet);
 }
@@ -33,7 +34,7 @@ PushButtonSet.prototype.draw = function (aCamera) {
 
 //draw set 
 PushButtonSet.prototype.createButton = function ( x,y,w,h, r) {
-    var tempButton = new PushButton(this.kSprite, x, y, w, h);
+    var tempButton = new PushButton(this.kSprite, this.kNormal, x, y, w, h);
     tempButton.setRot(r);       //set roatation
     this.addToSet(tempButton);
 };

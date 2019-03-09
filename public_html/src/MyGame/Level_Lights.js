@@ -24,12 +24,12 @@ Level.prototype.createLights = function(posHero, posExit)
     this.mGlobalLightSet.addToSet(light);
     //hero light
     light = this.createLight(Light.eLightType.eSpotLight,
-            [posHero[0], posHero[1], 5],            // Center of camera 
-            [-0.07,  0, -1],
+            [posHero[0], posHero[1], 10],            // Center of camera 
+            [0.13,0.0, -1.0],//[-0.07,  0, -1]
             [0.5, 0.5, 0.5, 1],      //  color
-            19, 7,                   // near and far distances
-            2.7, 4.0,                // inner and outer cones
-            2,                       // intensity
+            15, 30,                   // near and far distances
+            1.40, 1.70,                // inner and outer cones
+            5,                       // intensity
             1                      // drop off
             );
     this.mGlobalLightSet.addToSet(light);
@@ -44,6 +44,32 @@ Level.prototype.createLights = function(posHero, posExit)
             1.0                  // drop off
             );
     this.mGlobalLightSet.addToSet(light);
+    //add lights to objects 
+        for (var i = 0; i < 3; i++) {
+        this.mFloor.addLight(this.mGlobalLightSet.getLightAt(i));   // all the lights
+    }
+    this.mHero.getRenderable().addLight(this.mGlobalLightSet.getLightAt(0));
+    this.mHero.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1));
+    
+    this.mExit.getRenderable().addLight(this.mGlobalLightSet.getLightAt(0));
+    this.mExit.getRenderable().addLight(this.mGlobalLightSet.getLightAt(2));
+    
+    for (var i = 0; i< this.mLeverSet.size(); i++){
+        this.mLeverSet.getObjectAt(i).getRenderable().addLight(this.mGlobalLightSet.getLightAt(0));
+        this.mLeverSet.getObjectAt(i).getRenderable().addLight(this.mGlobalLightSet.getLightAt(1));
+    }
+    
+    for (var i = 0; i< this.mDoorsContrapsion.size(); i++){
+        var button = this.mDoorsContrapsion.getButtons().getObjectAt(i);
+        button.getRenderable().addLight(this.mGlobalLightSet.getLightAt(0));
+        button.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1));
+    }
+    
+    for (var i = 0; i< this.mWallSet.size(); i++){
+        var wall = this.mWallSet.getObjectAt(i);
+        wall.getRenderable().addLight(this.mGlobalLightSet.getLightAt(0));
+        wall.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1));
+    }
 };
 //used method from example 8.6
 Level.prototype.createLight= function(type, pos, dir, color, n, f, inner, outer, intensity, dropOff) {
@@ -60,5 +86,6 @@ Level.prototype.createLight= function(type, pos, dir, color, n, f, inner, outer,
     light.setOuter(outer);
     light.setIntensity(intensity);
     light.setDropOff(dropOff);
+    light.setLightTo(false);
     return light;
 };

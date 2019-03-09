@@ -11,9 +11,9 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 //+128 px
-function DoorsContrapsion(buttonTexture, doorTexture, obj) {
-    this.mDoors = new DoorSet(doorTexture);
-    this.mButtons = new PushButtonSet(buttonTexture);
+function DoorsContrapsion(buttonTexture, buttonNormal, doorTexture, doorNormal, obj) {
+    this.mDoors = new DoorSet(doorTexture, doorNormal);
+    this.mButtons = new PushButtonSet(buttonTexture, buttonNormal);
     //door x, y, w, h, r button x, y, w, h, r
     //this.addPair(75, 65, 1, 6, 90, 70, 55.5, 5, 5, 180, obj);
     //this.addPair(35, 60, 1, 6, 90, 40, 55.5, 5, 5, 180, obj);
@@ -49,4 +49,10 @@ DoorsContrapsion.prototype.addPair = function(dX, dY, dW, dH, dR, bX, bY, bW, bH
 
 DoorsContrapsion.prototype.getDoors = function() {
     return this.mDoors;
+};
+DoorsContrapsion.prototype.getButtons = function() {
+    return this.mButtons;
+};
+DoorsContrapsion.prototype.size = function() {
+    return this.mDoors.size();
 };

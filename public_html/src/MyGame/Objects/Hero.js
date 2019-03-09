@@ -30,6 +30,7 @@ Hero.prototype.draw = function (referencedCam) {
 
 Hero.prototype.update = function (wallSet,doorPairs,heroLight) {
     var lightPos = heroLight.getPosition();
+    var lightDir = heroLight.getDirection();
     //Collisions
     var doors = doorPairs.getDoors();
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {
@@ -37,6 +38,8 @@ Hero.prototype.update = function (wallSet,doorPairs,heroLight) {
             var flag = false;
             this.mHero.getXform().incYPosBy(0.4);
             heroLight.setYPos(lightPos[1] + 0.4);
+            lightDir[1] += 0.005;
+            heroLight.setDirection(lightDir);
             var bb = this.getBBox();
             if(wallSet.checkLocalBounds(this,bb,0)) {
                 flag = true;
@@ -60,6 +63,8 @@ Hero.prototype.update = function (wallSet,doorPairs,heroLight) {
             var flag = false;
             this.mHero.getXform().incYPosBy(-0.4);
             heroLight.setYPos(lightPos[1] - 0.4);
+            lightDir[1] -= 0.005;
+            heroLight.setDirection(lightDir);
             var bb = this.getBBox();
             if(wallSet.checkLocalBounds(this,bb,2)) {
                 flag = true;
@@ -83,6 +88,8 @@ Hero.prototype.update = function (wallSet,doorPairs,heroLight) {
             var flag = false;
             this.mHero.getXform().incXPosBy(0.4);
             heroLight.setXPos(lightPos[0] + 0.4);
+            lightDir[0] += 0.005;
+            heroLight.setDirection(lightDir);
             var bb = this.getBBox();
             if(wallSet.checkLocalBounds(this,bb,1)) {
                 flag = true;
@@ -106,6 +113,8 @@ Hero.prototype.update = function (wallSet,doorPairs,heroLight) {
             var flag = false;
             this.mHero.getXform().incXPosBy(-0.4);
             heroLight.setXPos(lightPos[0] - 0.4);
+            lightDir[0] -= 0.005;
+            heroLight.setDirection(lightDir);
             var bb = this.getBBox();
             if(wallSet.checkLocalBounds(this,bb,3)) {
                 flag = true;

@@ -4,8 +4,8 @@
 /* find out more about jslint: http://www.jslint.com/help.html */
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
-function Door(spriteTexture, x, y, w, h) {
-    var tempDoor = new TextureRenderable(spriteTexture);
+function Door(spriteTexture, normalTexture, x, y, w, h) {
+    var tempDoor = new IllumRenderable(spriteTexture, normalTexture);
     var xf = tempDoor.getXform();
     xf.setSize(w, h);
     xf.setPosition(x, y);

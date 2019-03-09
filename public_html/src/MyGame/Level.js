@@ -14,7 +14,8 @@
 function Level(levelName) {  
     this.kMaze_sprite = "assets/maze_sprite.png";
     this.kMaze_sprite_Normal = "assets/maze_sprite_normal.png";
-    this.kWall = "assets/RigidShape/wall.png";
+    this.kDoor = "assets/RigidShape/wall.png";
+    this.kDoor_Normal = "assets/RigidShape/wall_normal.png";
 
     this.kWall_Tex = "assets/wall_sprite_sheet.png";
     this.kWall_Tex_Normal = "assets/wall_sprite_sheet_normal.png";
@@ -59,7 +60,7 @@ gEngine.Core.inheritPrototype(Level, Scene);
 Level.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kMaze_sprite);
 
-    gEngine.Textures.loadTexture(this.kWall);
+    gEngine.Textures.loadTexture(this.kDoor);
     gEngine.Textures.loadTexture(this.kWall_Tex);
     gEngine.Textures.loadTexture(this.kFloor_Tex);
     gEngine.TextFileLoader.loadTextFile(this.kSceneFile, gEngine.TextFileLoader.eTextFileType.eJSONFile);
@@ -69,12 +70,13 @@ Level.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kFloor_Tex_Normal);
     gEngine.Textures.loadTexture(this.hero_Tex_Normal);
     gEngine.Textures.loadTexture(this.kMaze_sprite_Normal);
+    gEngine.Textures.loadTexture(this.kDoor_Normal);
 };
 
 Level.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kMaze_sprite);
 
-    gEngine.Textures.unloadTexture(this.kWall);
+    gEngine.Textures.unloadTexture(this.kDoor);
 
     gEngine.Textures.unloadTexture(this.kWall_Tex);
     gEngine.Textures.unloadTexture(this.kFloor_Tex);
@@ -84,6 +86,7 @@ Level.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kFloor_Tex_Normal);
     gEngine.Textures.unloadTexture(this.hero_Tex_Normal);
     gEngine.Textures.unloadTexture(this.kMaze_sprite_Normal);
+    gEngine.Textures.loadTexture(this.kDoor_Normal);
     
     //Game Over
     var nextlevel = null;
@@ -110,7 +113,7 @@ Level.prototype.initialize = function () {
     sceneInfo.Camera.Viewport
     );
     this.mCamera.setBackgroundColor(sceneInfo.Camera.BgColor);
-    
+    gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     //Create the UI Elements
     this.mGameTimer = new GameTimer(sceneInfo.GameTimer.time);
     
@@ -133,7 +136,7 @@ Level.prototype.initialize = function () {
     }
     
     //Setup the GameObjects
-    this.mLeverSet = new LeverSet(this.kMaze_sprite);
+    this.mLeverSet = new LeverSet(this.kMaze_sprite, this.kMaze_sprite_Normal);
     //Create the lever
     for(var i =0; i < sceneInfo.Lever.length; i++) {
         this.mLeverSet.createLever(
@@ -146,7 +149,7 @@ Level.prototype.initialize = function () {
     }
     this.mSprite = new Sprite(sceneInfo.Sprite.spritex,sceneInfo.Sprite.spritey);
     this.mExit = new Exit(this.kMaze_sprite,this.kMaze_sprite_Normal, sceneInfo.Exit.exitx,sceneInfo.Exit.exity);
-    this.mDoorsContrapsion = new DoorsContrapsion(this.kMaze_sprite, this.kWall);
+    this.mDoorsContrapsion = new DoorsContrapsion(this.kMaze_sprite, this.kMaze_sprite_Normal, this.kDoor, this.kDoor_Normal);
     
     //Create the Door Pairs
     for(var i =0; i < sceneInfo.DoorPair.length; i++) {
@@ -173,29 +176,22 @@ Level.prototype.initialize = function () {
     this.mMinimap = new Minimap(sceneInfo.MapInfo.width,sceneInfo.MapInfo.height);
     this.mSmallCam = this.mMinimap.getMinimap();
     
-    //Lights 
-    this.createLights(this.mHero.getXform().getPosition(), this.mExit.getXform().getPosition()); //new Lights();
-    for (i = 0; i < 3; i++) {
-        this.mFloor.addLight(this.mGlobalLightSet.getLightAt(i));   // all the lights
-    }
-    this.mHero.getRenderable().addLight(this.mGlobalLightSet.getLightAt(0));
-    this.mHero.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1));
-    this.mExit.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1));
-    
+    //Lights go to Level_Lights
+    this.createLights(this.mHero.getXform().getPosition(), this.mExit.getXform().getPosition()); 
+
 };
 
 Level.prototype.draw = function () {
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
-    this.drawCamera(this.mCamera);
-    this.drawCamera(this.mSmallCam);                //set up minimap view
-    
+    this.drawCamera(this.mCamera, true);      //draw floor
+    this.drawCamera(this.mSmallCam, false);                //set up minimap view
 };
-Level.prototype.drawCamera = function(camera) {
+Level.prototype.drawCamera = function(camera, floor) {
     //Setup the camera
     camera.setupViewProjection();
-    
+    if (floor)
+        this.mFloor.draw(this.mCamera);
     //Draw the map
-    this.mFloor.draw(camera);
     this.mWallSet.draw(camera);
     
     //Draw the objects
@@ -248,5 +244,25 @@ Level.prototype.update = function () {
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.L)) {
         console.log(this.mWallSet);
+    }
+    //test lights
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Five)) {
+        for (var i = 0; i < 3; i++)
+        {
+            if (this.mGlobalLightSet.getLightAt(i).isLightOn()){
+                this.mGlobalLightSet.getLightAt(i).setLightTo(false);
+                gEngine.DefaultResources.setGlobalAmbientIntensity(3);
+            }
+            else{
+                this.mGlobalLightSet.getLightAt(i).setLightTo(true);
+                gEngine.DefaultResources.setGlobalAmbientIntensity(1);  //dim lights
+            }
+        }
+    }
+    //pitch black
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Six)) {
+        for (var i = 0; i < 3; i++)
+            this.mGlobalLightSet.getLightAt(i).setLightTo(true);
+        gEngine.DefaultResources.setGlobalAmbientIntensity(0);
     }
 };

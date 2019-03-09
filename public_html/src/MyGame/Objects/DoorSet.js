@@ -9,9 +9,10 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function DoorSet(spriteTexture) {
+function DoorSet(spriteTexture, normalTexture) {
     this.mSet = [];
     this.kSprite = spriteTexture;
+    this.kNormal = normalTexture;
     
    // this.createDoor(30,20, 2, 10);
    GameObject.call(this, this.mSet);
@@ -33,7 +34,7 @@ DoorSet.prototype.draw = function (aCamera) {
 
 //draw set
 DoorSet.prototype.createDoor = function ( x,y,w,h, r, obj) {
-    var tempDoor = new Door(this.kSprite, x, y, w, h, obj);
+    var tempDoor = new Door(this.kSprite, this.kNormal, x, y, w, h, obj);
     tempDoor.setRot(r);
     this.addToSet(tempDoor);
 };

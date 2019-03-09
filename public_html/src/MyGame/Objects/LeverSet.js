@@ -9,9 +9,10 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function LeverSet(spriteTexture) {
+function LeverSet(spriteTexture, normalTexture) {
     this.mSet = [];
     this.kSprite = spriteTexture; 
+    this.kNormal = normalTexture;
     //this.createLever(0, 2, 5, 8, 0);
     //this.createLever(72, 20, 5, 8, 270);
     //this.createLever(12, 70, 5, 8, 270);
@@ -44,7 +45,7 @@ LeverSet.prototype.draw = function (aCamera) {
 
 //draw set
 LeverSet.prototype.createLever = function ( x,y,w,h, r) {
-    var tempLever = new Lever(this.kSprite, x, y, w, h);
+    var tempLever = new Lever(this.kSprite, this.kNormal, x, y, w, h);
     tempLever.setRot(r);
     this.addToSet(tempLever);
 };
