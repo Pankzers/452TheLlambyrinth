@@ -25,6 +25,7 @@ function Level(levelName) {
     this.hero_Tex = "assets/llama.png";
     this.hero_Tex_Normal = "assets/llama_normal.png";
 
+    this.mLevel = levelName;
     
     // The cameras to view the level
     this.mCamera = null;
@@ -90,11 +91,11 @@ Level.prototype.unloadScene = function () {
     
     //Game Over
     var nextlevel = null;
-    nextlevel = new GameOver();
+    nextlevel = new GameOver(this.mNextLoad, this.mLevel, this.mGameTimer.getTime());
     if(this.mNextLoad === "lose"){
         
-    } else if (this.mNextLoad === "win"){
-        nextlevel = new GameOver();
+    } else if (this.mNextLoad === "won"){
+        nextlevel = new GameOver(this.mNextLoad, this.mLevel, this.mGameTimer.getTime());
     } else {
         nextlevel = new Level(this.mNextLoad);
     }
@@ -221,7 +222,7 @@ Level.prototype.update = function () {
     this.mDoorsContrapsion.update(this.mHero);
     
     if (this.mExit.pixelTouches(this.mHero, [])){
-        this.mNextLoad = "lose";
+        this.mNextLoad = "won";
         gEngine.GameLoop.stop();
     }
     if (this.mSprite.update(this.mHero,this.mSpriteEnd))    //returns true of pixel pixelTouches with last particle in system
