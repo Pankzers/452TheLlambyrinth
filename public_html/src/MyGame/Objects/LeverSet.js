@@ -29,7 +29,8 @@ LeverSet.prototype.update = function (cam, hero) {
         if (lever.pixelTouches(hero, []) && gEngine.Input.isKeyClicked(gEngine.Input.keys.Space))  
         {
             lever.pullLever();
-            cam.shake(-5, -5, 5, 50);        
+            cam.shake(-5, -5, 5, 50);  
+            hero.shake();
         }
     }
 

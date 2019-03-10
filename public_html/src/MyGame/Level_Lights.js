@@ -11,7 +11,7 @@
 Level.prototype.createLights = function(posHero, posExit)
 {  
     this.mGlobalLightSet = new LightSet();
-    //overall light 
+    //overall background light 
     var  light = this.createLight(Light.eLightType.eDirectionalLight,
             [60, 40, 4],           // position (not used by directional)
             [-0.2, -0.2, -1],      // Pointing direction upwards
@@ -24,12 +24,12 @@ Level.prototype.createLights = function(posHero, posExit)
     this.mGlobalLightSet.addToSet(light);
     //direction light 
     light = this.createLight(Light.eLightType.eSpotLight,
-            [posHero[0], posHero[1], 10],            // Center of camera 
-            [0.13,0.0, -1.0],//[-0.07,  0, -1]
+            [posHero[0], posHero[1], 5],            // Center of camera 
+            [0.13,0.0, -1.0],
             [0.5, 0.5, 0.5, 1],      //  color
             15, 30,                   // near and far distances
             1.40, 1.70,                // inner and outer cones
-            5,                       // intensity
+            10,                       // intensity
             1                      // drop off
             );
     this.mGlobalLightSet.addToSet(light);
@@ -70,9 +70,13 @@ Level.prototype.createLights = function(posHero, posExit)
     //button
     for (var i = 0; i< this.mDoorsContrapsion.size(); i++){
         var button = this.mDoorsContrapsion.getButtons().getObjectAt(i);
+        var door = this.mDoorsContrapsion.getDoors().getObjectAt(i);
         button.getRenderable().addLight(this.mGlobalLightSet.getLightAt(0));
         button.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1));
         button.getRenderable().addLight(this.mGlobalLightSet.getLightAt(2));
+        door.getRenderable().addLight(this.mGlobalLightSet.getLightAt(0));
+        door.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1));
+        door.getRenderable().addLight(this.mGlobalLightSet.getLightAt(2));
     }
     //walls
     for (var i = 0; i< this.mWallSet.size(); i++){

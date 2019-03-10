@@ -5,20 +5,11 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 function Door(spriteTexture, normalTexture, x, y, w, h) {
-    var tempDoor = new IllumRenderable(spriteTexture, normalTexture);
-    var xf = tempDoor.getXform();
-    xf.setSize(w, h);
-    xf.setPosition(x, y);
-    var tempObject = new GameObject(tempDoor);
-    var rigid = new RigidRectangle(xf, w, h);
-    tempObject.setRigidBody(rigid);
-    //tempObject.toggleDrawRigidShape();
-    //r.toggleDrawBound();
-    rigid.setMass(0);
-    xf.setRotationInDegree(0);
-    this.mDoor = tempObject;
-    this.visable = true; 
-      
+    this.mDoor = new IllumRenderable(spriteTexture, normalTexture);
+    this.mDoor.setColor([1, 1, 1, 0]);
+    this.mDoor.getXform().setSize(w, h);
+    this.mDoor.getXform().setPosition(x, y);
+    this.visable = true;
     GameObject.call(this, this.mDoor);  
 }
 gEngine.Core.inheritPrototype(Door, GameObject);
@@ -27,7 +18,7 @@ gEngine.Core.inheritPrototype(Door, GameObject);
 Door.prototype.update = function() {
     //gEngine.Physics.processCollision(temp,h);
     if (!this.visable) {
-        this.mDoor.setVisibility(false);
+        this.mDoor.getXform().setSize(0,0);
     }  
     
     this.mDoor.update();

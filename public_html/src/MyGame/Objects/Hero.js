@@ -19,7 +19,8 @@ function Hero(image, normalMap ,mapW,mapH,x,y) {
     var r = new RigidRectangle(this.getXform(), 4, 4);
     this.setRigidBody(r);
     this.toggleDrawRigidShape();
-  
+    this.shaker = null;
+    this.shaking = false; 
 };
 gEngine.Core.inheritPrototype(Hero, GameObject);
 
@@ -39,7 +40,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
         if(this.mHero.getXform().getYPos() <this.mMapH-4){
             var flag = false;
             this.mHero.getXform().incYPosBy(0.4);
-            dirLight.setYPos(lightPos[1] + 0.4);
+            //dirLight.setYPos(lightPos[1] + 0.4);
             lightDir[1] += 0.005;
             dirLight.setDirection(lightDir);
             var bb = this.getBBox();
@@ -56,7 +57,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
             }
             if(flag === true) {
                 this.mHero.getXform().incYPosBy(-0.4);
-                dirLight.setYPos(lightPos[1] - 0.4);
+            //    dirLight.setYPos(lightPos[1] - 0.4);
             }
         }
     } 
@@ -64,7 +65,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
          if(this.mHero.getXform().getYPos() >4){
             var flag = false;
             this.mHero.getXform().incYPosBy(-0.4);
-            dirLight.setYPos(lightPos[1] - 0.4);
+          //  dirLight.setYPos(lightPos[1] - 0.4);
             lightDir[1] -= 0.005;
             dirLight.setDirection(lightDir);
             var bb = this.getBBox();
@@ -81,7 +82,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
             }
             if(flag === true) {
                 this.mHero.getXform().incYPosBy(0.4);
-                dirLight.setYPos(lightPos[1] + 0.4);
+          //      dirLight.setYPos(lightPos[1] + 0.4);
             }
         }
     } 
@@ -89,7 +90,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
         if(this.mHero.getXform().getXPos() <this.mMapW-4){
             var flag = false;
             this.mHero.getXform().incXPosBy(0.4);
-            dirLight.setXPos(lightPos[0] + 0.4);
+          //  dirLight.setXPos(lightPos[0] + 0.4);
             lightDir[0] += 0.005;
             dirLight.setDirection(lightDir);
             var bb = this.getBBox();
@@ -106,7 +107,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
             }
             if(flag === true) {
                 this.mHero.getXform().incXPosBy(-0.4);
-                dirLight.setXPos(lightPos[0] - 0.4);
+        //        dirLight.setXPos(lightPos[0] - 0.4);
             }
         }
     } 
@@ -114,7 +115,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
          if(this.mHero.getXform().getXPos() >4){
             var flag = false;
             this.mHero.getXform().incXPosBy(-0.4);
-            dirLight.setXPos(lightPos[0] - 0.4);
+           // dirLight.setXPos(lightPos[0] - 0.4);
             lightDir[0] -= 0.005;
             dirLight.setDirection(lightDir);
             var bb = this.getBBox();
@@ -131,10 +132,31 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
             }
             if(flag === true) {
                 this.mHero.getXform().incXPosBy(0.4);
-                dirLight.setXPos(lightPos[0] + 0.4);
+            //    dirLight.setXPos(lightPos[0] + 0.4);
             }
         }
     }  
+    dirLight.set2DPosition(this.mHero.getXform().getPosition());
     heroLight.set2DPosition(this.mHero.getXform().getPosition());
     this.mHero.update();
+    this.shakeUpdate();
+};
+
+Hero.prototype.shake = function () {
+    this.shaker = new ShakePosition(2,2, 5, 50);
+    this.shaking = true;
+};
+
+Hero.prototype.shakeUpdate = function () {
+    if (this.shaker !== null)
+    {
+        if(this.shaker.shakeDone()){        //if shaking is completed turn off shake boolean variable
+            this.shaking = false;
+        }
+        else if(this.shaking === true) {     //if shaking is still occuring grab getShakeResults()
+            var delta = this.shaker.getShakeResults();
+            var pos = this.mHero.getXform().getPosition();
+            this.mHero.getXform().setYPos(pos[1] + delta[1]);
+        }
+    }
 };
