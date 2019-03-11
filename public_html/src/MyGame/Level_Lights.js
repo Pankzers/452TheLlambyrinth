@@ -57,7 +57,7 @@ Level.prototype.createLights = function(posHero, posExit)
     this.mGlobalLightSet.addToSet(light);
     //add lights to objects 
     for (var i = 0; i < 4; i++) {
-        this.mFloor.addLight(this.mGlobalLightSet.getLightAt(i));   //floor
+        this.mFloorTile.addLight(this.mGlobalLightSet.getLightAt(i));   //floor
         this.mHero.getRenderable().addLight(this.mGlobalLightSet.getLightAt(i));    //hero
         this.mExit.getRenderable().addLight(this.mGlobalLightSet.getLightAt(i));    //exit 
     }

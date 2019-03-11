@@ -20,7 +20,7 @@ function Level(levelName, lightPref, gamePref) {
     this.kWall_Tex = "assets/wall_sprite_sheet.png";
     this.kWall_Tex_Normal = "assets/wall_sprite_sheet_normal.png";
     this.kFloor_Tex = "assets/floor_tex.jpg";
-    this.kFloor_Tex_Normal = "assets/floor_tex_normal.png";
+    this.kFloor_Tex_Normal = "assets/floor_tex_normal2.jpg";
     this.kSceneFile = "assets/"+levelName+".json";
     this.hero_Tex = "assets/hero_sprite.png";
     //this.hero_Tex_Moves = "assets/llamas_move.png";
@@ -49,6 +49,7 @@ function Level(levelName, lightPref, gamePref) {
     this.mButtonSet = null;
     this.mExit = null;
     this.mWallSet = null;
+    this.mFloorTile = null;
     this.mFloor = null;
 
     this.GameOver = false;
@@ -121,11 +122,12 @@ Level.prototype.initialize = function () {
     
     
     //Added Floor to reflect light 
-    this.mFloor = new IllumRenderable(this.kFloor_Tex, this.kFloor_Tex_Normal);
-    this.mFloor.setElementPixelPositions(0, 512, 0, 512);
-    this.mFloor.getXform().setSize(512, 512);
-    this.mFloor.getXform().setPosition(50, 35);
-    this.mFloor.getMaterial().setSpecular([1, 0, 0, 1]);
+    this.mFloorTile = new IllumRenderable(this.kFloor_Tex, this.kFloor_Tex_Normal);
+    this.mFloorTile.setElementPixelPositions(0, 512, 0, 512);
+    this.mFloorTile.getXform().setSize(20, 20);
+    this.mFloorTile.getXform().setPosition(0, 0);
+    this.mFloorTile.getMaterial().setSpecular([1, 0, 0, 1]);
+    this.mFloor = new TiledGameObject(this.mFloorTile);
 
     //Create the walls
     this.mWallSet = new WallSet(this.kWall_Tex,this.kWall_Tex_Normal,sceneInfo.MapInfo.wallx,sceneInfo.MapInfo.wally,sceneInfo.MapInfo.wallgrid);
