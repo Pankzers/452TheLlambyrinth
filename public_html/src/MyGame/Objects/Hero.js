@@ -12,8 +12,9 @@ function Hero(image, normalMap ,mapW,mapH,x,y) {
     this.mHero = new IllumRenderable(this.image,this.normal);
     this.mHero.setColor([1, 1, 1, 0]);
     this.mHero.getXform().setPosition(x, y);
-    this.mHero.getXform().setSize(4, 4);
-    this.mHero.setElementPixelPositions(0,260,0,300);  
+    this.mHero.getXform().setSize(4, 5);                       //changed size from 4 by 4   
+    //2048x512, each image is 300x512
+    this.mHero.setElementPixelPositions(600,300,0,512);       //default start position  
     GameObject.call(this, this.mHero);  
     //rigib body for physics 
     var r = new RigidRectangle(this.getXform(), 4, 4);
@@ -87,6 +88,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
         }
     } 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
+        this.moveRight();
         if(this.mHero.getXform().getXPos() <this.mMapW-4){
             var flag = false;
             this.mHero.getXform().incXPosBy(0.4);
@@ -112,6 +114,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
         }
     } 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {
+        this.moveLeft();
          if(this.mHero.getXform().getXPos() >4){
             var flag = false;
             this.mHero.getXform().incXPosBy(-0.4);
@@ -162,7 +165,11 @@ Hero.prototype.shakeUpdate = function () {
 };
 
 //Change element positions in "llamas_move.png" to see llama move left or right
-Hero.prototype.moveLeft = function () {};
+Hero.prototype.moveLeft = function () {
+    this.mHero.setElementPixelPositions(600,300,0,512);       //default position  
+};
 
 //This flips the llama to face the right side when arrow key right is clicked
-Hero.prototype.moveRight = function () {};
+Hero.prototype.moveRight = function () {
+    this.mHero.setElementPixelPositions(0,300,0,512);       //default position 
+};
