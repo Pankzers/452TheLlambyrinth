@@ -160,3 +160,9 @@ Hero.prototype.shakeUpdate = function () {
         }
     }
 };
+
+//Change element positions in "llamas_move.png" to see llama move left or right
+Hero.prototype.moveLeft = function () {};
+
+//This flips the llama to face the right side when arrow key right is clicked
+Hero.prototype.moveRight = function () {};

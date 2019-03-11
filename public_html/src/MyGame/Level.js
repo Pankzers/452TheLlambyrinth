@@ -23,6 +23,7 @@ function Level(levelName) {
     this.kFloor_Tex_Normal = "assets/floor_tex_normal.png";
     this.kSceneFile = "assets/"+levelName+".json";
     this.hero_Tex = "assets/llama.png";
+    this.hero_Tex_Moves = "assets/llamas_move.png";
     this.hero_Tex_Normal = "assets/llama_normal.png";
 
     this.mLevel = levelName;
@@ -66,6 +67,7 @@ Level.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kFloor_Tex);
     gEngine.TextFileLoader.loadTextFile(this.kSceneFile, gEngine.TextFileLoader.eTextFileType.eJSONFile);
     gEngine.Textures.loadTexture(this.hero_Tex);
+    gEngine.Textures.loadTexture(this.hero_Tex_Moves);
     //Normal Maps
     gEngine.Textures.loadTexture(this.kWall_Tex_Normal);
     gEngine.Textures.loadTexture(this.kFloor_Tex_Normal);
@@ -82,6 +84,7 @@ Level.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kWall_Tex);
     gEngine.Textures.unloadTexture(this.kFloor_Tex);
     gEngine.Textures.unloadTexture(this.hero_Tex);
+    gEngine.Textures.unloadTexture(this.hero_Tex_Moves);
     //Normal Maps
     gEngine.Textures.unloadTexture(this.kWall_Tex_Normal);
     gEngine.Textures.unloadTexture(this.kFloor_Tex_Normal);
