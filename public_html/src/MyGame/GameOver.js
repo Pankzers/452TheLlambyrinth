@@ -55,7 +55,11 @@ GameOver.prototype.initialize = function () {
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     var sec = Math.floor(this.time/1000-Math.floor(this.time/60000)*60);
     var min = Math.floor(this.time/60000);
-    var text = "Finished in: " + min + ":" + sec;
+    if(sec > 9) {
+        var text = "Finished in: " + min + ":" + sec;
+    } else {
+        var text = "Finished in: " + min + ":0" + sec;
+    }
     console.log(text);
     this.mWon = new FontRenderable(this.mNextLoad);
     this.mWon.setColor([1, 1, 1, 1]);
