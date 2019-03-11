@@ -248,7 +248,7 @@ Level.prototype.update = function () {
 
     //Update the UI
     var time = this.mGameTimer.update();
-    if (this.mLightPref === "dark")
+    if (this.mLightPref === "dark")     //only when dark
         this.updateValue(time);
     //Update the objects
     var heroPos = this.mHero.getXform().getPosition();
@@ -288,5 +288,5 @@ Level.prototype.update = function () {
     }
 };
 Level.prototype.updateValue = function(time){
-    document.getElementById("value1").innerHTML = time;
+    document.getElementById("time").innerHTML = time;
 };
