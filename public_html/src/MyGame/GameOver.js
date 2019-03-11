@@ -9,7 +9,7 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function GameOver(mNextLoad, prevLevel, time) {
+function GameOver(mNextLoad, prevLevel, time, lightType, gameType) {
     this.kUIButton = "assets/UI/buttonUI.png";
     this.mCamera = null;
     this.mMsg = null;
@@ -17,6 +17,8 @@ function GameOver(mNextLoad, prevLevel, time) {
     this.mNextLoad = mNextLoad;
     this.mPrev = prevLevel;
     this.time = time;
+    this.mLightType = lightType;
+    this.mGameType = gameType;
     
     this.mRetry = false;
     this.mMain = false;
@@ -32,15 +34,13 @@ GameOver.prototype.unloadScene = function () {
     var nextlevel = null;
     if (this.mRetry)
     {
-        nextlevel = new Level(this.mPrev);
-        gEngine.Core.startScene(nextlevel);
+        nextlevel = new Level(this.mPrev, this.mLightType, this.mGameType);
     }
     else if (this.mMain)
     {
-          gEngine.Core.cleanUp(); // release gl resources
-        //nextLevel = new Main();
+        nextlevel = new Main();
     }
-        
+    gEngine.Core.startScene(nextlevel); 
   //  gEngine.Core.cleanUp(); // release gl resources
 };
 

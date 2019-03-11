@@ -113,6 +113,7 @@
         <script type="text/javascript" src="src/MyGame/Level.js"></script>
         <script type="text/javascript" src="src/MyGame/Level_Lights.js"></script>
         <script type="text/javascript" src="src/MyGame/GameOver.js"></script>
+        <script type="text/javascript" src="src/MyGame/Main.js"></script>
         <!-- Client Objects -->
         <script type="text/javascript" src="src/MyGame/Objects/Lever.js"></script>
         <script type="text/javascript" src="src/MyGame/Objects/LeverSet.js"></script>
@@ -138,7 +139,7 @@
     </head>
 
     <body onload="
-        var myGame = new Level('testlevel');
+        var myGame = new Main();
         gEngine.Core.initializeEngineCore('GLCanvas', myGame);
      ">
         <div id="LoadingIconParent" style="width: 800px; height:600px;">

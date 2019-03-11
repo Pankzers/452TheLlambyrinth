@@ -11,7 +11,7 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Level(levelName) {  
+function Level(levelName, lightPref, gamePref) {  
     this.kMaze_sprite = "assets/maze_sprite.png";
     this.kMaze_sprite_Normal = "assets/maze_sprite_normal.png";
     this.kDoor = "assets/RigidShape/wall.png";
@@ -26,6 +26,8 @@ function Level(levelName) {
     this.hero_Tex_Normal = "assets/llama_normal.png";
 
     this.mLevel = levelName;
+    this.mLightPref = lightPref;
+    this.mGamePref = gamePref;
     
     // The cameras to view the level
     this.mCamera = null;
@@ -50,7 +52,7 @@ function Level(levelName) {
 
     this.GameOver = false;
     this.mNextLoad = null;
-    this.mSpriteEnd = false;
+    this.mSpriteEnd = false;    //end game when sprite catches 
     
     this.mGlobalLightSet = null;
     
@@ -91,13 +93,11 @@ Level.prototype.unloadScene = function () {
     
     //Game Over
     var nextlevel = null;
-    nextlevel = new GameOver(this.mNextLoad, this.mLevel, this.mGameTimer.getTime());
-    if(this.mNextLoad === "lose"){
-        
-    } else if (this.mNextLoad === "won"){
-        nextlevel = new GameOver(this.mNextLoad, this.mLevel, this.mGameTimer.getTime());
+//    nextlevel = new GameOver(this.mNextLoad, this.mLevel, this.mGameTimer.getTime());
+    if(this.mNextLoad === "lose" || this.mNextLoad === "won"){
+        nextlevel = new GameOver(this.mNextLoad, this.mLevel, this.mGameTimer.getTime(), this.mLightPref, this.mGamePref);
     } else {
-        nextlevel = new Level(this.mNextLoad);
+        nextlevel = new Level(this.mNextLoad, this.mLightPref, this.mGamePref);
     }
     gEngine.Core.startScene(nextlevel);
 };
@@ -179,6 +179,35 @@ Level.prototype.initialize = function () {
     
     //Lights go to Level_Lights
     this.createLights(this.mHero.getXform().getPosition(), this.mExit.getXform().getPosition()); 
+    //light preference
+    if (this.mLightPref === "bright")
+    {
+        gEngine.DefaultResources.setGlobalAmbientIntensity(3);
+        for (var i = 0; i < 4; i++)
+        {
+            this.mGlobalLightSet.getLightAt(i).setLightTo(false);
+        }
+    }
+    else if (this.mLightPref === "dim")
+    {
+        gEngine.DefaultResources.setGlobalAmbientIntensity(1);
+        for (var i = 0; i < 4; i++)
+        {
+            this.mGlobalLightSet.getLightAt(i).setLightTo(true);
+        }
+    }
+    else if (this.mLightPref === "dark")
+    {
+        gEngine.DefaultResources.setGlobalAmbientIntensity(0);
+        for (var i = 0; i < 4; i++)
+        {
+            this.mGlobalLightSet.getLightAt(i).setLightTo(true);
+        }
+    }
+    if (this.mGamePref === "time")
+        this.mSpriteEnd = false;
+    else if (this.mGamePref === "chase")
+        this.mSpriteEnd = true;
 
 };
 
@@ -236,34 +265,14 @@ Level.prototype.update = function () {
         this.mNextLoad = "lose";
         gEngine.GameLoop.stop();
     }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) {
-        this.mSpriteEnd = !this.mSpriteEnd;
-    }
+//    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) {
+//        this.mSpriteEnd = !this.mSpriteEnd;
+//    }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.N)) {
         this.mNextLoad = "testlevel2";
         gEngine.GameLoop.stop();
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.L)) {
         console.log(this.mWallSet);
-    }
-    //test lights
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Five)) {
-        for (var i = 0; i < 4; i++)
-        {
-            if (this.mGlobalLightSet.getLightAt(i).isLightOn()){
-                this.mGlobalLightSet.getLightAt(i).setLightTo(false);
-                gEngine.DefaultResources.setGlobalAmbientIntensity(3);
-            }
-            else{
-                this.mGlobalLightSet.getLightAt(i).setLightTo(true);
-                gEngine.DefaultResources.setGlobalAmbientIntensity(1);  //dim lights
-            }
-        }
-    }
-    //pitch black
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Six)) {
-        for (var i = 0; i < 4; i++)
-            this.mGlobalLightSet.getLightAt(i).setLightTo(true);
-        gEngine.DefaultResources.setGlobalAmbientIntensity(0);
     }
 };
