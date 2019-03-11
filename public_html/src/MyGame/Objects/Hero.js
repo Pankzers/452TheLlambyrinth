@@ -22,6 +22,8 @@ function Hero(image, normalMap ,mapW,mapH,x,y) {
     this.toggleDrawRigidShape();
     this.shaker = null;
     this.shaking = false; 
+    this.rightFlag = 0;
+    this.leftFlag = 0;
 };
 gEngine.Core.inheritPrototype(Hero, GameObject);
 
@@ -166,10 +168,28 @@ Hero.prototype.shakeUpdate = function () {
 
 //Change element positions in "llamas_move.png" to see llama move left or right
 Hero.prototype.moveLeft = function () {
-    this.mHero.setElementPixelPositions(600,300,0,512);       //default position  
+    var xLeft = 600;
+    var xRight = 900;
+    if(this.leftFlag === 0){ //switch foot 
+        this.mHero.setElementPixelPositions(xLeft,xRight,0,512);                 //(600,900,0,512);
+        this.leftFlag = 1;
+    }
+    else{
+        this.mHero.setElementPixelPositions(xLeft + 300,xRight + 300,0,512);                //(900,1200,0,512)
+        this.leftFlag = 0;
+    }
 };
 
 //This flips the llama to face the right side when arrow key right is clicked
 Hero.prototype.moveRight = function () {
-    this.mHero.setElementPixelPositions(0,300,0,512);       //default position 
+    var xLeft = 0;
+    var xRight = 300;
+    if(this.rightFlag === 0){ //switch foot 
+        this.mHero.setElementPixelPositions(xLeft,xRight,0,512);             //(0,300,0,512)
+        this.rightFlag = 1;
+    }
+    else{                                  
+        this.mHero.setElementPixelPositions(xLeft + 300,xRight + 300,0,512); //(300, 600, 0, 512)
+        this.rightFlag = 0;
+    }
 };
