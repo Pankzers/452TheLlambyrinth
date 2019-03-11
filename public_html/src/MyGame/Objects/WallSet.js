@@ -51,7 +51,6 @@ WallSet.prototype.checkLocalBounds = function (gameObject, bound, direction) {
                 var xIndex = Math.floor(x/10);
                 var yIndex = Math.ceil(y/10)*this.mXNum;
                 var wallIndex = xIndex+yIndex;
-                //console.log(wallIndex);
                 if(this.mSet[wallIndex] !== null) {
                     for(var i = 0; i < this.mSet[wallIndex].mBBoxes.length; i++) {
                         if (this.mSet[wallIndex].mBBoxes[i].intersectsBound(bound)) {
@@ -62,7 +61,6 @@ WallSet.prototype.checkLocalBounds = function (gameObject, bound, direction) {
                 xIndex = Math.ceil(x/10);
                 yIndex = Math.ceil(y/10)*this.mXNum;
                 wallIndex = xIndex + yIndex;
-                //console.log(wallIndex);
                 if(this.mSet[wallIndex] !== null) {
                     for(var i = 0; i < this.mSet[wallIndex].mBBoxes.length; i++) {
                         if (this.mSet[wallIndex].mBBoxes[i].intersectsBound(bound)) {
@@ -78,7 +76,6 @@ WallSet.prototype.checkLocalBounds = function (gameObject, bound, direction) {
                 var xIndex = Math.ceil(x/10);
                 var yIndex = Math.ceil(y/10)*this.mXNum;
                 var wallIndex = xIndex+yIndex;
-                //console.log(wallIndex);
                 if(this.mSet[wallIndex]!==null) {
                     for(var i = 0; i < this.mSet[wallIndex].mBBoxes.length; i++) {
                         if (this.mSet[wallIndex].mBBoxes[i].intersectsBound(bound)) {
@@ -89,7 +86,6 @@ WallSet.prototype.checkLocalBounds = function (gameObject, bound, direction) {
                 xIndex = Math.ceil(x/10);
                 yIndex = Math.floor(y/10)*this.mXNum;
                 wallIndex = xIndex + yIndex;
-                //console.log(wallIndex);
                 if(this.mSet[wallIndex]!==null) {
                     for(var i = 0; i < this.mSet[wallIndex].mBBoxes.length; i++) {
                         if (this.mSet[wallIndex].mBBoxes[i].intersectsBound(bound)) {
@@ -105,7 +101,6 @@ WallSet.prototype.checkLocalBounds = function (gameObject, bound, direction) {
                 var xIndex = Math.floor(x/10);
                 var yIndex = Math.floor(y/10)*this.mXNum;
                 var wallIndex = xIndex+yIndex;
-                //console.log(wallIndex);
                 if(this.mSet[wallIndex]!==null){
                     for(var i = 0; i < this.mSet[wallIndex].mBBoxes.length; i++) {
                         if (this.mSet[wallIndex].mBBoxes[i].intersectsBound(bound)) {
@@ -116,7 +111,6 @@ WallSet.prototype.checkLocalBounds = function (gameObject, bound, direction) {
                 xIndex = Math.ceil(x/10);
                 yIndex = Math.floor(y/10)*this.mXNum;
                 wallIndex = xIndex + yIndex;
-                //console.log(wallIndex);
                 if(this.mSet[wallIndex]!==null) {
                     for(var i = 0; i < this.mSet[wallIndex].mBBoxes.length; i++) {
                         if (this.mSet[wallIndex].mBBoxes[i].intersectsBound(bound)) {
@@ -132,7 +126,6 @@ WallSet.prototype.checkLocalBounds = function (gameObject, bound, direction) {
                 var xIndex = Math.floor(x/10);
                 var yIndex = Math.floor(y/10)*this.mXNum;
                 var wallIndex = xIndex+yIndex;
-                //console.log(wallIndex);
                 if(this.mSet[wallIndex]!==null) {
                     for(var i = 0; i < this.mSet[wallIndex].mBBoxes.length; i++) {
                         if (this.mSet[wallIndex].mBBoxes[i].intersectsBound(bound)) {
@@ -143,7 +136,6 @@ WallSet.prototype.checkLocalBounds = function (gameObject, bound, direction) {
                 xIndex = Math.floor(x/10);
                 yIndex = Math.ceil(y/10)*this.mXNum;
                 wallIndex = xIndex + yIndex;
-                //console.log(wallIndex);
                 if(this.mSet[wallIndex]!==null) {
                     for(var i = 0; i < this.mSet[wallIndex].mBBoxes.length; i++) {
                         if (this.mSet[wallIndex].mBBoxes[i].intersectsBound(bound)) {

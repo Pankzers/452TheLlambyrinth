@@ -215,7 +215,7 @@ Level.prototype.initialize = function () {
 Level.prototype.draw = function () {
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
     this.drawCamera(this.mCamera, true);      //draw floor
-    this.drawCamera(this.mSmallCam, false);                //set up minimap view
+    this.drawMiniMap(this.mSmallCam);                //set up minimap view
 };
 Level.prototype.drawCamera = function(camera, floor) {
     //Setup the camera
@@ -235,7 +235,12 @@ Level.prototype.drawCamera = function(camera, floor) {
     this.mGameTimer.draw(camera);
     this.mHero.draw(camera);
 };
-
+Level.prototype.drawMiniMap = function(camera) {
+    camera.setupViewProjection();
+    this.mSprite.draw(camera);
+    this.mHero.draw(camera);
+    this.mExit.draw(camera);
+};
 Level.prototype.update = function () {
 
     //Update the UI

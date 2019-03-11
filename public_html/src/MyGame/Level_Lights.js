@@ -15,7 +15,7 @@ Level.prototype.createLights = function(posHero, posExit)
     var  light = this.createLight(Light.eLightType.eDirectionalLight,
             [60, 40, 4],           // position (not used by directional)
             [-0.2, -0.2, -1],      // Pointing direction upwards
-            [0.5, 0.8, 0, 1],    // color
+            [0.3, 0.3, 0, 1],    // color
             500, 500,              // near anf far distances: essentially switch this off
             0.1, 0.2,              // inner and outer cones
             -1,                     // intensity
@@ -26,10 +26,10 @@ Level.prototype.createLights = function(posHero, posExit)
     light = this.createLight(Light.eLightType.eSpotLight,
             [posHero[0], posHero[1], 5],            // Center of camera 
             [0.13,0.0, -1.0],
-            [0.5, 0.5, 0.5, 1],      //  color
+            [0.3, 0.3, 0.3, 1],      //  color
             15, 30,                   // near and far distances
             1.40, 1.70,                // inner and outer cones
-            4,                       // intensity
+            3,                       // intensity
             1                      // drop off
             );
     this.mGlobalLightSet.addToSet(light);
@@ -37,10 +37,10 @@ Level.prototype.createLights = function(posHero, posExit)
     light = this.createLight(Light.eLightType.ePointLight,
             [posHero[0], posHero[1], 5],         // position
             [0, 0, -1],          // Direction 
-            [0.5, 0.5, 0.5, 1],  // some color
+            [0.3, 0.3, 0.3, 1],  // some color
             8, 14,               // near and far distances
             0.1, -0.05,            // inner and outer cones
-            2,                   // intensity
+            3,                   // intensity
             1.0                  // drop off
             );
     this.mGlobalLightSet.addToSet(light);

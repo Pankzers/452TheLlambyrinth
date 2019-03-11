@@ -37,7 +37,7 @@ Main.prototype.unloadScene = function () {
 
     var nextlevel = null;
     if(this.mStart){
-        nextlevel = new Level('testlevel', this.mLightPref, this.mGamePref);;
+        nextlevel = new Level('playtest_00', this.mLightPref, this.mGamePref);;
     }
     gEngine.Core.startScene(nextlevel);
 };
