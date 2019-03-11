@@ -76,7 +76,8 @@ GameOver.prototype.draw = function () {
 
     this.mCamera.setupViewProjection();
     this.mWon.draw(this.mCamera);
-    this.mMsg.draw(this.mCamera);
+    if (this.mGameType === "time" && this.mNextLoad === "won")
+        this.mMsg.draw(this.mCamera);
     this.UIButton1.draw(this.mCamera);
     this.UIButton2.draw(this.mCamera);
 };
