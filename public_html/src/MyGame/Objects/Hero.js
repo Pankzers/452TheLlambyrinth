@@ -12,9 +12,9 @@ function Hero(image, normalMap ,mapW,mapH,x,y) {
     this.mHero = new IllumRenderable(this.image,this.normal);
     this.mHero.setColor([1, 1, 1, 0]);
     this.mHero.getXform().setPosition(x, y);
-    this.mHero.getXform().setSize(4, 5);                       //changed size from 4 by 4   
+    this.mHero.getXform().setSize(4, 4.4);                       //changed size from 4 by 4   
     //2048x512, each image is 300x512
-    this.mHero.setElementPixelPositions(600,300,0,512);       //default start position  
+    this.mHero.setElementPixelPositions(600,300,100,512);       //default start position  
     GameObject.call(this, this.mHero);  
     //rigib body for physics 
     var r = new RigidRectangle(this.getXform(), 4, 4);
@@ -33,6 +33,8 @@ Hero.prototype.draw = function (referencedCam) {
 };
 
 Hero.prototype.update = function (wallSet,doorPairs, lights) {
+    var lightX = 0;
+    var lightY = 0;
     var dirLight = lights.getLightAt(1);    //light points in direction 
     var lightPos = dirLight.getPosition(); 
     var lightDir = dirLight.getDirection();
@@ -44,8 +46,9 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
             var flag = false;
             this.mHero.getXform().incYPosBy(0.4);
             //dirLight.setYPos(lightPos[1] + 0.4);
-            lightDir[1] += 0.005;
-            dirLight.setDirection(lightDir);
+            //lightDir[1] += 0.04;
+            lightY = 7;
+            //dirLight.setDirection(lightDir);
             var bb = this.getBBox();
             if(wallSet.checkLocalBounds(this,bb,0)) {
                 flag = true;
@@ -69,8 +72,9 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
             var flag = false;
             this.mHero.getXform().incYPosBy(-0.4);
           //  dirLight.setYPos(lightPos[1] - 0.4);
-            lightDir[1] -= 0.005;
-            dirLight.setDirection(lightDir);
+            //lightDir[1] -= 0.04;
+            lightY = 4;
+            //dirLight.setDirection(lightDir);
             var bb = this.getBBox();
             if(wallSet.checkLocalBounds(this,bb,2)) {
                 flag = true;
@@ -95,8 +99,9 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
             var flag = false;
             this.mHero.getXform().incXPosBy(0.4);
           //  dirLight.setXPos(lightPos[0] + 0.4);
-            lightDir[0] += 0.005;
-            dirLight.setDirection(lightDir);
+            //lightDir[0] += 0.04;
+            lightX = 1;
+            //dirLight.setDirection(lightDir);
             var bb = this.getBBox();
             if(wallSet.checkLocalBounds(this,bb,1)) {
                 flag = true;
@@ -121,8 +126,9 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
             var flag = false;
             this.mHero.getXform().incXPosBy(-0.4);
            // dirLight.setXPos(lightPos[0] - 0.4);
-            lightDir[0] -= 0.005;
-            dirLight.setDirection(lightDir);
+            //lightDir[0] -= 0.04;
+            lightX = 2;
+            //dirLight.setDirection(lightDir);
             var bb = this.getBBox();
             if(wallSet.checkLocalBounds(this,bb,3)) {
                 flag = true;
@@ -141,6 +147,51 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
             }
         }
     }  
+    var lightDirection = lightX + lightY;
+    switch(lightDirection) {
+        case 0:
+            break;
+        case 1:
+            lightDir[0] = 1;
+            lightDir[1] = 0;
+            dirLight.setDirection(lightDir);
+            break;
+        case 2:
+            lightDir[0] = -1;
+            lightDir[1] = 0;
+            dirLight.setDirection(lightDir);
+            break;
+        case 4:
+            lightDir[0] = 0;
+            lightDir[1] = -1;
+            dirLight.setDirection(lightDir);
+            break;
+        case 5:
+            lightDir[0] = 1;
+            lightDir[1] = -1;
+            dirLight.setDirection(lightDir);
+            break;
+        case 6:
+            lightDir[0] = -1;
+            lightDir[1] = -1;
+            dirLight.setDirection(lightDir);
+            break;
+        case 7:
+            lightDir[0] = 0;
+            lightDir[1] = 1;
+            dirLight.setDirection(lightDir);
+            break;
+        case 8:
+            lightDir[0] = 1;
+            lightDir[1] = 1;
+            dirLight.setDirection(lightDir);
+            break;
+        case 9:
+            lightDir[0] = -1;
+            lightDir[1] = 1;
+            dirLight.setDirection(lightDir);
+            break;
+    }
     dirLight.set2DPosition(this.mHero.getXform().getPosition());
     heroLight.set2DPosition(this.mHero.getXform().getPosition());
     this.mHero.update();
