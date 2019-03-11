@@ -29,6 +29,7 @@ GameTimer.prototype.update = function() {
         var string = min+":0"+sec;
     }
     this.mUIText.setText(string);
+    return string;
     
 };
 GameTimer.prototype.draw = function(aCamera) {

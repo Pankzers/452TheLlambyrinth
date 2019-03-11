@@ -178,6 +178,7 @@ Level.prototype.initialize = function () {
     this.mMinimap = new Minimap(sceneInfo.MapInfo.width,sceneInfo.MapInfo.height);
     this.mSmallCam = this.mMinimap.getMinimap();
     
+  
     //Lights go to Level_Lights
     this.createLights(this.mHero.getXform().getPosition(), this.mExit.getXform().getPosition()); 
     //light preference
@@ -244,7 +245,9 @@ Level.prototype.drawMiniMap = function(camera) {
 Level.prototype.update = function () {
 
     //Update the UI
-    this.mGameTimer.update();
+    var time = this.mGameTimer.update();
+    if (this.mLightPref === "dark")
+        this.updateValue(time);
     //Update the objects
     var heroPos = this.mHero.getXform().getPosition();
     this.mCamera.setWCCenter(heroPos[0],heroPos[1]);
@@ -281,4 +284,7 @@ Level.prototype.update = function () {
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.L)) {
         console.log(this.mWallSet);
     }
+};
+Level.prototype.updateValue = function(time){
+    document.getElementById("value1").innerHTML = time;
 };
