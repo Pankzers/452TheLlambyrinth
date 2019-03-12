@@ -12,7 +12,7 @@ function Hero(image, normalMap ,mapW,mapH,x,y) {
     this.mHero = new IllumRenderable(this.image,this.normal);
     this.mHero.setColor([1, 1, 1, 0]);
     this.mHero.getXform().setPosition(x, y);
-    this.mHero.getXform().setSize(4, 4.4);                       //changed size from 4 by 4   
+    this.mHero.getXform().setSize(3, 3);                       //changed size from 4 by 4   
     //2048x512, each image is 300x512
     this.mHero.setElementPixelPositions(600,300,100,512);       //default start position  
     GameObject.call(this, this.mHero);  
