@@ -279,8 +279,8 @@ Level.prototype.update = function () {
 //    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) {
 //        this.mSpriteEnd = !this.mSpriteEnd;
 //    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.N)) {
-        this.mNextLoad = "testlevel2";
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R)) {
+        this.mNextLoad = this.mLevel;
         gEngine.GameLoop.stop();
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.L)) {
