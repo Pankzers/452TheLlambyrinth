@@ -59,6 +59,7 @@ Level.prototype.checkInput = function()
                 door.setVisable(false);
             }
             this.mCamera.shake(-5, -5, 5, 50);
+            this.mSprite.shake();
         }
     }
 };

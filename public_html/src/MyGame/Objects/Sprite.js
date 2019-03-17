@@ -38,7 +38,8 @@ function Sprite(x,y) {
     var pos = this.mCenter.getValue();
     this.setPosition(pos[0], pos[1]);
     GameObject.call(this, this.mSprite);
-    
+    this.shaker = null;
+    this.shaking = false; 
 }
 gEngine.Core.inheritPrototype(Sprite,ParticleGameObject);
 
@@ -70,6 +71,7 @@ Sprite.prototype.update = function(hero,spriteEnd) {
    this.setPosition(pos[0], pos[1]);
    this.mCenter.updateInterpolation();
    this.mSprite.update();
+   this.shakeUpdate();
    return false;        //not game over
 };
 //get the interpolation value 
@@ -93,4 +95,24 @@ Sprite.prototype.setPosition = function (aX, aY) {
 
 Sprite.prototype.draw = function(aCamera) {
     this.mSprite.draw(aCamera);
+};
+Sprite.prototype.shake = function () {
+    this.shaker = new ShakePosition(2.5,2.5, 5, 25);
+    this.shaking = true;
+};
+
+Sprite.prototype.shakeUpdate = function () {
+    if (this.shaker !== null)
+    {
+        if(this.shaker.shakeDone()){        //if shaking is completed turn off shake boolean variable
+            this.shaking = false;
+        }
+        else if(this.shaking === true) {     //if shaking is still occuring grab getShakeResults()
+            var delta = this.shaker.getShakeResults();
+            var pos = this.mSprite.getPos();
+            this.mCenter = new InterpolateVec2([pos[0]+delta[0], pos[1]+delta[1]], this.kCycles, this.kRate);  
+            var pos = this.mCenter.getValue();
+            this.setPosition(pos[0], pos[1]);
+        }
+    }
 };
