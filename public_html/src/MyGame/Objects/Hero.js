@@ -41,10 +41,15 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
     var heroLight = lights.getLightAt(2);   //light points to hero
     //Collisions
     var doors = doorPairs;
+    var physObj = this.getRigidBody();
+    var velocity = physObj.getVelocity();
+    velocity[0]=0;
+    velocity[1]=0;
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {
         if(this.mHero.getXform().getYPos() <this.mMapH-4){
             var flag = false;
             this.mHero.getXform().incYPosBy(0.4);
+            velocity[1] = 30;
             //dirLight.setYPos(lightPos[1] + 0.4);
             //lightDir[1] += 0.04;
             lightY = 7;
@@ -62,15 +67,18 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
                 }
             }
             if(flag === true) {
-                this.mHero.getXform().incYPosBy(-0.4);
+                velocity[1] = 0;
             //    dirLight.setYPos(lightPos[1] - 0.4);
             }
+            
+            this.mHero.getXform().incYPosBy(-0.4);
         }
     } 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
          if(this.mHero.getXform().getYPos() >4){
             var flag = false;
             this.mHero.getXform().incYPosBy(-0.4);
+            velocity[1] = -30;
           //  dirLight.setYPos(lightPos[1] - 0.4);
             //lightDir[1] -= 0.04;
             lightY = 4;
@@ -88,9 +96,10 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
                 }
             }
             if(flag === true) {
-                this.mHero.getXform().incYPosBy(0.4);
+                velocity[1] = 0;
           //      dirLight.setYPos(lightPos[1] + 0.4);
             }
+            this.mHero.getXform().incYPosBy(0.4);
         }
     } 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
@@ -98,6 +107,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
         if(this.mHero.getXform().getXPos() <this.mMapW-4){
             var flag = false;
             this.mHero.getXform().incXPosBy(0.4);
+            velocity[0] = 30;
           //  dirLight.setXPos(lightPos[0] + 0.4);
             //lightDir[0] += 0.04;
             lightX = 1;
@@ -115,9 +125,10 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
                 }
             }
             if(flag === true) {
-                this.mHero.getXform().incXPosBy(-0.4);
+                velocity[0] = 0;
         //        dirLight.setXPos(lightPos[0] - 0.4);
             }
+            this.mHero.getXform().incXPosBy(-0.4);
         }
     } 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {
@@ -125,6 +136,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
          if(this.mHero.getXform().getXPos() >4){
             var flag = false;
             this.mHero.getXform().incXPosBy(-0.4);
+            velocity[0] = -30;
            // dirLight.setXPos(lightPos[0] - 0.4);
             //lightDir[0] -= 0.04;
             lightX = 2;
@@ -142,9 +154,10 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
                 }
             }
             if(flag === true) {
-                this.mHero.getXform().incXPosBy(0.4);
+                velocity[0] = 0;
             //    dirLight.setXPos(lightPos[0] + 0.4);
             }
+            this.mHero.getXform().incXPosBy(0.4);
         }
     }  
     var lightDirection = lightX + lightY;
@@ -196,6 +209,9 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
     heroLight.set2DPosition(this.mHero.getXform().getPosition());
     this.mHero.update();
     this.shakeUpdate();
+    //console.log(velocity);
+    physObj.setVelocity(velocity[0],velocity[1]);
+    physObj.update();
 };
 
 Hero.prototype.shake = function () {

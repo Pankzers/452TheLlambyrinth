@@ -109,8 +109,10 @@ Level.prototype.unloadScene = function () {
 Level.prototype.initialize = function () {
     //Get the Scene Info
     var sceneInfo = gEngine.ResourceMap.retrieveAsset(this.kSceneFile);
-    //console.log(sceneInfo);
-    //console.log(Object.keys(sceneInfo.DoorPair[0]).length)
+
+    //Set Default Acceleration
+    gEngine.Physics.mSystemtAcceleration = [0, 0];
+
     //Create the cameras
     this.mCamera = new Camera(
     sceneInfo.Camera.Center,
