@@ -12,8 +12,10 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function Main() {  
-    this.kUIButton = "assets/UI/buttonUI.png";
-    this.kTitle = "assets/title_sprite.png";
+    this.kUIButton = "assets/button.png";
+    this.kLlamaHead = "assets/llama_head.png";
+    this.kMazeImage= "assets/maze_image.png";
+    this.kTitle = "assets/title.png";
     // The cameras to view the level
     this.mCamera = null;
     this.mTitle = null;
@@ -28,12 +30,16 @@ gEngine.Core.inheritPrototype(Main, Scene);
 Main.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kUIButton);
     gEngine.Textures.loadTexture(this.kTitle);
+    gEngine.Textures.loadTexture(this.kLlamaHead);
+    gEngine.Textures.loadTexture(this.kMazeImage);
 
 };
 
 Main.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kUIButton);
     gEngine.Textures.unloadTexture(this.kTitle);
+    gEngine.Textures.unloadTexture(this.kLlamaHead);
+    gEngine.Textures.unloadTexture(this.kMazeImage);
 
     var nextlevel = null;
     if(this.mStart){
@@ -48,40 +54,36 @@ Main.prototype.initialize = function () {
         100,                       // width of camera
         [0, 0, 800, 600]           // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.40, 0.26, 0.13, 1.0]);
+    this.mCamera.setBackgroundColor([0.32, 0.08, 0.03, 1.0]);
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
-
-    this.mTitle = new SpriteAnimateRenderable(this.kTitle);
+    //background
+    this.bg = new TextureRenderable(this.kMazeImage);
+    this.bg.getXform().setSize(200,160);
+    this.bg.getXform().setPosition(50,40);
+    //title
+    this.mTitle = new SpriteRenderable(this.kTitle);
     this.mTitle.setColor([1, 1, 1, 0]);
-    this.mTitle.getXform().setSize(80, 30); 
     this.mTitle.getXform().setPosition(50, 55);
-    this.mTitle.setSpriteSequence(128, 0,      // first element pixel position: top-left 512 is top of image, 0 is left of image
-                                    512, 128,   // widthxheight in pixels
-                                    8,          // number of elements in this sequence
-                                    0);         // horizontal padding in between
-    this.mTitle.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateSwing);
-    this.mTitle.setAnimationSpeed(90);
-    
+    this.mTitle.getXform().setSize(80, 30);
+    this.mTitle.setElementPixelPositions(0, 512, 0, 128);
+    //llama
+    this.mLlama = new SpriteRenderable(this.kLlamaHead);
+    this.mLlama.setColor([1, 1, 1, 0]);
+    this.mLlama.getXform().setPosition(20, 25);
+    this.mLlama.getXform().setSize(50, 50);
+    this.mLlama.setElementPixelPositions(0, 512, 0, 512);
+
     //start button
-    this.UIButton1 = new UIButton(this.kUIButton,this.start,this,[400,250],[180,60],"START",3.5,[1,1,1,1],[0,0,0,1]);
-    //light preference 
-    this.UIRadioLight=new UIRadio(this.setToBright,this,[250,100],"Bright",2.5,[0.0,0.0,0.0,1],this.mCamera);
-    this.UIRadioLight.addToSet(this.setToDim,this,"Dim",[0.0,0.0,0.0,1],this.mCamera);
-    this.UIRadioLight.addToSet(this.setToDark,this,"Dark",[0.0,0.0,0.0,1],this.mCamera);
-   
-    this.mLightText = new FontRenderable("Light Type:");
-    this.mLightText.setColor([1, 1, 1, 1]);
-    this.mLightText.getXform().setPosition(25, 20);
-    this.mLightText.setTextHeight(3);
-    
-    //game type
-    this.UIRadioGame=new UIRadio(this.setToTime,this,[470,100],"Time",2.5,[0.0,0.0,0.0,1],this.mCamera);
-    this.UIRadioGame.addToSet(this.setToChase,this,"Chase",[0.0,0.0,0.0,1],this.mCamera);
-    
-    this.mGameText = new FontRenderable("Game Type:");
-    this.mGameText.setColor([1, 1, 1, 1]);
-    this.mGameText.getXform().setPosition(55, 20);
-    this.mGameText.setTextHeight(3);
+    this.UIButton1 = new UIButton(this.kUIButton,this.start,this,[400,270],[200,70],"PLAY",4.5,[1,1,1,1],[0,0,0,1]);
+    //game preference 
+    this.UIDDButtonGame = new UIDropDown([480,200],"GAME TYPE",3,[0,0,0,1],[1,1,1,1]);
+    this.UIDDButtonGame.addToSet("TIME",[0,0,0,1],[1,1,1,1],this.setToTime,this,this.mCamera);
+    this.UIDDButtonGame.addToSet("CHASE",[0,0,0,1],[1,1,1,1],this.setToChase,this,this.mCamera);
+    //light preference
+    this.UIDDButtonLight = new UIDropDown([480,120],"LIGHT TYPE",3,[0,0,0,1],[1,1,1,1]);
+    this.UIDDButtonLight.addToSet("BRIGHT",[0,0,0,1],[1,1,1,1],this.setToBright,this,this.mCamera);
+    this.UIDDButtonLight.addToSet("DIM",[0,0,0,1],[1,1,1,1],this.setToDim,this,this.mCamera);
+    this.UIDDButtonLight.addToSet("DARK",[0,0,0,1],[1,1,1,1],this.setToDark,this,this.mCamera);
 };
 
 Main.prototype.draw = function () {
@@ -92,19 +94,18 @@ Main.prototype.draw = function () {
 Main.prototype.drawCamera = function(camera) {
     //Setup the camera
     camera.setupViewProjection();
+    this.bg.draw(camera);
+    this.mLlama.draw(camera);
     this.UIButton1.draw(camera);
     this.mTitle.draw(camera);
-    this.UIRadioLight.draw(camera);
-    this.UIRadioGame.draw(camera);
-    this.mGameText.draw(camera);
-    this.mLightText.draw(camera);
+    this.UIDDButtonGame.draw(camera);
+    this.UIDDButtonLight.draw(camera);
 };
 
 Main.prototype.update = function () {
     this.UIButton1.update();
-    this.UIRadioLight.update();
-    this.UIRadioGame.update();
-    this.mTitle.updateAnimation();
+    this.UIDDButtonGame.update(this.mCamera);
+    this.UIDDButtonLight.update(this.mCamera);
     if (this.mStart)
         gEngine.GameLoop.stop();
 

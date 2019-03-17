@@ -10,7 +10,9 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function GameOver(mNextLoad, prevLevel, time, lightType, gameType) {
-    this.kUIButton = "assets/UI/buttonUI.png";
+    
+    this.kUIButton = "assets/button.png";
+    this.kMazeImage= "assets/maze_image.png";
     this.mCamera = null;
     this.mMsg = null;
     
@@ -27,10 +29,12 @@ gEngine.Core.inheritPrototype(GameOver, Scene);
 
 GameOver.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kUIButton);
+    gEngine.Textures.loadTexture(this.kMazeImage);
     
 };
 GameOver.prototype.unloadScene = function () {
     gEngine.Textures.loadTexture(this.kUIButton);
+    gEngine.Textures.loadTexture(this.kMazeImage);
     var nextlevel = null;
     if (this.mRetry)
     {
@@ -51,8 +55,13 @@ GameOver.prototype.initialize = function () {
         100,                       // width of camera
         [0, 0, 800, 600]           // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.40, 0.26, 0.13, 1.0]);
+    this.mCamera.setBackgroundColor([0.32, 0.08, 0.03, 1.0]);
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
+    //background
+    this.bg = new TextureRenderable(this.kMazeImage);
+    this.bg.getXform().setSize(200,160);
+    this.bg.getXform().setPosition(50,40);
+    
     var sec = Math.floor(this.time/1000-Math.floor(this.time/60000)*60);
     var min = Math.floor(this.time/60000);
     if(sec > 9) {
@@ -61,9 +70,14 @@ GameOver.prototype.initialize = function () {
         var text = "Finished in: " + min + ":0" + sec;
     }
     console.log(text);
-    this.mWon = new FontRenderable(this.mNextLoad);
+    var gameOver = null;
+    if (this.mNextLoad === "lose")
+        gameOver = "GAME OVER. TRY AGAIN.";
+    else
+        gameOver = "CONGRATULATIONS. YOU WON.";
+    this.mWon = new FontRenderable(gameOver);
     this.mWon.setColor([1, 1, 1, 1]);
-    this.mWon.getXform().setPosition(50, 50);
+    this.mWon.getXform().setPosition(25, 50);
     this.mWon.setTextHeight(4.5);
     
     this.mMsg = new FontRenderable(text);
@@ -79,11 +93,13 @@ GameOver.prototype.draw = function () {
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
 
     this.mCamera.setupViewProjection();
+    this.bg.draw(this.mCamera);
     this.mWon.draw(this.mCamera);
     if (this.mGameType === "time" && this.mNextLoad === "won")
         this.mMsg.draw(this.mCamera);
     this.UIButton1.draw(this.mCamera);
     this.UIButton2.draw(this.mCamera);
+    
 };
 
 GameOver.prototype.update = function () {
