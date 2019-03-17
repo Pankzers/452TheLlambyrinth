@@ -34,8 +34,10 @@ function Level(levelName, lightPref, gamePref) {
     this.mCamera = null;
     this.mSmallCam = null; 
 
-    this.mDoorsContrapsion = null;
+    //this.mDoorsContrapsion = null;
     this.mCollObjs = new GameObjectSet();
+    this.mDoorSet = null;
+    this.mButtonSet = null;
     this.mLeverSet = null;
     this.mSprite = null;
     this.mExit = null;
@@ -138,36 +140,43 @@ Level.prototype.initialize = function () {
             this.mWallSet.addSpace();
         }
     }
-    
+    //Create the Doors
+    this.mDoorSet = new DoorSet(this.kDoor,this.kDoor_Normal);
+    for(var i =0; i < sceneInfo.Door.length; i++) {
+        this.mDoorSet.createDoor(
+        sceneInfo.Door[i].DoorX,
+        sceneInfo.Door[i].DoorY,
+        sceneInfo.Door[i].DoorW,
+        sceneInfo.Door[i].DoorH,
+        sceneInfo.Door[i].DoorRot
+        );
+    }
     //Setup the GameObjects
     this.mLeverSet = new LeverSet(this.kMaze_sprite, this.kMaze_sprite_Normal);
-    //Create the lever
+    //Create the levers
     for(var i =0; i < sceneInfo.Lever.length; i++) {
         this.mLeverSet.createLever(
         sceneInfo.Lever[i].LeverX,
         sceneInfo.Lever[i].LeverY,
         sceneInfo.Lever[i].LeverW,
         sceneInfo.Lever[i].LeverH,
-        sceneInfo.Lever[i].LeverRot
+        sceneInfo.Lever[i].LeverRot,
+        sceneInfo.Lever[i].DoorIndex
         );
     }
     this.mSprite = new Sprite(sceneInfo.Sprite.spritex,sceneInfo.Sprite.spritey);
     this.mExit = new Exit(this.kMaze_sprite,this.kMaze_sprite_Normal, sceneInfo.Exit.exitx,sceneInfo.Exit.exity);
-    this.mDoorsContrapsion = new DoorsContrapsion(this.kMaze_sprite, this.kMaze_sprite_Normal, this.kDoor, this.kDoor_Normal);
-    
-    //Create the Door Pairs
-    for(var i =0; i < sceneInfo.DoorPair.length; i++) {
-        this.mDoorsContrapsion.addPair(
-        sceneInfo.DoorPair[i].DoorX,
-        sceneInfo.DoorPair[i].DoorY,
-        sceneInfo.DoorPair[i].DoorW,
-        sceneInfo.DoorPair[i].DoorH,
-        sceneInfo.DoorPair[i].DoorRot,
-        sceneInfo.DoorPair[i].ButtonX,
-        sceneInfo.DoorPair[i].ButtonY,
-        sceneInfo.DoorPair[i].ButtonW,
-        sceneInfo.DoorPair[i].ButtonH,
-        sceneInfo.DoorPair[i].ButtonRot
+    //this.mDoorsContrapsion = new DoorsContrapsion(this.kMaze_sprite, this.kMaze_sprite_Normal, this.kDoor, this.kDoor_Normal);
+    this.mButtonSet = new PushButtonSet(this.kMaze_sprite, this.kMaze_sprite_Normal);
+    //Create the Buttons
+    for(var i =0; i < sceneInfo.Button.length; i++) {
+        this.mButtonSet.createButton(
+        sceneInfo.Button[i].ButtonX,
+        sceneInfo.Button[i].ButtonY,
+        sceneInfo.Button[i].ButtonW,
+        sceneInfo.Button[i].ButtonH,
+        sceneInfo.Button[i].ButtonRot,
+        sceneInfo.Button[i].DoorIndex
         );
     }
     this.mHero = new Hero(this.hero_Tex,this.hero_Tex_Normal,
@@ -230,9 +239,11 @@ Level.prototype.drawCamera = function(camera, floor) {
     
     //Draw the objects
     this.mLeverSet.draw(camera);
+    this.mDoorSet.draw(camera);
+    this.mButtonSet.draw(camera);
     this.mSprite.draw(camera);
     this.mExit.draw(camera);
-    this.mDoorsContrapsion.draw(camera);
+    
     
     //Draw the UI
     this.mGameTimer.draw(camera);
@@ -255,37 +266,15 @@ Level.prototype.update = function () {
     this.mCamera.setWCCenter(heroPos[0],heroPos[1]);
     this.mCamera.update();
     this.mSmallCam.update();
-    this.mHero.update(this.mWallSet,this.mDoorsContrapsion, this.mGlobalLightSet);
-    this.mLeverSet.update(this.mCamera, this.mHero);
+    this.mHero.update(this.mWallSet,this.mDoorSet, this.mGlobalLightSet);
+    //this.mLeverSet.update(this.mCamera, this.mHero);
     
     this.mExit.update();
-    this.mDoorsContrapsion.update(this.mHero);
+    //this.mDoorsContrapsion.update(this.mHero);
+    this.mDoorSet.update();
+    //this.mButtonSet.update();
+    this.checkInput();
     
-    if (this.mExit.pixelTouches(this.mHero, [])){
-        this.mNextLoad = "won";
-        gEngine.GameLoop.stop();
-    }
-    if (this.mSprite.update(this.mHero,this.mSpriteEnd))    //returns true of pixel pixelTouches with last particle in system
-    {
-        if(this.mSpriteEnd) {
-            this.mNextLoad = "lose";
-            gEngine.GameLoop.stop(); 
-        }
-    }
-    if (this.mGameTimer.getTime() <= 0){
-        this.mNextLoad = "lose";
-        gEngine.GameLoop.stop();
-    }
-//    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) {
-//        this.mSpriteEnd = !this.mSpriteEnd;
-//    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R)) {
-        this.mNextLoad = this.mLevel;
-        gEngine.GameLoop.stop();
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.L)) {
-        console.log(this.mWallSet);
-    }
 };
 Level.prototype.updateValue = function(time){
     document.getElementById("time").innerHTML = time;

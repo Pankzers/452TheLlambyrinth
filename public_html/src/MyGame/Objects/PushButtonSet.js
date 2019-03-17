@@ -19,9 +19,7 @@ function PushButtonSet(spriteTexture, normalTexture) {
 gEngine.Core.inheritPrototype(PushButtonSet, GameObjectSet);
 
 //update set
-PushButtonSet.prototype.update = function (hero) {
-    for (var i = 0; i < this.size(); i++)
-        this.getObjectAt(i).update(hero);
+PushButtonSet.prototype.update = function () {
 
 };
 
@@ -33,8 +31,8 @@ PushButtonSet.prototype.draw = function (aCamera) {
 };
 
 //draw set 
-PushButtonSet.prototype.createButton = function ( x,y,w,h, r) {
-    var tempButton = new PushButton(this.kSprite, this.kNormal, x, y, w, h);
+PushButtonSet.prototype.createButton = function ( x,y,w,h, r,doorIndex) {
+    var tempButton = new PushButton(this.kSprite, this.kNormal, x, y, w, h,doorIndex);
     tempButton.setRot(r);       //set roatation
     this.addToSet(tempButton);
 };

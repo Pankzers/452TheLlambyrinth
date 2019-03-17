@@ -5,7 +5,7 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 //+128 px
-function PushButton(spriteTexture,normalTexture, x, y, w, h) {
+function PushButton(spriteTexture,normalTexture, x, y, w, h,doorIndex) {
     
     this.mButton = new IllumRenderable(spriteTexture, normalTexture);
     this.mButton.setColor([1, 1, 1, 0]);
@@ -14,6 +14,7 @@ function PushButton(spriteTexture,normalTexture, x, y, w, h) {
     this.mButton.setElementPixelPositions(0, 128, 384, 512);  
     this.posNoPush = [0, 128, 384, 512];
     this.posPush = [128, 256, 384, 512];
+    this.mDoor = doorIndex;
     
     GameObject.call(this, this.mButton);
     
@@ -21,13 +22,13 @@ function PushButton(spriteTexture,normalTexture, x, y, w, h) {
 gEngine.Core.inheritPrototype(PushButton, GameObject);
 
 //mimick pushing button
-PushButton.prototype.pushButtom = function() {
+PushButton.prototype.set = function() {
 
     this.mButton.setElementPixelPositions(128, 256, 384, 512);  
 };
 
 //mimick button not pushed 
-PushButton.prototype.resetButton = function() {
+PushButton.prototype.reset = function() {
     this.mButton.setElementPixelPositions(0, 128, 384, 512);  
 };
 
@@ -44,5 +45,6 @@ PushButton.prototype.draw = function(aCamera) {
 PushButton.prototype.setRot = function(rot) {
     this.mButton.getXform().incRotationByDegree(rot);
 };
+PushButton.prototype.getDoorIndex = function() { return this.mDoor;};
 
 

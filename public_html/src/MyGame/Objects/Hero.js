@@ -36,11 +36,11 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
     var lightX = 0;
     var lightY = 0;
     var dirLight = lights.getLightAt(1);    //light points in direction 
-    var lightPos = dirLight.getPosition(); 
+    //var lightPos = dirLight.getPosition(); 
     var lightDir = dirLight.getDirection();
     var heroLight = lights.getLightAt(2);   //light points to hero
     //Collisions
-    var doors = doorPairs.getDoors();
+    var doors = doorPairs;
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {
         if(this.mHero.getXform().getYPos() <this.mMapH-4){
             var flag = false;

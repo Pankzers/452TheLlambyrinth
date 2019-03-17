@@ -70,17 +70,22 @@ Level.prototype.createLights = function(posHero, posExit)
         }
     }
     
-    //button
-    if(this.mDoorsContrapsion !== null) {
-        for (var i = 0; i< this.mDoorsContrapsion.size(); i++){
-            var button = this.mDoorsContrapsion.getButtons().getObjectAt(i);
-            var door = this.mDoorsContrapsion.getDoors().getObjectAt(i);
-            button.getRenderable().addLight(this.mGlobalLightSet.getLightAt(0));
-            button.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1));
-            button.getRenderable().addLight(this.mGlobalLightSet.getLightAt(2));
+    //Door
+    if(this.mDoorSet !== null) {
+        for (var i = 0; i< this.mDoorSet.size(); i++){
+            var door = this.mDoorSet.getObjectAt(i);
             door.getRenderable().addLight(this.mGlobalLightSet.getLightAt(0));
             door.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1));
             door.getRenderable().addLight(this.mGlobalLightSet.getLightAt(2));
+        }
+    }
+    //Button
+    if(this.mButtonSet !== null) {
+        for (var i = 0; i< this.mButtonSet.size(); i++){
+            var button = this.mButtonSet.getObjectAt(i);
+            button.getRenderable().addLight(this.mGlobalLightSet.getLightAt(0));
+            button.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1));
+            button.getRenderable().addLight(this.mGlobalLightSet.getLightAt(2));
         }
     }
     //walls

@@ -22,13 +22,13 @@ gEngine.Core.inheritPrototype(LeverSet, GameObjectSet);
 //update set
 LeverSet.prototype.update = function (cam, hero) {
     for (var i = 0; i < this.size(); i++)
-        this.getObjectAt(i).update(cam);
+        this.getObjectAt(i).update();
     for (var i = 0; i < this.size(); i++)
     {
         var lever = this.getObjectAt(i);
         if (lever.pixelTouches(hero, []) && gEngine.Input.isKeyClicked(gEngine.Input.keys.Space))  
         {
-            lever.pullLever();
+            lever.set();
             cam.shake(-5, -5, 5, 50);  
             hero.shake();
         }
@@ -45,8 +45,8 @@ LeverSet.prototype.draw = function (aCamera) {
 };
 
 //draw set
-LeverSet.prototype.createLever = function ( x,y,w,h, r) {
-    var tempLever = new Lever(this.kSprite, this.kNormal, x, y, w, h);
+LeverSet.prototype.createLever = function ( x,y,w,h, r,doorIndex) {
+    var tempLever = new Lever(this.kSprite, this.kNormal, x, y, w, h,doorIndex);
     tempLever.setRot(r);
     this.addToSet(tempLever);
 };

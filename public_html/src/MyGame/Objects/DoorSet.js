@@ -20,9 +20,9 @@ function DoorSet(spriteTexture, normalTexture) {
 gEngine.Core.inheritPrototype(DoorSet, GameObjectSet);
 
 //update set
-DoorSet.prototype.update = function (hero) {
+DoorSet.prototype.update = function () {
     for (var i = 0; i < this.size(); i++)
-        this.getObjectAt(i).update(hero);
+        this.getObjectAt(i).update();
 };
 
 //draw set
@@ -33,8 +33,8 @@ DoorSet.prototype.draw = function (aCamera) {
 };
 
 //draw set
-DoorSet.prototype.createDoor = function ( x,y,w,h, r, obj) {
-    var tempDoor = new Door(this.kSprite, this.kNormal, x, y, w, h, obj);
+DoorSet.prototype.createDoor = function ( x,y,w,h, r) {
+    var tempDoor = new Door(this.kSprite, this.kNormal, x, y, w, h);
     tempDoor.setRot(r);
     this.addToSet(tempDoor);
 };

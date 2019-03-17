@@ -33,7 +33,7 @@ DoorsContrapsion.prototype.update = function(hero) {
             this.mDoors.getObjectAt(i).setVisable(false);  //remove door            
         }
     }
-    this.mDoors.update(hero);
+    this.mDoors.update();
     this.mButtons.update();  
 };
 
