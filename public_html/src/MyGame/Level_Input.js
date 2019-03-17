@@ -53,13 +53,15 @@ Level.prototype.checkInput = function()
             }
         }
         if(min < 3) {
-            minObj.set();
-            var door = this.mDoorSet.getObjectAt(minObj.getDoorIndex());
-            if(door !== undefined) {
-                door.setVisable(false);
+            if(minObj.getState()===0) {
+                minObj.set();
+                var door = this.mDoorSet.getObjectAt(minObj.getDoorIndex());
+                if(door !== undefined) {
+                    door.setVisable(false);
+                }
+                this.mCamera.shake(-5, -5, 5, 50);
+                this.mSprite.shake();
             }
-            this.mCamera.shake(-5, -5, 5, 50);
-            this.mSprite.shake();
         }
     }
 };
