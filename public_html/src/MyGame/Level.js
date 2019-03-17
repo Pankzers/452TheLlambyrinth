@@ -22,9 +22,9 @@ function Level(levelName, lightPref, gamePref) {
     this.kFloor_Tex = "assets/floor_tex.jpg";
     this.kFloor_Tex_Normal = "assets/floor_tex_normal2.jpg";
     this.kSceneFile = "assets/"+levelName+".json";
-    this.hero_Tex = "assets/hero_sprite.png";
+    this.hero_Tex = "assets/llama_moving_sprite.png";
     //this.hero_Tex_Moves = "assets/llamas_move.png";
-    this.hero_Tex_Normal = "assets/hero_normal.png";
+    this.hero_Tex_Normal = "assets/llama_moving_sprite_normal.png";
 
     this.mLevel = levelName;
     this.mLightPref = lightPref;

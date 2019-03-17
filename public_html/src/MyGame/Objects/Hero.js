@@ -13,8 +13,8 @@ function Hero(image, normalMap ,mapW,mapH,x,y) {
     this.mHero.setColor([1, 1, 1, 0]);
     this.mHero.getXform().setPosition(x, y);
     this.mHero.getXform().setSize(3, 3);                       //changed size from 4 by 4   
-    //2048x512, each image is 300x512
-    this.mHero.setElementPixelPositions(600,300,100,512);       //default start position  
+    //2048x512, each image is 340x398
+    this.mHero.setElementPixelPositions(0,340,114,512);       //default start position  
     GameObject.call(this, this.mHero);  
     //rigib body for physics 
     var r = new RigidRectangle(this.getXform(), 4, 4);
@@ -24,6 +24,7 @@ function Hero(image, normalMap ,mapW,mapH,x,y) {
     this.shaking = false; 
     this.rightFlag = 0;
     this.leftFlag = 0;
+    this.facing = 0;    //0 face right, 1 face left 
 };
 gEngine.Core.inheritPrototype(Hero, GameObject);
 
@@ -46,6 +47,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
     velocity[0]=0;
     velocity[1]=0;
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {
+        this.moveUpDown(); //hero direction facing 
         if(this.mHero.getXform().getYPos() <this.mMapH-4){
             var flag = false;
             this.mHero.getXform().incYPosBy(0.4);
@@ -75,6 +77,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
         }
     } 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
+        this.moveUpDown();      //hero direction facing 
          if(this.mHero.getXform().getYPos() >4){
             var flag = false;
             this.mHero.getXform().incYPosBy(-0.4);
@@ -235,28 +238,48 @@ Hero.prototype.shakeUpdate = function () {
 
 //Change element positions in "llamas_move.png" to see llama move left or right
 Hero.prototype.moveLeft = function () {
-    var xLeft = 600;
-    var xRight = 900;
+    //340x398    
+    var xLeft = 1360;
+    var xRight = 1700;
     if(this.leftFlag === 0){ //switch foot 
-        this.mHero.setElementPixelPositions(xLeft,xRight,0,512);                 //(600,900,0,512);
+        this.mHero.setElementPixelPositions(xLeft,xRight,114,512);                 //(1360, 1700,114,512);
         this.leftFlag = 1;
     }
-    else{
-        this.mHero.setElementPixelPositions(xLeft + 300,xRight + 300,0,512);                //(900,1200,0,512)
+    else if (this.leftFlag === 1){
+        this.mHero.setElementPixelPositions(xLeft + 340,xRight + 340,114,512);                //(1700, 2040, 114,512)
+        this.leftFlag = 2;
+    }  
+    else    //reset 
+    {
+        this.mHero.setElementPixelPositions(1020,1360,114,512);                //(1020, 1360, 114,512)
         this.leftFlag = 0;
     }
+    this.facing = 1;
 };
 
 //This flips the llama to face the right side when arrow key right is clicked
 Hero.prototype.moveRight = function () {
-    var xLeft = 0;
-    var xRight = 300;
+    var xLeft = 340;
+    var xRight = 680;
     if(this.rightFlag === 0){ //switch foot 
-        this.mHero.setElementPixelPositions(xLeft,xRight,0,512);             //(0,300,0,512)
+        this.mHero.setElementPixelPositions(xLeft,xRight,114,512);             //(340, 680, 114,512)
         this.rightFlag = 1;
     }
-    else{                                  
-        this.mHero.setElementPixelPositions(xLeft + 300,xRight + 300,0,512); //(300, 600, 0, 512)
+    else if (this.rightFlag === 1){                                  
+        this.mHero.setElementPixelPositions(xLeft + 340,xRight + 340,114,512); //(680, 1020, 114, 0, 512)
+        this.rightFlag = 2;
+    }
+    else    //reset resting 
+    {
+        this.mHero.setElementPixelPositions(0,340,114,512); //(0, 340, 114, 512)
         this.rightFlag = 0;
     }
+    this.facing = 0;
+};
+Hero.prototype.moveUpDown = function () {
+    if (this.facing === 0) //facing right 
+        this.mHero.setElementPixelPositions(0,340,114,512); //(0, 340, 114, 512)
+    else
+        this.mHero.setElementPixelPositions(1020,1360,114,512); 
+        
 };
