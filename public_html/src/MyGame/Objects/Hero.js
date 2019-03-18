@@ -25,6 +25,7 @@ function Hero(image, normalMap ,mapW,mapH,x,y) {
     this.rightFlag = 0;
     this.leftFlag = 0;
     this.facing = 0;    //0 face right, 1 face left 
+    this.mLastBlink = Date.now();
 };
 gEngine.Core.inheritPrototype(Hero, GameObject);
 
@@ -48,120 +49,238 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
     velocity[0]=0;
     velocity[1]=0;
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {
-        this.moveRight(); //hero direction facing 
-        if(this.mHero.getXform().getYPos() <this.mMapH-4){
-            var flag = false;
-            this.mHero.getXform().incYPosBy(0.6);
-            velocity[1] = 34;
-            //dirLight.setYPos(lightPos[1] + 0.4);
-            //lightDir[1] += 0.04;
+        if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Ctrl) && this.canBlink()) {
             lightY = 7;
-            //dirLight.setDirection(lightDir);
-            var bb = this.getBBox();
-            if(wallSet.checkLocalBounds(this,bb,0)) {
-                flag = true;
-            }
-            for(var i = 0; i < doors.mSet.length; i++) {
-                if(doors.mSet[i].visable) {
-                    var dbb = doors.mSet[i].getBBox();
-                    if(dbb.intersectsBound(bb)) {
-                        flag = true;
+            var i = 0;
+            for(i; i < 15; i ++) {
+                console.log("Hi");
+                var flag = false;
+                this.mHero.getXform().incYPosBy(0.5);
+                var bb = this.getBBox();
+
+                if(wallSet.checkLocalBounds(this.mHero,bb,0)) {
+                    this.mHero.getXform().incYPosBy(-1);
+                    break;
+                }
+                for(var j = 0; j < doors.mSet.length; j++) {
+                    if(doors.mSet[j].visable) {
+                        var dbb = doors.mSet[j].getBBox();
+                        if(dbb.intersectsBound(bb)) {
+                            this.mHero.getXform().incYPosBy(-1);
+                            flag = true;
+                            break;
+                            
+                        }
                     }
                 }
+                if(flag) {
+                    break;
+                }
             }
-            if(flag === true) {
-                velocity[1] = 0;
-            //    dirLight.setYPos(lightPos[1] - 0.4);
+        }else {
+            this.moveRight(); //hero direction facing 
+            if(this.mHero.getXform().getYPos() <this.mMapH-4){
+                var flag = false;
+                this.mHero.getXform().incYPosBy(0.6);
+                velocity[1] = 34;
+                //dirLight.setYPos(lightPos[1] + 0.4);
+                //lightDir[1] += 0.04;
+                lightY = 7;
+                //dirLight.setDirection(lightDir);
+                var bb = this.getBBox();
+                if(wallSet.checkLocalBounds(this,bb,0)) {
+                    flag = true;
+                }
+                for(var i = 0; i < doors.mSet.length; i++) {
+                    if(doors.mSet[i].visable) {
+                        var dbb = doors.mSet[i].getBBox();
+                        if(dbb.intersectsBound(bb)) {
+                            flag = true;
+                        }
+                    }
+                }
+                if(flag === true) {
+                    velocity[1] = 0;
+                //    dirLight.setYPos(lightPos[1] - 0.4);
+                }
+
+                this.mHero.getXform().incYPosBy(-0.6);
             }
-            
-            this.mHero.getXform().incYPosBy(-0.6);
         }
     } 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
-        this.moveLeft();      //hero direction facing 
-         if(this.mHero.getXform().getYPos() >4){
-            var flag = false;
-            this.mHero.getXform().incYPosBy(-0.6);
-            velocity[1] = -34;
-          //  dirLight.setYPos(lightPos[1] - 0.4);
-            //lightDir[1] -= 0.04;
+        if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Ctrl) && this.canBlink()) {
             lightY = 4;
-            //dirLight.setDirection(lightDir);
-            var bb = this.getBBox();
-            if(wallSet.checkLocalBounds(this,bb,2)) {
-                flag = true;
-            }
-            for(var i = 0; i < doors.mSet.length; i++) {
-                if(doors.mSet[i].visable) {
-                    var dbb = doors.mSet[i].getBBox();
-                    if(dbb.intersectsBound(bb)) {
-                        flag = true;
+            var flag = false;
+            var i = 0;
+            for(i; i > -15; i--) {
+                this.mHero.getXform().incYPosBy(-0.5);
+                var bb = this.getBBox();
+
+                if(wallSet.checkLocalBounds(this.mHero,bb,2)) {
+                    this.mHero.getXform().incYPosBy(1);
+                    break;
+                }
+                for(var j = 0; j < doors.mSet.length; j++) {
+                    if(doors.mSet[j].visable) {
+                        var dbb = doors.mSet[j].getBBox();
+                        if(dbb.intersectsBound(bb)) {
+                            this.mHero.getXform().incYPosBy(1);
+                            flag = true;
+                            break;
+                            
+                        }
                     }
                 }
+                if(flag) {
+                    break;
+                }
             }
-            if(flag === true) {
-                velocity[1] = 0;
-          //      dirLight.setYPos(lightPos[1] + 0.4);
-            }
-            this.mHero.getXform().incYPosBy(0.6);
+            
+        }else {
+            this.moveLeft();      //hero direction facing 
+            if(this.mHero.getXform().getYPos() >4){
+               var flag = false;
+               this.mHero.getXform().incYPosBy(-0.6);
+               velocity[1] = -34;
+             //  dirLight.setYPos(lightPos[1] - 0.4);
+               //lightDir[1] -= 0.04;
+               lightY = 4;
+               //dirLight.setDirection(lightDir);
+               var bb = this.getBBox();
+               if(wallSet.checkLocalBounds(this,bb,2)) {
+                   flag = true;
+               }
+               for(var i = 0; i < doors.mSet.length; i++) {
+                   if(doors.mSet[i].visable) {
+                       var dbb = doors.mSet[i].getBBox();
+                       if(dbb.intersectsBound(bb)) {
+                           flag = true;
+                       }
+                   }
+               }
+               if(flag === true) {
+                   velocity[1] = 0;
+             //      dirLight.setYPos(lightPos[1] + 0.4);
+               }
+               this.mHero.getXform().incYPosBy(0.6);
+           }
         }
     } 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
-        this.moveRight();
-        if(this.mHero.getXform().getXPos() <this.mMapW-4){
-            var flag = false;
-            this.mHero.getXform().incXPosBy(0.6);
-            velocity[0] = 34;
-          //  dirLight.setXPos(lightPos[0] + 0.4);
-            //lightDir[0] += 0.04;
+        if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Ctrl) && this.canBlink()) {
             lightX = 1;
-            //dirLight.setDirection(lightDir);
-            var bb = this.getBBox();
-            if(wallSet.checkLocalBounds(this,bb,1)) {
-                flag = true;
-            }
-            for(var i = 0; i < doors.mSet.length; i++) {
-                if(doors.mSet[i].visable) {
-                    var dbb = doors.mSet[i].getBBox();
-                    if(dbb.intersectsBound(bb)) {
-                        flag = true;
+            var i = 0;
+            for(i; i < 15; i++) {
+                var flag = false;
+                this.mHero.getXform().incXPosBy(1);
+                var bb = this.getBBox();
+
+                if(wallSet.checkLocalBounds(this.mHero,bb,1)) {
+                    this.mHero.getXform().incXPosBy(-1);
+                    break;
+                }
+                for(var j = 0; j < doors.mSet.length; j++) {
+                    if(doors.mSet[j].visable) {
+                        var dbb = doors.mSet[j].getBBox();
+                        if(dbb.intersectsBound(bb)) {
+                            this.mHero.getXform().incXPosBy(-1);
+                            flag = true;
+                            break;
+                            
+                        }
                     }
                 }
+                if(flag) {
+                    break;
+                }
             }
-            if(flag === true) {
-                velocity[0] = 0;
-        //        dirLight.setXPos(lightPos[0] - 0.4);
+        }else {
+            this.moveRight();
+            if(this.mHero.getXform().getXPos() <this.mMapW-4){
+                var flag = false;
+                this.mHero.getXform().incXPosBy(0.6);
+                velocity[0] = 34;
+              //  dirLight.setXPos(lightPos[0] + 0.4);
+                //lightDir[0] += 0.04;
+                lightX = 1;
+                //dirLight.setDirection(lightDir);
+                var bb = this.getBBox();
+                if(wallSet.checkLocalBounds(this,bb,1)) {
+                    flag = true;
+                }
+                for(var i = 0; i < doors.mSet.length; i++) {
+                    if(doors.mSet[i].visable) {
+                        var dbb = doors.mSet[i].getBBox();
+                        if(dbb.intersectsBound(bb)) {
+                            flag = true;
+                        }
+                    }
+                }
+                if(flag === true) {
+                    velocity[0] = 0;
+            //        dirLight.setXPos(lightPos[0] - 0.4);
+                }
+                this.mHero.getXform().incXPosBy(-0.6);
             }
-            this.mHero.getXform().incXPosBy(-0.6);
         }
     } 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {
-        this.moveLeft();
-         if(this.mHero.getXform().getXPos() >4){
-            var flag = false;
-            this.mHero.getXform().incXPosBy(-0.6);
-            velocity[0] = -34;
-           // dirLight.setXPos(lightPos[0] - 0.4);
-            //lightDir[0] -= 0.04;
+        if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Ctrl) && this.canBlink()) {
             lightX = 2;
-            //dirLight.setDirection(lightDir);
-            var bb = this.getBBox();
-            if(wallSet.checkLocalBounds(this,bb,3)) {
-                flag = true;
-            }
-            for(var i = 0; i < doors.mSet.length; i++) {
-                if(doors.mSet[i].visable) {
-                    var dbb = doors.mSet[i].getBBox();
-                    if(dbb.intersectsBound(bb)) {
-                        flag = true;
+            var i = 0;
+            for(i; i > -15; i--) {
+                var flag = false;
+                this.mHero.getXform().incXPosBy(-1);
+                var bb = this.getBBox();
+
+                if(wallSet.checkLocalBounds(this.mHero,bb,3)) {
+                    this.mHero.getXform().incXPosBy(1);
+                    break;
+                }
+                for(var j = 0; j < doors.mSet.length; j++) {
+                    if(doors.mSet[j].visable) {
+                        var dbb = doors.mSet[j].getBBox();
+                        if(dbb.intersectsBound(bb)) {
+                            this.mHero.getXform().incXPosBy(1);
+                            flag = true;
+                            break;
+                            
+                        }
                     }
                 }
+                if(flag) {
+                    break;
+                }
             }
-            if(flag === true) {
-                velocity[0] = 0;
-            //    dirLight.setXPos(lightPos[0] + 0.4);
+        }else {
+            this.moveLeft();
+             if(this.mHero.getXform().getXPos() >4){
+                var flag = false;
+                this.mHero.getXform().incXPosBy(-0.6);
+                velocity[0] = -34;
+               // dirLight.setXPos(lightPos[0] - 0.4);
+                //lightDir[0] -= 0.04;
+                lightX = 2;
+                //dirLight.setDirection(lightDir);
+                var bb = this.getBBox();
+                if(wallSet.checkLocalBounds(this,bb,3)) {
+                    flag = true;
+                }
+                for(var i = 0; i < doors.mSet.length; i++) {
+                    if(doors.mSet[i].visable) {
+                        var dbb = doors.mSet[i].getBBox();
+                        if(dbb.intersectsBound(bb)) {
+                            flag = true;
+                        }
+                    }
+                }
+                if(flag === true) {
+                    velocity[0] = 0;
+                //    dirLight.setXPos(lightPos[0] + 0.4);
+                }
+                this.mHero.getXform().incXPosBy(0.6);
             }
-            this.mHero.getXform().incXPosBy(0.6);
         }
     }  
     var lightDirection = lightX + lightY;
@@ -286,3 +405,11 @@ Hero.prototype.moveUpDown = function () {
 };
 
 Hero.prototype.getRigidBody = function(){ return this.mPhys;};
+Hero.prototype.canBlink = function() {
+    if (Date.now() - this.mLastBlink > 1000) {
+        this.mLastBlink = Date.now();
+        return true;
+    } else {
+        return false;
+    }
+}
