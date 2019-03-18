@@ -21,6 +21,7 @@ function Main() {
     this.mTitle = null;
     this.mStart = false;
     this.mHelp = false;
+    this.mLevels = false; 
     this.mLightPref = "bright";
     this.mGamePref = "time";
     
@@ -46,8 +47,10 @@ Main.prototype.unloadScene = function () {
     if(this.mStart){
         nextlevel = new Level('playtest_00', this.mLightPref, this.mGamePref);
     }
-    if (this.mHelp)
-        nextlevel = new Help();
+    else if (this.mHelp)
+        nextlevel = new Help(true, false);  //help true, level false
+    else if (this.mLevels)
+        nextlevel = new Help(false, true);  //help false, level true
     gEngine.Core.startScene(nextlevel);
 };
 
@@ -79,7 +82,9 @@ Main.prototype.initialize = function () {
     //start button
     this.UIButton1 = new UIButton(this.kUIButton,this.start,this,[400,270],[200,70],"PLAY",4.5,[1,1,1,1],[0,0,0,1]);
     
-    this.UIButtonHelp = new UIButton(this.kUIButton,this.help,this,[750,40],[80,50],"?",4.5,[1,1,1,1],[0,0,0,1]);
+    this.UIButtonHelp = new UIButton(this.kUIButton,this.help,this,[60,40],[80,50],"?",4,[1,1,1,1],[0,0,0,1]);
+    
+    this.UIButtonLevels = new UIButton(this.kUIButton,this.levels,this,[720,40],[150,50],"Levels",4,[1,1,1,1],[0,0,0,1]);
     //game preference 
     this.UIDDButtonGame = new UIDropDown([480,200],"GAME TYPE",3,[0,0,0,1],[1,1,1,1]);
     this.UIDDButtonGame.addToSet("TIME",[0,0,0,1],[1,1,1,1],this.setToTime,this,this.mCamera);
@@ -106,14 +111,16 @@ Main.prototype.drawCamera = function(camera) {
     this.mTitle.draw(camera);
     this.UIDDButtonGame.draw(camera);
     this.UIDDButtonLight.draw(camera);
+    this.UIButtonLevels.draw(camera);
 };
 
 Main.prototype.update = function () {
     this.UIButton1.update();
     this.UIButtonHelp.update();
+    this.UIButtonLevels.update();
     this.UIDDButtonGame.update(this.mCamera);
     this.UIDDButtonLight.update(this.mCamera);
-    if (this.mStart || this.mHelp)
+    if (this.mStart || this.mHelp || this.mLevels)
         gEngine.GameLoop.stop();
  
 };
@@ -137,4 +144,8 @@ Main.prototype.setToDark = function () {
 };
 Main.prototype.help = function () {
     this.mHelp = true;
+};
+
+Main.prototype.levels = function () {
+    this.mLevels = true;
 };
