@@ -193,3 +193,8 @@ PushButtonPhysics.prototype.getState = function() {return this.mState;};
 PushButtonPhysics.prototype.getHead = function() {return this.mHead;};
 
 PushButtonPhysics.prototype.getRigidBody = function(){ return this.mPhys;};
+PushButtonPhysics.prototype.addLight = function(light) {
+    this.mBase.addLight(light);
+    this.mSpring.addLight(light);
+    this.mHead.addLight(light);
+};
