@@ -34,7 +34,7 @@ Hero.prototype.draw = function (referencedCam) {
     this.mHero.draw(referencedCam);
 };
 
-Hero.prototype.update = function (wallSet,doorPairs, lights) {
+Hero.prototype.update = function (wallSet,doorPairs,buttonSet,lights) {
     var lightX = 0;
     var lightY = 0;
     var dirLight = lights.getLightAt(1);    //light points in direction 
@@ -52,7 +52,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
         if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Ctrl) && this.canBlink()) {
             lightY = 7;
             var i = 0;
-            for(i; i < 15; i ++) {
+            for(i; i < 25; i ++) {
                 var flag = false;
                 this.mHero.getXform().incYPosBy(0.5);
                 var bb = this.getBBox();
@@ -71,6 +71,10 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
                             
                         }
                     }
+                }
+                if(buttonSet.checkBounds(bb)) {
+                    this.mHero.getXform().incYPosBy(-1);
+                    break;
                 }
                 if(flag) {
                     break;
@@ -112,7 +116,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
             lightY = 4;
             var flag = false;
             var i = 0;
-            for(i; i > -15; i--) {
+            for(i; i > -25; i--) {
                 this.mHero.getXform().incYPosBy(-0.5);
                 var bb = this.getBBox();
 
@@ -130,6 +134,10 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
                             
                         }
                     }
+                }
+                if(buttonSet.checkBounds(bb)) {
+                    this.mHero.getXform().incYPosBy(1);
+                    break;
                 }
                 if(flag) {
                     break;
@@ -190,6 +198,10 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
                         }
                     }
                 }
+                if(buttonSet.checkBounds(bb)) {
+                    this.mHero.getXform().incXPosBy(-1);
+                    break;
+                }
                 if(flag) {
                     break;
                 }
@@ -247,6 +259,10 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
                             
                         }
                     }
+                }
+                if(buttonSet.checkBounds(bb)) {
+                    this.mHero.getXform().incXPosBy(1);
+                    break;
                 }
                 if(flag) {
                     break;
