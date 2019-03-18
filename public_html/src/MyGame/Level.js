@@ -292,9 +292,6 @@ Level.prototype.update = function () {
     this.checkInput();
     gEngine.Physics.processCollision(this.mPhysObjs, this.mCollisionInfos);
     
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.M)) {
-        this.mCamera.zoomBy(1 + 0.1);
-    }
 };
 Level.prototype.updateValue = function(time){
     document.getElementById("time").innerHTML = time;

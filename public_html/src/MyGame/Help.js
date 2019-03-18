@@ -51,7 +51,7 @@ Help.prototype.unloadScene = function () {
             nextlevel = new Level(1, 'testlevel2', this.mLightPref, this.mGamePref);
         if (this.mLevelSelect === 2)
             nextlevel = new Level(2, 'playtest_00', this.mLightPref, this.mGamePref);
-        else
+        else if (this.mLevelSelect === 3)
             nextlevel = new Level(3, 'release_00', this.mLightPref, this.mGamePref);
     }
     gEngine.Core.startScene(nextlevel);
