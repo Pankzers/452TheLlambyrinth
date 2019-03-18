@@ -48,7 +48,7 @@ Help.prototype.unloadScene = function () {
     else if (this.mLevelSelect !== null)
     {
         if (this.mLevelSelect === 1)
-            nextlevel = new Level('playtest_00', this.mLightPref, this.mGamePref);
+            nextlevel = new Level('release_00', this.mLightPref, this.mGamePref);
     }
     gEngine.Core.startScene(nextlevel);
 };
@@ -77,7 +77,7 @@ Help.prototype.initialize = function () {
     this.mMessage = new UIText("Help the llama get to his destination",[420,530],3.5,1,0,[1,1,1,1]);
     this.mMessage2 = new UIText("before time runs or he is caught by the Sprite",[400,480],3.5,1,0,[1,1,1,1]); 
     this.mArrows = new UIText("Move llama with Up/Down/Left/Right keys",[500,300],2.5,1,0,[1,1,1,1]);
-    this.mSpace = new UIText("Space bar lifts levers and presses buttons",[500,250],2.5,1,0,[1,1,1,1]);
+    this.mSpace = new UIText("Space bar lifts levers",[500,250],2.5,1,0,[1,1,1,1]);
     
     //Levels
     this.UIButtonLevel1 = new UIButton(this.kUIButton,this.level1,this,[250,450],[160,70],"LEVEL 1",3,[1,1,1,1],[0,0,0,1]);  

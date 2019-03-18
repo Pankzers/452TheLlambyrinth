@@ -27,10 +27,10 @@ Level.prototype.createLights = function(posHero, posExit)
             [posHero[0], posHero[1], 5],            // Center of camera 
             [0.13,0.0, -1.0],
             [0.3, 0.3, 0.3, 1],      //  color
-            15, 30,                   // near and far distances
+            30, 50,                   // near and far distances
             1.40, 1.70,                // inner and outer cones
             3,                       // intensity
-            1                      // drop off
+            0.5                      // drop off
             );
     this.mGlobalLightSet.addToSet(light);
     //hero light
