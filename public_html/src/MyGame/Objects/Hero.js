@@ -53,7 +53,6 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
             lightY = 7;
             var i = 0;
             for(i; i < 15; i ++) {
-                console.log("Hi");
                 var flag = false;
                 this.mHero.getXform().incYPosBy(0.5);
                 var bb = this.getBBox();
