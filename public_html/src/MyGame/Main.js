@@ -24,6 +24,7 @@ function Main() {
     this.mLevels = false; 
     this.mLightPref = "bright";
     this.mGamePref = "time";
+    this.mCurrentLevel = 1; 
     
 }
 gEngine.Core.inheritPrototype(Main, Scene);
@@ -45,7 +46,7 @@ Main.prototype.unloadScene = function () {
 
     var nextlevel = null;
     if(this.mStart){
-        nextlevel = new Level('release_00', this.mLightPref, this.mGamePref);
+        nextlevel = new Level(this.mCurrentLevel, 'testlevel2', this.mLightPref, this.mGamePref);
     }
     else if (this.mHelp)
         nextlevel = new Help(true, false);  //help true, level false

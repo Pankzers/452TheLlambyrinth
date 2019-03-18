@@ -48,7 +48,11 @@ Help.prototype.unloadScene = function () {
     else if (this.mLevelSelect !== null)
     {
         if (this.mLevelSelect === 1)
-            nextlevel = new Level('release_00', this.mLightPref, this.mGamePref);
+            nextlevel = new Level(1, 'testlevel2', this.mLightPref, this.mGamePref);
+        if (this.mLevelSelect === 2)
+            nextlevel = new Level(2, 'playtest_00', this.mLightPref, this.mGamePref);
+        else if (this.mLevelSelect === 3)
+            nextlevel = new Level(3, 'release_00', this.mLightPref, this.mGamePref);
     }
     gEngine.Core.startScene(nextlevel);
 };
@@ -80,13 +84,15 @@ Help.prototype.initialize = function () {
     this.mSpace = new UIText("Space bar lifts levers",[500,250],2.5,1,0,[1,1,1,1]);
     
     //Levels
-    this.UIButtonLevel1 = new UIButton(this.kUIButton,this.level1,this,[250,450],[160,70],"LEVEL 1",3,[1,1,1,1],[0,0,0,1]);  
+    this.UIButtonLevel1 = new UIButton(this.kUIButton,this.level1,this,[280,400],[160,70],"LEVEL 1",3,[1,1,1,1],[0,0,0,1]);  
+    this.UIButtonLevel2 = new UIButton(this.kUIButton,this.level2,this,[280,300],[160,70],"LEVEL 2",3,[1,1,1,1],[0,0,0,1]);  
+    this.UIButtonLevel3 = new UIButton(this.kUIButton,this.level3,this,[280,200],[160,70],"LEVEL 3",3,[1,1,1,1],[0,0,0,1]);  
     //add more for extra levels 
-    this.UIDDButtonGame = new UIDropDown([500,400],"GAME TYPE",3,[0,0,0,1],[1,1,1,1]);
+    this.UIDDButtonGame = new UIDropDown([500,370],"GAME TYPE",3,[0,0,0,1],[1,1,1,1]);
     this.UIDDButtonGame.addToSet("TIME",[0,0,0,1],[1,1,1,1],this.setToTime,this,this.mCamera);
     this.UIDDButtonGame.addToSet("CHASE",[0,0,0,1],[1,1,1,1],this.setToChase,this,this.mCamera);
     //light preference
-    this.UIDDButtonLight = new UIDropDown([500,320],"LIGHT TYPE",3,[0,0,0,1],[1,1,1,1]);
+    this.UIDDButtonLight = new UIDropDown([500,290],"LIGHT TYPE",3,[0,0,0,1],[1,1,1,1]);
     this.UIDDButtonLight.addToSet("BRIGHT",[0,0,0,1],[1,1,1,1],this.setToBright,this,this.mCamera);
     this.UIDDButtonLight.addToSet("DIM",[0,0,0,1],[1,1,1,1],this.setToDim,this,this.mCamera);
     this.UIDDButtonLight.addToSet("DARK",[0,0,0,1],[1,1,1,1],this.setToDark,this,this.mCamera);
@@ -113,6 +119,8 @@ Help.prototype.drawCamera = function(camera) {
     else if (this.mLevels)
     {
         this.UIButtonLevel1.draw(camera);
+        this.UIButtonLevel2.draw(camera);
+        this.UIButtonLevel3.draw(camera);
         this.UIDDButtonGame.draw(camera);
         this.UIDDButtonLight.draw(camera);
     }
@@ -121,6 +129,8 @@ Help.prototype.drawCamera = function(camera) {
 Help.prototype.update = function () {
     this.UIButton1.update();
     this.UIButtonLevel1.update();
+    this.UIButtonLevel2.update();
+    this.UIButtonLevel3.update();
     this.UIDDButtonGame.update(this.mCamera);
     this.UIDDButtonLight.update(this.mCamera);
     if (this.mBack || this.mLevelSelect !== null)
@@ -149,4 +159,10 @@ Help.prototype.setToDark = function () {
 };
 Help.prototype.level1 = function () {
     this.mLevelSelect = 1;
+};
+Help.prototype.level2 = function () {
+    this.mLevelSelect = 2;
+};
+Help.prototype.level3 = function () {
+    this.mLevelSelect = 3;
 };
