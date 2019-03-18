@@ -55,7 +55,7 @@ GameOver.prototype.initialize = function () {
         100,                       // width of camera
         [0, 0, 800, 600]           // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.32, 0.08, 0.03, 1.0]);
+    this.mCamera.setBackgroundColor([0.61, 0.35, 0.13, 1.0]);
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     //background
     this.bg = new TextureRenderable(this.kMazeImage);

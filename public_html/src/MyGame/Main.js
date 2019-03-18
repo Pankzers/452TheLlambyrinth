@@ -20,6 +20,7 @@ function Main() {
     this.mCamera = null;
     this.mTitle = null;
     this.mStart = false;
+    this.mHelp = false;
     this.mLightPref = "bright";
     this.mGamePref = "time";
     
@@ -43,8 +44,10 @@ Main.prototype.unloadScene = function () {
 
     var nextlevel = null;
     if(this.mStart){
-        nextlevel = new Level('playtest_00', this.mLightPref, this.mGamePref);;
+        nextlevel = new Level('playtest_00', this.mLightPref, this.mGamePref);
     }
+    if (this.mHelp)
+        nextlevel = new Help();
     gEngine.Core.startScene(nextlevel);
 };
 
@@ -54,7 +57,7 @@ Main.prototype.initialize = function () {
         100,                       // width of camera
         [0, 0, 800, 600]           // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.32, 0.08, 0.03, 1.0]);
+    this.mCamera.setBackgroundColor([0.61, 0.35, 0.13, 1.0]);
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
     //background
     this.bg = new TextureRenderable(this.kMazeImage);
@@ -75,6 +78,8 @@ Main.prototype.initialize = function () {
 
     //start button
     this.UIButton1 = new UIButton(this.kUIButton,this.start,this,[400,270],[200,70],"PLAY",4.5,[1,1,1,1],[0,0,0,1]);
+    
+    this.UIButtonHelp = new UIButton(this.kUIButton,this.help,this,[750,40],[80,50],"?",4.5,[1,1,1,1],[0,0,0,1]);
     //game preference 
     this.UIDDButtonGame = new UIDropDown([480,200],"GAME TYPE",3,[0,0,0,1],[1,1,1,1]);
     this.UIDDButtonGame.addToSet("TIME",[0,0,0,1],[1,1,1,1],this.setToTime,this,this.mCamera);
@@ -97,6 +102,7 @@ Main.prototype.drawCamera = function(camera) {
     this.bg.draw(camera);
     this.mLlama.draw(camera);
     this.UIButton1.draw(camera);
+    this.UIButtonHelp.draw(camera);
     this.mTitle.draw(camera);
     this.UIDDButtonGame.draw(camera);
     this.UIDDButtonLight.draw(camera);
@@ -104,11 +110,12 @@ Main.prototype.drawCamera = function(camera) {
 
 Main.prototype.update = function () {
     this.UIButton1.update();
+    this.UIButtonHelp.update();
     this.UIDDButtonGame.update(this.mCamera);
     this.UIDDButtonLight.update(this.mCamera);
-    if (this.mStart)
+    if (this.mStart || this.mHelp)
         gEngine.GameLoop.stop();
-
+ 
 };
 Main.prototype.start = function () {
     this.mStart = true;
@@ -127,4 +134,7 @@ Main.prototype.setToDim = function () {
 };
 Main.prototype.setToDark = function () {
     this.mLightPref = "dark";
+};
+Main.prototype.help = function () {
+    this.mHelp = true;
 };
