@@ -4,12 +4,13 @@
 /* find out more about jslint: http://www.jslint.com/help.html */
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
-function Door(spriteTexture, normalTexture, x, y, w, h) {
+function Door(spriteTexture, normalTexture, x, y, w, h,pushNum) {
     this.mDoor = new IllumRenderable(spriteTexture, normalTexture);
     this.mDoor.setColor([1, 1, 1, 0]);
     this.mDoor.getXform().setSize(w, h);
     this.mDoor.getXform().setPosition(x, y);
     this.visable = true;
+    this.mNum = pushNum;
     GameObject.call(this, this.mDoor);  
 }
 gEngine.Core.inheritPrototype(Door, GameObject);
@@ -23,9 +24,17 @@ Door.prototype.update = function() {
     
     this.mDoor.update();
 };
- Door.prototype.setVisable = function(vis) {
+Door.prototype.setVisable = function(vis) {
     this.visable = vis;
 };
+
+Door.prototype.set = function() {
+    this.mNum--;
+    if(this.mNum <= 0) {
+        this.setVisable(false);
+    }
+    return this.mNum;
+}
 
 Door.prototype.draw = function(aCamera) {
     this.mDoor.draw(aCamera);

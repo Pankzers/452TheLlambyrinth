@@ -38,13 +38,13 @@ Level.prototype.checkInput = function()
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Space)) {
         var min = 500;
         var minObj = null;
-        for(var i = 0; i < this.mButtonSet.size(); i++) {
-            var dist = this.getDistance(this.mHero,this.mButtonSet.getObjectAt(i));
-            if(dist < min) {
-                min = dist;
-                minObj = this.mButtonSet.getObjectAt(i);
-            }
-        }
+//        for(var i = 0; i < this.mButtonSet.size(); i++) {
+//            var dist = this.getDistance(this.mHero,this.mButtonSet.getObjectAt(i));
+//            if(dist < min) {
+//                min = dist;
+//                minObj = this.mButtonSet.getObjectAt(i);
+//            }
+//        }
         for(var i = 0; i < this.mLeverSet.size(); i++) {
             var dist = this.getDistance(this.mHero,this.mLeverSet.getObjectAt(i));
             if(dist < min) {
@@ -57,10 +57,13 @@ Level.prototype.checkInput = function()
                 minObj.set();
                 var door = this.mDoorSet.getObjectAt(minObj.getDoorIndex());
                 if(door !== undefined) {
-                    door.setVisable(false);
+                    if(door.set() <= 0) {
+                        this.mCamera.shake(-5, -5, 5, 50);
+                        this.mSprite.shake();
+                    }
+                    
                 }
-                this.mCamera.shake(-5, -5, 5, 50);
-                this.mSprite.shake();
+                
             }
         }
     }

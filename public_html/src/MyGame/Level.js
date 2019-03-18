@@ -30,6 +30,10 @@ function Level(levelName, lightPref, gamePref) {
     this.mLightPref = lightPref;
     this.mGamePref = gamePref;
     
+    //Physics stuff
+    this.mCollisionInfos = [];
+    this.mPhysObjs = null;
+    
     // The cameras to view the level
     this.mCamera = null;
     this.mSmallCam = null; 
@@ -57,7 +61,7 @@ function Level(levelName, lightPref, gamePref) {
     this.GameOver = false;
     this.mNextLoad = null;
     this.mSpriteEnd = false;    //end game when sprite catches 
-    
+    //this.mButtonTemp = null;
     this.mGlobalLightSet = null;
     
 }
@@ -109,10 +113,11 @@ Level.prototype.unloadScene = function () {
 Level.prototype.initialize = function () {
     //Get the Scene Info
     var sceneInfo = gEngine.ResourceMap.retrieveAsset(this.kSceneFile);
-
-    //Set Default Acceleration
-    gEngine.Physics.mSystemtAcceleration = [0, 0];
-
+    
+    //Physics set!
+    this.mPhysObjs = new GameObjectSet();
+    //Temp Physics button is your friend addition.
+    ;
     //Create the cameras
     this.mCamera = new Camera(
     sceneInfo.Camera.Center,
@@ -150,9 +155,14 @@ Level.prototype.initialize = function () {
         sceneInfo.Door[i].DoorY,
         sceneInfo.Door[i].DoorW,
         sceneInfo.Door[i].DoorH,
-        sceneInfo.Door[i].DoorRot
+        sceneInfo.Door[i].DoorRot,
+        sceneInfo.Door[i].DoorNum
         );
     }
+    //this.mButtonTemp = new PushButtonPhysics(this.kMaze_sprite,this.kMaze_sprite_Normal,4.5,65,5,5,this.mDoorSet.getObjectAt(0));
+    //this.mButtonTemp.setRot(270);
+    //this.mPhysObjs.addToSet(this.mButtonTemp)
+    
     //Setup the GameObjects
     this.mLeverSet = new LeverSet(this.kMaze_sprite, this.kMaze_sprite_Normal);
     //Create the levers
@@ -178,8 +188,10 @@ Level.prototype.initialize = function () {
         sceneInfo.Button[i].ButtonW,
         sceneInfo.Button[i].ButtonH,
         sceneInfo.Button[i].ButtonRot,
-        sceneInfo.Button[i].DoorIndex
+        this.mDoorSet.getObjectAt(sceneInfo.Button[i].DoorIndex)
         );
+        var tempButton = this.mButtonSet.getObjectAt(i);
+        this.mPhysObjs.addToSet(tempButton);
     }
     this.mHero = new Hero(this.hero_Tex,this.hero_Tex_Normal,
     sceneInfo.MapInfo.width,
@@ -187,7 +199,8 @@ Level.prototype.initialize = function () {
     sceneInfo.Hero.herox,
     sceneInfo.Hero.heroy
     );
-      
+    this.mPhysObjs.addToSet(this.mHero);
+    
     this.mMinimap = new Minimap(sceneInfo.MapInfo.width,sceneInfo.MapInfo.height);
     this.mSmallCam = this.mMinimap.getMinimap();
     
@@ -223,7 +236,6 @@ Level.prototype.initialize = function () {
         this.mSpriteEnd = false;
     else if (this.mGamePref === "chase")
         this.mSpriteEnd = true;
-
 };
 
 Level.prototype.draw = function () {
@@ -245,7 +257,7 @@ Level.prototype.drawCamera = function(camera, floor) {
     this.mButtonSet.draw(camera);
     this.mSprite.draw(camera);
     this.mExit.draw(camera);
-    
+    //this.mButtonTemp.draw(camera);
     
     //Draw the UI
     this.mGameTimer.draw(camera);
@@ -269,6 +281,7 @@ Level.prototype.update = function () {
     this.mCamera.update();
     this.mSmallCam.update();
     this.mHero.update(this.mWallSet,this.mDoorSet, this.mGlobalLightSet);
+    this.mButtonSet.update(this.mCamera,this.mSprite);
     //this.mLeverSet.update(this.mCamera, this.mHero);
     
     this.mExit.update();
@@ -276,6 +289,7 @@ Level.prototype.update = function () {
     this.mDoorSet.update();
     //this.mButtonSet.update();
     this.checkInput();
+    gEngine.Physics.processCollision(this.mPhysObjs, this.mCollisionInfos);
     
 };
 Level.prototype.updateValue = function(time){

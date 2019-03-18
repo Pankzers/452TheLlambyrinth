@@ -33,8 +33,8 @@ DoorSet.prototype.draw = function (aCamera) {
 };
 
 //draw set
-DoorSet.prototype.createDoor = function ( x,y,w,h, r) {
-    var tempDoor = new Door(this.kSprite, this.kNormal, x, y, w, h);
+DoorSet.prototype.createDoor = function ( x,y,w,h, r,pushNum) {
+    var tempDoor = new Door(this.kSprite, this.kNormal, x, y, w, h,pushNum);
     tempDoor.setRot(r);
     this.addToSet(tempDoor);
 };

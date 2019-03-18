@@ -438,59 +438,75 @@
             "DoorY": 70,
             "DoorW": 1,
             "DoorH": 6,
-            "DoorRot": 90
+            "DoorRot": 90,
+            "DoorNum": 2
         },
         {
             "DoorX": 15,
             "DoorY": 30,
             "DoorW": 1,
             "DoorH": 6,
-            "DoorRot": 90
+            "DoorRot": 90,
+            "DoorNum": 1
         },
         {
             "DoorX": 50,
             "DoorY": 55,
             "DoorW": 1,
             "DoorH": 6,
-            "DoorRot": 0
+            "DoorRot": 0,
+            "DoorNum": 1
         },
         {
             "DoorX": 30,
             "DoorY": 15,
             "DoorW": 1,
             "DoorH": 6,
-            "DoorRot": 0
+            "DoorRot": 0,
+            "DoorNum": 1
         },
         {
             "DoorX": 85,
             "DoorY": 40,
             "DoorW": 1,
             "DoorH": 6,
-            "DoorRot": 90
+            "DoorRot": 90,
+            "DoorNum": 1
         },
         {
             "DoorX": 70,
             "DoorY": 75,
             "DoorW": 1,
             "DoorH": 6,
-            "DoorRot": 0
+            "DoorRot": 0,
+            "DoorNum": 1
         },
         {
             "DoorX": 75,
             "DoorY": 70,
             "DoorW": 1,
             "DoorH": 6,
-            "DoorRot": 90
+            "DoorRot": 90,
+            "DoorNum": 1
         },
         {
             "DoorX": 45,
             "DoorY": 70,
             "DoorW": 1,
             "DoorH": 6,
-            "DoorRot": 90
+            "DoorRot": 90,
+            "DoorNum": 1
         }
     ],
     "Button": [
+        {
+            "ButtonX": 4.5,
+            "ButtonY": 65,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 270,
+            "DoorIndex": 0
+        },
         {
             "ButtonX": 35.5,
             "ButtonY": 85,

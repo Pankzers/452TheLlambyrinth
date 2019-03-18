@@ -17,8 +17,8 @@ function Hero(image, normalMap ,mapW,mapH,x,y) {
     this.mHero.setElementPixelPositions(0,340,114,512);       //default start position  
     GameObject.call(this, this.mHero);  
     //rigib body for physics 
-    var r = new RigidRectangle(this.getXform(), 4, 4);
-    this.setRigidBody(r);
+    this.mPhys = new RigidRectangle(this.getXform(), 4, 4);
+    this.setRigidBody(this.mPhys);
     this.toggleDrawRigidShape();
     this.shaker = null;
     this.shaking = false; 
@@ -43,6 +43,7 @@ Hero.prototype.update = function (wallSet,doorPairs, lights) {
     //Collisions
     var doors = doorPairs;
     var physObj = this.getRigidBody();
+    physObj.setAngularVelocity(0);
     var velocity = physObj.getVelocity();
     velocity[0]=0;
     velocity[1]=0;
@@ -283,3 +284,5 @@ Hero.prototype.moveUpDown = function () {
         this.mHero.setElementPixelPositions(1020,1360,114,512); 
         
 };
+
+Hero.prototype.getRigidBody = function(){ return this.mPhys;};
