@@ -516,24 +516,24 @@
             "DoorIndex": 0
         },
         {
-            "ButtonX": 40,
-            "ButtonY": 14.5,
+            "ButtonX": 55,
+            "ButtonY": 34.5,
             "ButtonW": 5,
             "ButtonH": 5,
             "ButtonRot": 0,
             "DoorIndex": 1
         },
         {
-            "ButtonX": 5,
-            "ButtonY": 24.5,
+            "ButtonX": 15.5,
+            "ButtonY": 5,
             "ButtonW": 5,
             "ButtonH": 5,
-            "ButtonRot": 0,
+            "ButtonRot": 90,
             "DoorIndex": 2
         },
         {
-            "ButtonX": 65.5,
-            "ButtonY": 45,
+            "ButtonX": 75.5,
+            "ButtonY": 55,
             "ButtonW": 5,
             "ButtonH": 5,
             "ButtonRot": 90,
@@ -541,26 +541,26 @@
         },
         {
             "ButtonX": 64.5,
-            "ButtonY": 25,
+            "ButtonY": 35,
             "ButtonW": 5,
             "ButtonH": 5,
             "ButtonRot": 270,
             "DoorIndex": 4
         },
         {
-            "ButtonX": 85,
-            "ButtonY": 4.5,
+            "ButtonX": 64.5,
+            "ButtonY": 5,
             "ButtonW": 5,
             "ButtonH": 5,
-            "ButtonRot": 0,
+            "ButtonRot": 270,
             "DoorIndex": 5
         },
         {
-            "ButtonX": 75,
-            "ButtonY": 85.5,
+            "ButtonX": 85.5,
+            "ButtonY": 85,
             "ButtonW": 5,
             "ButtonH": 5,
-            "ButtonRot": 180,
+            "ButtonRot": 90,
             "DoorIndex": 6
         }
     ],
