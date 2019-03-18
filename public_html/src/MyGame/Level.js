@@ -11,7 +11,7 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Level(levelName, lightPref, gamePref) {  
+function Level(currentLevel, levelName, lightPref, gamePref) {  
     this.kMaze_sprite = "assets/maze_sprite.png";
     this.kMaze_sprite_Normal = "assets/maze_sprite_normal.png";
     this.kDoor = "assets/RigidShape/wall.png";
@@ -26,6 +26,7 @@ function Level(levelName, lightPref, gamePref) {
     //this.hero_Tex_Moves = "assets/llamas_move.png";
     this.hero_Tex_Normal = "assets/llama_moving_sprite_normal.png";
 
+    this.mCurrentLevel = currentLevel;
     this.mLevel = levelName;
     this.mLightPref = lightPref;
     this.mGamePref = gamePref;
@@ -103,9 +104,9 @@ Level.prototype.unloadScene = function () {
     var nextlevel = null;
 //    nextlevel = new GameOver(this.mNextLoad, this.mLevel, this.mGameTimer.getTime());
     if(this.mNextLoad === "lose" || this.mNextLoad === "won"){
-        nextlevel = new GameOver(this.mNextLoad, this.mLevel, this.mGameTimer.getTime(), this.mLightPref, this.mGamePref);
+        nextlevel = new GameOver(this.mCurrentLevel, this.mNextLoad, this.mLevel, this.mGameTimer.getTime(), this.mLightPref, this.mGamePref);
     } else {
-        nextlevel = new Level(this.mNextLoad, this.mLightPref, this.mGamePref);
+        nextlevel = new Level(this.mCurrentLevel, this.mNextLoad, this.mLightPref, this.mGamePref);
     }
     gEngine.Core.startScene(nextlevel);
 };
@@ -291,6 +292,9 @@ Level.prototype.update = function () {
     this.checkInput();
     gEngine.Physics.processCollision(this.mPhysObjs, this.mCollisionInfos);
     
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.M)) {
+        this.mCamera.zoomBy(1 + 0.1);
+    }
 };
 Level.prototype.updateValue = function(time){
     document.getElementById("time").innerHTML = time;

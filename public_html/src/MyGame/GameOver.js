@@ -9,7 +9,7 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function GameOver(mNextLoad, prevLevel, time, lightType, gameType) {
+function GameOver(currentLevel, mNextLoad, prevLevel, time, lightType, gameType) {
     
     this.kUIButton = "assets/button.png";
     this.kMazeImage= "assets/maze_image.png";
@@ -21,9 +21,13 @@ function GameOver(mNextLoad, prevLevel, time, lightType, gameType) {
     this.time = time;
     this.mLightType = lightType;
     this.mGameType = gameType;
-    
+    this.mCurrentLevel = currentLevel;
+    this.mNextLevel = false;
     this.mRetry = false;
     this.mMain = false;
+    //levels
+    this.mLevel2 = "playtest_00";
+    this.mLevel3 = "release_00";
 }
 gEngine.Core.inheritPrototype(GameOver, Scene);
 
@@ -43,6 +47,13 @@ GameOver.prototype.unloadScene = function () {
     else if (this.mMain)
     {
         nextlevel = new Main();
+    }
+    else if (this.mNextLevel)
+    {
+        if (this.mCurrentLevel === 1)
+            nextlevel = new Level(2, this.mLevel2, this.mLightType, this.mGameType);
+        else if (this.mCurrentLevel === 2)
+            nextlevel = new Level(3, this.mLevel3, this.mLightType, this.mGameType);
     }
     gEngine.Core.startScene(nextlevel); 
   //  gEngine.Core.cleanUp(); // release gl resources
@@ -87,6 +98,8 @@ GameOver.prototype.initialize = function () {
     
     this.UIButton1 = new UIButton(this.kUIButton,this.retry,this,[250,200],[180,60],"RETRY",3,[1,1,1,1],[0,0,0,1]);
     this.UIButton2 = new UIButton(this.kUIButton,this.main,this,[550,200],[180,60],"Main Menu",3,[1,1,1,1],[0,0,0,1]);
+    this.UIButton3 = new UIButton(this.kUIButton,this.nextLevel,this,[700,80],[180,60],"Next Level",3,[1,1,1,1],[0,0,0,1]);
+    
 };
 
 GameOver.prototype.draw = function () {
@@ -99,19 +112,22 @@ GameOver.prototype.draw = function () {
         this.mMsg.draw(this.mCamera);
     this.UIButton1.draw(this.mCamera);
     this.UIButton2.draw(this.mCamera);
+    if (this.mNextLoad === "won" && this.mCurrentLevel !== 3)   //no next level for level 3
+        this.UIButton3.draw(this.mCamera);
     
 };
 
 GameOver.prototype.update = function () {
     this.UIButton1.update();
     this.UIButton2.update();
-    if (this.mRetry || this.mMain)
+    this.UIButton3.update();
+    if (this.mRetry || this.mMain || this.mNextLevel)
         gEngine.GameLoop.stop();
 };
 
 GameOver.prototype.retry = function () {
     this.mRetry = true; 
 };
-GameOver.prototype.main = function () {
-    this.mMain = true; 
+GameOver.prototype.nextLevel = function () {
+    this.mNextLevel = true; 
 };
