@@ -46,13 +46,13 @@ Level.prototype.createLights = function(posHero, posExit)
     this.mGlobalLightSet.addToSet(light);
     //exit light 
     light = this.createLight(Light.eLightType.ePointLight,
-            [posExit[0]-3, posExit[1]+3, 5],         // position
+            [posExit[0], posExit[1], 5],         // position
             [0, 0, -1],          // Direction 
             [0.0, 1.0, 0.0, 1],  // some color
-            14, 6,               // near and far distances
-            0.1, -0.05,            // inner and outer cones
-            5,                   // intensity
-            1.0                  // drop off
+            5, 7,               // near and far distances
+            0.1, 0.5,            // inner and outer cones
+            1,                   // intensity
+            1                  // drop off
             );
     this.mGlobalLightSet.addToSet(light);
     //add lights to objects 

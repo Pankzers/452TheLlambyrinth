@@ -28,8 +28,8 @@
         "spritey": 25
     },
     "Exit": {
-        "exitx": 57.5,
-        "exity": 78
+        "exitx": 55,
+        "exity": 80
     },
     "Wall": [
         {
@@ -551,9 +551,9 @@
     "Lever": [
         {
             "LeverX": 45,
-            "LeverY": 88,
+            "LeverY": 86,
             "LeverW": 5,
-            "LeverH": 8,
+            "LeverH": 5,
             "LeverRot": 180,
             "DoorIndex": 7
         }

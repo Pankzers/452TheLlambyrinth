@@ -16,8 +16,8 @@ function Exit(spriteTexture,normalTexture, x,y) {
     this.mExit = new IllumRenderable(spriteTexture, normalTexture);
     this.mExit.setColor([1, 1, 1, 0]);
     this.mExit.getXform().setPosition(x, y);
-    this.mExit.getXform().setSize(10, 10);
-    this.mExit.setElementPixelPositions(0, 256, 128, 380);   //move to  (384, 512, 256, 512)
+    this.mExit.getXform().setSize(5, 5);
+    this.mExit.setElementPixelPositions(1239, 1330, 718, 809);   //move to  (384, 512, 256, 512)
   
     GameObject.call(this, this.mExit);   
 }

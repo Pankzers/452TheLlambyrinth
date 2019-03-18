@@ -11,9 +11,9 @@ function PushButton(spriteTexture,normalTexture, x, y, w, h,doorIndex) {
     this.mButton.setColor([1, 1, 1, 0]);
     this.mButton.getXform().setPosition(x, y);
     this.mButton.getXform().setSize(w, h);
-    this.mButton.setElementPixelPositions(0, 128, 384, 512);  
-    this.posNoPush = [0, 128, 384, 512];
-    this.posPush = [128, 256, 384, 512];
+    this.mButton.setElementPixelPositions(0, 513, 507, 1021);  
+    this.posNoPush = [0, 513, 507, 1021];
+    this.posPush = [513, 1027, 507, 1021];
     this.mDoor = doorIndex;
     this.mState = 0;
     
@@ -25,12 +25,12 @@ gEngine.Core.inheritPrototype(PushButton, GameObject);
 //mimick pushing button
 PushButton.prototype.set = function() {
     this.mState = 1;
-    this.mButton.setElementPixelPositions(128, 256, 384, 512);  
+    this.mButton.setElementPixelPositions(513, 1027, 507, 1021);  
 };
 
 //mimick button not pushed 
 PushButton.prototype.reset = function() {
-    this.mButton.setElementPixelPositions(0, 128, 384, 512);  
+    this.mButton.setElementPixelPositions(0, 513, 507, 1021);  
     this.mState = 0;
 };
 

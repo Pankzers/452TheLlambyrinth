@@ -21,7 +21,7 @@ Level.prototype.checkInput = function()
             gEngine.GameLoop.stop(); 
         }
     }
-    if (this.mGameTimer.getTime() <= 0){
+    if (this.mGameTimer.getTime() >= this.mGameTimer.totalTime){
         this.mNextLoad = "lose";
         gEngine.GameLoop.stop();
     }
