@@ -281,7 +281,7 @@ Level.prototype.update = function () {
     this.mCamera.setWCCenter(heroPos[0],heroPos[1]);
     this.mCamera.update();
     this.mSmallCam.update();
-    this.mHero.update(this.mWallSet,this.mDoorSet, this.mGlobalLightSet);
+    this.mHero.update(this.mWallSet,this.mDoorSet,this.mButtonSet, this.mGlobalLightSet);
     this.mButtonSet.update(this.mCamera,this.mSprite);
     //this.mLeverSet.update(this.mCamera, this.mHero);
     

@@ -10,7 +10,7 @@
         "BgColor": [0.40, 0.26, 0.13, 1.0]
     },
     "GameTimer": {
-        "time":300000 
+        "time":100000 
     },
     "MapInfo": {
         "width":50,
@@ -28,7 +28,7 @@
         "spritey": 25
     },
     "Exit": {
-        "exitx": 45,
+        "exitx": 15,
         "exity": 40
     },
     "Wall": [
@@ -158,12 +158,42 @@
         
         
     ],
-    "DoorPair": [
+    "Door": [
         {
+            "DoorX": 35,
+            "DoorY": 10,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 90,
+            "DoorNum": 1
+        },
+        {
+            "DoorX": 45,
+            "DoorY": 30,
+            "DoorW": 1,
+            "DoorH": 6,
+            "DoorRot": 90,
+            "DoorNum": 1
+        }
+    ],
+    "Button": [
+        {
+            "ButtonX": 14.5,
+            "ButtonY": 5,
+            "ButtonW": 5,
+            "ButtonH": 5,
+            "ButtonRot": 270,
+            "DoorIndex": 1
         }
     ],
     "Lever": [
         {
+            "LeverX": 46,
+            "LeverY": 20,
+            "LeverW": 5,
+            "LeverH": 5,
+            "LeverRot": 90,
+            "DoorIndex": 0
         }
     ]
 }

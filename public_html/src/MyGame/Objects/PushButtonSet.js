@@ -37,3 +37,12 @@ PushButtonSet.prototype.createButton = function ( x,y,w,h, r,door) {
     tempButton.setRot(r);       //set roatation
     this.addToSet(tempButton);
 };
+PushButtonSet.prototype.checkBounds = function(bounds) {
+    for (var i = 0; i < this.size(); i++) {
+        var bb = this.getObjectAt(i).getBBox();
+        if(bb.intersectsBound(bounds)) {
+            return true;
+        }
+    }
+    return false;
+}
