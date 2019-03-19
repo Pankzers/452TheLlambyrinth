@@ -83,9 +83,9 @@ Level.prototype.createLights = function(posHero, posExit)
     if(this.mButtonSet !== null) {
         for (var i = 0; i< this.mButtonSet.size(); i++){
             var button = this.mButtonSet.getObjectAt(i);
-            button.getRenderable().addLight(this.mGlobalLightSet.getLightAt(0));
-            button.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1));
-            button.getRenderable().addLight(this.mGlobalLightSet.getLightAt(2));
+            button.addLight(this.mGlobalLightSet.getLightAt(0));
+            button.addLight(this.mGlobalLightSet.getLightAt(1));
+            button.addLight(this.mGlobalLightSet.getLightAt(2));
         }
     }
     //walls
