@@ -42,7 +42,7 @@ GameOver.prototype.unloadScene = function () {
     var nextlevel = null;
     if (this.mRetry)
     {
-        nextlevel = new Level(this.mPrev, this.mLightType, this.mGameType);
+        nextlevel = new Level(this.mCurrentLevel,this.mPrev, this.mLightType, this.mGameType);
     }
     else if (this.mMain)
     {
@@ -131,3 +131,7 @@ GameOver.prototype.retry = function () {
 GameOver.prototype.nextLevel = function () {
     this.mNextLevel = true; 
 };
+GameOver.prototype.main = function () {
+    this.mMain = true; 
+};
+
